@@ -1,0 +1,220 @@
+<?php
+include "COMPONENT/DB/config.php";
+include "COMPONENT/header.php" ;
+
+$result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="COMPONENT/STYLE/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
+    <!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"
+></script>
+
+</head>
+
+<script>
+    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-input');
+    searchButton.addEventListener('click', () => {
+        const inputValue = searchInput.value;
+        alert(inputValue);
+    });
+</script>
+
+<body>
+    <!-- navbar -->
+    
+    <div class="relative overflow-x-auto shadow-md p-3">
+        <div class="input-group mb-4 mt-3">
+            <div class="form-outline ml-3">
+                <input class="w-40 rounded-md" type="text" id="getName" placeholder="Search"/>
+            </div>
+        </div>
+        <table id="table-data" class="w-full text-sm text-center text-grey-500 dark:text-gray-400  border-solid border-neutral-950">
+            <thead class="text-xs text-black uppercase bg-white dark:bg-gray-700 dark:text-black ">
+                <tr>
+                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                        ID
+                    </th>
+                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                        DATE/TIME
+                    </th>
+                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                        CUSTOMER NAME
+                    </th>
+                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                        CUSTOMER NO.HP
+                    </th>
+                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                        CATEGORY
+                    </th>
+                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                        TYPE
+                    </th>
+                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                        STATUS
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="showdata" class="bg-white text-black">
+                <tr
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <?php
+
+                //starting pages
+                $start = 0;
+
+                //total display
+                $rows_per_pages = 5;
+                
+                //get total
+                $records = $conn->query("SELECT * FROM complaintbliss");
+                $nr_of_rows = $records->num_rows;
+
+                //calculating pages
+                $pages = ceil($nr_of_rows / $rows_per_pages);
+
+                //if the user click on pagination set a new starting point
+                if(isset($_GET['page-nr'])){
+                    $pages = $_GET['page-nr'] - 1;
+                    $start = $pages * $rows_per_pages;
+                }
+
+                $result = mysqli_query($conn,"SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages"); 
+                while ($r = mysqli_fetch_array($result)){
+                ?>
+                <tr>
+                    <td class="border-r text-l"><?php echo $r['id']; ?></td>
+                    <td class="border-r text-l"><?php echo $r['date']; ?></td>
+                    <td class="border-r text-l"><?php echo $r['cname']; ?></td>
+                    <td class="border-r text-l"><?php echo $r['cnohp']; ?></td>
+                    <td class="border-r text-l"><?php echo $r['category']; ?></td>
+                    <td class="border-r text-xl"><?php echo $r['type']; ?></td>
+                    <td class="d-flex justify-content-center">
+                        <a href='bliss-updatecomplain.php?id=<?php echo $r['id'];?>'><button
+                                class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
+                        <a href='bliss-deletecomplain.php?id=<?php echo $r['id'];?>' onclick="return confirm('Are you sure you want to delete?')"><button
+                                class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
+                        <a href='bliss-actioncomplain.php?id=<?php echo $r['id'];?>'><button
+                                class="rounded-md bg-green-700 text-white p-2 m-2">Action</button></a>
+                    </td>
+                </tr>
+                <?php
+                }
+                ?>
+        </table>
+        <button class="bg-blue-500 hover:bg-blue-700  font-bold mt-3 py-2 px-3 border border-blue-700 rounded">
+            <a href="bliss-addcomplain.php" class="text-white">ADD ISSUE</a>
+        </button>
+        <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3">Showing
+                <span><?php echo $rows_per_pages; ?> Data</span> of <?php echo $pages ?> Pages</span>
+            <ul class="inline-flex -space-x-px text-sm h-8 mr-3">
+                <li>
+                    <a href="?page-nr=1"
+                        class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
+                </li>
+                <li>
+                    <?php 
+                    if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1){
+                        ?>
+                    <a href="?page-nr=<?php echo $_GET['page-nr'] - 1 ?>"
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                    <?php
+                    }else{
+                        ?>
+                    <a href=""
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                    <?php
+                    }
+                ?>
+                </li>
+                <li class="flex items-center">
+                    <!-- Page Number -->
+
+                    <?php
+                for($counter = 1; $counter <= $pages; $counter ++ ){
+                    ?>
+                    <a href="?page-nr=<?php echo $counter ?>"
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $counter ?></a>
+                    <?php
+                }
+            ?>
+                </li>
+                <!-- <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a> -->
+
+                <!-- Next page -->
+                <li>
+                    <?php
+                if(!isset($_GET['page-nr'])){
+                    ?>
+                    <a href="?page-nr=2"
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                    <?php
+                }else{
+                    if($_GET['page-nr'] >= $pages){
+                        ?>
+                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                    <?php
+                    }else{
+                        ?>
+                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                    <?php
+                    }
+                }
+                ?>
+                </li>
+                <li>
+                    <a href="?page-nr=<?php echo $pages ?>"
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#getName').on("keyup", function () {
+                var getName = $(this).val();
+                $.ajax({
+                    method: 'POST',
+                    url: 'COMPONENT/FUNCTION/searchajax.php',
+                    data: {
+                        cname: getName
+                    },
+                    success: function (response) {
+                        $("#table-data").html(response);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+<?php include "COMPONENT/footer.php" ?>
