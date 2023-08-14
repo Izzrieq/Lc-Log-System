@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <!-- Include the Tailwind CSS script -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Other CSS links -->
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -24,7 +24,7 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <!-- MDB -->
-<?php 
+    <?php 
  include("../DB/config.php");
 
  $lcid = $_POST['lcid'];
@@ -59,28 +59,44 @@
 </head>
 
 <body>
-<div class="relative overflow-x-auto shadow-md p-3">
-        <!-- ... (search input and table header) ... -->
-        <table class="w-full text-sm text-center text-grey-500 dark:text-gray-400 border-solid border-neutral-950">
-            <thead class="text-xs text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
-                <tr>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">ID</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">State Id</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Biz Type</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Lcid</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Operator No.hp</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Owner Name</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Eduemail</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Kinder No.hp</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Action</th>
-                </tr>
-            </thead>
-            <tbody id="showlciddata" class="bg-white text-black">
-                <?php echo $data; ?>
-            </tbody>
-        </table>
-        <!-- ... (Pagination and other content) ... -->
-    </div>
+    <!-- <div class="relative overflow-x-auto"> -->
+        <div class="overflow-hidden">
+            <div class="flex flex-col pt-6 pr-4 pl-4">
+                <div class="overflow-x-auto sm:-mx-8 lg:-mx-8">
+                    <div class="py-2 inline-block min-w-full sm:px-8 lg:px-8">
+                        <!-- ... (search input and table header) ... -->
+                        <table
+                            class="min-w-full border text-center bg-white">
+                            <thead class="text-xs text-black uppercase bg-gray-700 dark:bg-gray-700 dark:text-black">
+                                <tr>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">ID</th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">State Id
+                                    </th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">Biz Type
+                                    </th>
+                                    <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">Lcid</th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">Operator
+                                        No.hp</th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">Owner Name
+                                    </th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">Eduemail
+                                    </th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">Kinder
+                                        No.hp</th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="showlciddata" class="bg-white text-black">
+                                <?php echo $data; ?>
+                            </tbody>
+                        </table>
+                        <!-- ... (Pagination and other content) ... -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
 </body>
 
 </html>
