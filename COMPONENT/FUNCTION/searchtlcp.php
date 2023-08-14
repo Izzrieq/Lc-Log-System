@@ -24,59 +24,60 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <!-- MDB -->
-<?php 
- include("../DB/config.php");
+<?php
+include("..//DB/config.php");
 
- $lcid = $_POST['lcid'];
- $start = 0;
+if (isset($_GET['search'])) {
+    $searchQuery = $_GET['search'];
+    $start = 0;
+    $rows_per_pages = 35;
+    $query = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id DESC LIMIT $start, $rows_per_pages";
+    $result = mysqli_query($conn, $query);
+    $lciddata = '';
 
- //total display
- $rows_per_pages = 5;
- 
- $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '$lcid%' LIMIT $start, $rows_per_pages";  
- $query = mysqli_query($conn, $sql);
- $data = '';
- 
- while ($row = mysqli_fetch_assoc($query)) {
-     $data .=  "<tr class='bg-gray-100'>
+        while ($row = mysqli_fetch_assoc($result)) {
+         $lciddata .=  "<tr class='bg-gray-100'>
         <td class='border-r text-l py-2 px-4'>".$row['id']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['stateid']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['bizstype']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['lcid']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['operatorname']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['ownername']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['eduemail']."</td>  
-        <td class='border-r text-l py-2 px-4'>".$row['kindernohp']."</td>  
+        <td class='border-r text-l py-2 px-4'>".$row['status']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['yearsigned']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['datesigned']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['dateoperated']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['tlcppackage']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['annuallicense']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['eduemail']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['kindername']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['kindernohp']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['noblock']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['street']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['postcode']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['city']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['state']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['type']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['ownernohp']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['operatoraddress']."</td>   
         <td class='border-r text-l py-2 px-4'>
-          <a href='tlcp-info.php?id=".$row['id']."'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Info</button></a>
-          <a href='tlcp-update.php?id=".$row['id']."'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Update</button></a>
-          <a href='tlcp-delete.php?id=".$row['id']."'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Delete</button></a>
+          <a href='bliss-updatecomplain.php?id=".$row['id']."'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
+          <a href='bliss-deletecomplain.php?id=".$row['id']."'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
+          <a href='bliss-actioncomplain.php?id=".$row['id']."'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
         </td>
     
         </tr>";
- }
- ?>
+        }
+    } 
+?>
 </head>
 
 <body>
 <div class="relative overflow-x-auto shadow-md p-3">
         <!-- ... (search input and table header) ... -->
-        <table class="w-full text-sm text-center text-grey-500 dark:text-gray-400 border-solid border-neutral-950">
-            <thead class="text-xs text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
-                <tr>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">ID</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">State Id</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Biz Type</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Lcid</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Operator No.hp</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Owner Name</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Eduemail</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Kinder No.hp</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">Action</th>
-                </tr>
-            </thead>
+        <table class="w-full text-sm text-center text-grey-500 dark:text-red-400 border-solid border-neutral-950">
             <tbody id="showlciddata" class="bg-white text-black">
-                <?php echo $data; ?>
+                <?php echo $lciddata; ?>
             </tbody>
         </table>
         <!-- ... (Pagination and other content) ... -->
