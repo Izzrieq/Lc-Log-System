@@ -78,7 +78,9 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                     ACTION
                                 </th>
                             </tr>
-                            <?php
+                            
+                        </thead>
+                        <?php
                 //starting pages
                 $start = 0;
 
@@ -100,6 +102,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                 $result = mysqli_query($conn,"SELECT * FROM lcdetails LIMIT $start, $rows_per_pages"); 
                 while ($r = mysqli_fetch_array($result)){
                 ?>
+                        <tbody id="showlciddata">
                             <tr>
                                 <td class="border-r border-b"><?php echo $r['id']; ?></td>
                                 <td class="border-r border-b"><?php echo $r['stateid']; ?></td>
@@ -130,7 +133,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                             <?php 
                 }
                 ?>
-                        </thead>
+                </tbody>
                     </table>
                     <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
             <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3">Showing
