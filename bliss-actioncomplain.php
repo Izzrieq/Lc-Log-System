@@ -1,5 +1,42 @@
 <?php
+      include("COMPONENT/DB/config.php");
       include "COMPONENT/header.php";
+
+      if(isset($_POST['id'])) {
+        $date = date("Y-m-d H:i:s");  
+        $cname = $_POST['cname'];
+        $cnohp = $_POST['cnohp'];
+        $category = $_POST['category'];
+        $type = $_POST['type'];
+        $details = $_POST['details'];
+        $lcid = $_POST['lcid'];
+        $lcowner = $_POST['lcowner'];
+        $ownernohp = $_POST['ownernohp'];
+    
+        $sql = "UPDATE complaintbliss (id, date, cname, cnohp, category, type, details, lcid, lcowner, ownernohp)
+        VALUES ('$id', '$date', '$cname', '$cnohp', '$category', '$type', '$details', '$lcid', '$lcowner', '$ownernohp')";
+        $result = mysqli_query($conn, $sql); 
+        if ($result)
+            echo "<script>alert('SUCCESFULL UPDATE')</script>";
+        else 
+            echo "<script>alert('SORRY, YOU FAILED..TRY AGAIN! :( ')</script>";
+            echo "<script>window.location='bliss-operator.php'</script>";
+    }
+    $id= $_GET['id'];
+    $sql = "SELECT * FROM complaintbliss WHERE id = '$id' ";
+    $result = mysqli_query($conn, $sql);
+    while ($r = mysqli_fetch_array($result)) {
+        $id = $r['id'];
+        $date = $r['date'];
+        $cname = $r['cname'];
+        $cnohp= $r['cnohp'];
+        $category = $r['category'];
+        $type = $r['type'];
+        $details = $r['details'];
+        $lcid = $r['lcid'];
+        $lcowner = $r['lcowner'];
+        $ownernohp = $r['ownernohp'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -28,63 +65,69 @@
 </head>
 
 <body>
-    <div class="m-3">
-        <h1>Action For:</h1>
-    </div>
-    <div class="w-1/2 py-1 bg-blueGray-50">
-        <div class="flex justify-start">
-            <div class='w-full px-3 mb-6'>
-                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Customer Name
-                </label>
-                <input name="id" type="id"
-                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                    disabled />
+    <section class=" py-1 bg-blueGray-50">
+        <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
+            <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+                <div class="rounded-t bg-white mb-0 px-6 py-6">
+                    <div class="text-center flex justify-between">
+                        <h6 class="text-blueGray-700 text-xl font-bold">
+                            ACTION COMPLAIN : <?php echo $cname; ?>
+                        </h6>
+                    </div>
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                    <form id="issueform" class="issue" action="COMPONENT/FUNCTION/send.php" method="post">
+                        <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                            Direct Email
+                        </h6>
+                        <hr class="mt-6 border-b-1 border-blueGray-300">
+                        <div class="flex flex-wrap">
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Email
+                                    </label>
+                                    <input type="email" id="email" name="email" required
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Subject
+                                    </label>
+                                    <input type="text" id="subject" name="subject"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                </div>
+                            </div>
+
+
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Message
+                                    </label>
+                                    <textarea type="text" id="message" name="message"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        rows="4" value="test">Category: <?php echo $category; ?>, Type: <?php echo $type; ?>, Action Taken: </textarea>
+                                </div>
+                            </div>
+                            <hr class="mt-6 border-b-1 border-blueGray-300">
+                            <button name="submit"
+                                class="bg-pink-500 w-full h-10 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                type="submit" name="send">
+                                SUBMIT
+                            </button>
+                    </form>
+                </div>
             </div>
-            <div class='w-full px-3 mb-6'>
-                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Customer No.Hp
-                </label>
-                <input name="id" type="id"
-                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                    disabled />
-            </div>
         </div>
-        <div class='w-full px-3 mb-6'>
-            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Category
-            </label>
-            <input name="id" type="id"
-                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                disabled />
-        </div>
-        <div class='w-full px-3 mb-6'>
-            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Type
-            </label>
-            <input name="id" type="id"
-                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                disabled />
-        </div>
-        <div class='w-full px-3 mb-6'>
-            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Detail Complain
-            </label>
-            <input name="id" type="id"
-                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                disabled />
-        </div>
-        <div class="flex justify-center">
-            <div class="flex justify-around space-x-5">
-                <button type="button" class="btn btn-success w-full">Send Email</button>
-                <button type="button" class="btn btn-danger w-full">Cancel</button>
-            </div>
-        </div>
-    </div>
-    <div>
-        <form action="COMPONENT/FUNCTION/send.php" method="post">
-            Email <input type="email" name="email" id=""> <br>
-            Subject <input type="text" name="subject"> <br>
-            Message <textarea name="message" id="" cols="30" rows="10"></textarea> <br>
-            <button type="submit" name="send">Send</button>
-        </form>
-    </div>
-    
+    </section>
+
 
 </body>
 

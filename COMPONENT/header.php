@@ -13,7 +13,9 @@
 <body>
 <header class="d-flex justify-content-between bg-white ">
         <div class="w-25 p-0 h-75 d-inline-block">
+            <a href="header.php">
             <img  class="w-100 m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
+            </a>
         </div>
         <div class="p-0 ">
             <h1 class="mt-3 m-3 h1 text-primary">BLISS CUSTOMER E-LOG</h1>

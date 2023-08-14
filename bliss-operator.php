@@ -109,14 +109,14 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                     <td class="border-r text-l"><?php echo $r['cname']; ?></td>
                     <td class="border-r text-l"><?php echo $r['cnohp']; ?></td>
                     <td class="border-r text-l"><?php echo $r['category']; ?></td>
-                    <td class="border-r text-xl"><?php echo $r['type']; ?></td>
+                    <td class="border-r text-l"><?php echo $r['type']; ?></td>
                     <td class="d-flex justify-content-center">
                         <a href='bliss-updatecomplain.php?id=<?php echo $r['id'];?>'><button
                                 class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
                         <a href='bliss-deletecomplain.php?id=<?php echo $r['id'];?>' onclick="return confirm('Are you sure you want to delete?')"><button
                                 class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
                         <a href='bliss-actioncomplain.php?id=<?php echo $r['id'];?>'><button
-                                class="rounded-md bg-green-700 text-white p-2 m-2">Action</button></a>
+                                class="rounded-md bg-green-700 text-white p-2 m-2">Send Email</button></a>
                     </td>
                 </tr>
                 <?php
@@ -192,11 +192,6 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 </li>
             </ul>
         </nav>
-    </div>
-
-    </div>
-    </div>
-    </div>
     </div>
     <script>
         $(document).ready(function () {

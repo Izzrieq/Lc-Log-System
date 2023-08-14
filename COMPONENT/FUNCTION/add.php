@@ -12,8 +12,10 @@
     $lcid = $_POST['lcid'];
 	$lcowner = $_POST['lcowner'];
     $ownernohp = $_POST['ownernohp'];
-    $sql = "INSERT INTO complaintbliss (id, date, cname, cnohp, category, type, details, lcid, lcowner, ownernohp)
-    VALUES ('$id', '$date', '$cname', '$cnohp', '$category', '$type', '$details', '$lcid', '$lcowner', '$ownernohp')";
+    $action = $_POST['action'];
+    
+    $sql = "INSERT INTO complaintbliss (id, date, cname, cnohp, category, type, details, lcid, lcowner, ownernohp, action)
+    VALUES ('$id', '$date', '$cname', '$cnohp', '$category', '$type', '$details', '$lcid', '$lcowner', '$ownernohp', '$action')";
     $result = mysqli_query($conn, $sql); 
     if ($result)
         echo "<script>alert('Add Complain Success')</script>";

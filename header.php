@@ -14,15 +14,14 @@
 
 <body>
     
-    <h1 class="text-center">Our Services</h1>
+    <h1 class="text-center text-white mt-3">Our Services</h1>
     <div class="d-flex justify-content-center">
         
         <div class="m-3">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">TLCP</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text">The Little Caliph Playschool.</p>
                     <a href="tlcp-data.php" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
@@ -30,9 +29,8 @@
         <div class="m-3">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">OPERATOR</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <h5 class="card-title">Complain</h5>
+                    <p class="card-text">Getting issue complain.</p>
                     <a href="bliss-operator.php" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
@@ -41,8 +39,7 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">INFO</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text">Masih tiada idea.</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>

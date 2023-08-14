@@ -136,7 +136,7 @@ while ($r = mysqli_fetch_array($result)) {
                                 </div>
                             </div>
                             </form>
-                            <button>Print</button>
+                            <button  class="rounded-md bg-green-700 text-white p-2 m-2" onclick="window.print()" >Print</button>
                         </div>
                     </div>
 
