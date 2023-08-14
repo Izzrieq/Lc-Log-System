@@ -22,14 +22,6 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
 </head>
-<script>
-    const searchButton = document.getElementById('search-button');
-    const searchInput = document.getElementById('search-input');
-    searchButton.addEventListener('click', () => {
-        const inputValue = searchInput.value;
-        alert(inputValue);
-    });
-</script>
 
 <body>
 
@@ -38,11 +30,13 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 border border-green-700 rounded ml-20">
         <a href='tlcp-add.php'>ADD TLCP</a>
     </button>
-    <div class="input-group mt-3">
-            <div class="form-outline ml-3">
-                <input class="w-40 rounded-md" type="text" id="getLcid" placeholder="Search"/>
-            </div>
-        </div>
+    <div class="py-4">
+    <form method="GET">
+        <label for="search" class="sr-only">Search by LCID:</label>
+        <input type="text" id="search" name="search" placeholder="Search by LCID"
+            class="border rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-600">
+    </form>
+</div>
     <div class="overflow-hidden">
         <div class="flex flex-col pt-6 pr-4 pl-4">
             <div class="overflow-x-auto sm:-mx-8 lg:-mx-8">
@@ -78,14 +72,14 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                     ACTION
                                 </th>
                             </tr>
-                            
+
                         </thead>
                         <?php
                 //starting pages
                 $start = 0;
 
                 //total display
-                $rows_per_pages = 5;
+                $rows_per_pages = 35;
                 
                 //get total
                 $records = $conn->query("SELECT * FROM lcdetails");
@@ -99,7 +93,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                     $pages = $_GET['page-nr'] - 1;
                     $start = $pages * $rows_per_pages;
                 }
-                $result = mysqli_query($conn,"SELECT * FROM lcdetails LIMIT $start, $rows_per_pages"); 
+                $result = mysqli_query($conn,"SELECT * FROM lcdetails LIMIT $start, $rows_per_pages") or die( mysqli_error($conn)); 
                 while ($r = mysqli_fetch_array($result)){
                 ?>
                         <tbody id="showlciddata">
@@ -130,98 +124,101 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 </td>
 
                             </tr>
-                            <?php 
+                        </tbody>
+                        <?php 
                 }
                 ?>
-                </tbody>
+
                     </table>
                     <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3">Showing
-                <span><?php echo $rows_per_pages; ?> Data</span> of <?php echo $pages ?> Pages</span>
-            <ul class="inline-flex -space-x-px text-sm h-8 mr-3">
-                <li>
-                    <a href="?page-nr=1"
-                        class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
-                </li>
-                <li>
-                    <?php 
+                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3">Showing
+                            <span><?php echo $rows_per_pages; ?> Data</span> of <?php echo $pages ?> Pages</span>
+                        <ul class="inline-flex -space-x-px text-sm h-8 mr-3">
+                            <li>
+                                <a href="?page-nr=1"
+                                    class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
+                            </li>
+                            <li>
+                                <?php 
                     if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1){
                         ?>
-                    <a href="?page-nr=<?php echo $_GET['page-nr'] - 1 ?>"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                    <?php
+                                <a href="?page-nr=<?php echo $_GET['page-nr'] - 1 ?>"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                                <?php
                     }else{
                         ?>
-                    <a href=""
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                    <?php
+                                <a href=""
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                                <?php
                     }
                 ?>
-                </li>
-                <li class="flex items-center">
-                    <!-- Page Number -->
+                            </li>
+                            <li class="flex items-center">
+                                <!-- Page Number -->
 
-                    <?php
+                                <?php
                 for($counter = 1; $counter <= $pages; $counter ++ ){
                     ?>
-                    <a href="?page-nr=<?php echo $counter ?>"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $counter ?></a>
-                    <?php
+                                <a href="?page-nr=<?php echo $counter ?>"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $counter ?></a>
+                                <?php
                 }
             ?>
-                </li>
-                <!-- <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a> -->
+                            </li>
+                            <!-- <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a> -->
 
-                <!-- Next page -->
-                <li>
-                    <?php
+                            <!-- Next page -->
+                            <li>
+                                <?php
                 if(!isset($_GET['page-nr'])){
                     ?>
-                    <a href="?page-nr=2"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                    <?php
+                                <a href="?page-nr=2"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                <?php
                 }else{
                     if($_GET['page-nr'] >= $pages){
                         ?>
-                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                    <?php
+                                <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                <?php
                     }else{
                         ?>
-                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                    <?php
+                                <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                <?php
                     }
                 }
                 ?>
-                </li>
-                <li>
-                    <a href="?page-nr=<?php echo $pages ?>"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
-                </li>
-            </ul>
-        </nav>
+                            </li>
+                            <li>
+                                <a href="?page-nr=<?php echo $pages ?>"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        $(document).ready(function () {
-            $('#getLcid').on("keyup", function () {
-                var getLcid = $(this).val();
-                $.ajax({
-                    method: 'POST',
-                    url: 'COMPONENT/FUNCTION/searchtlcp.php',
-                    data: {
-                        lcid: getLcid
-                    },
-                    success: function (response) {
-                        $("#table_tlcp").html(response);
-                    }
-                });
+$(document).ready(function() {
+    $('#search').on('input', function() {
+        var searchQuery = $(this).val();
+        if (searchQuery !== '') {
+            $.ajax({
+                url: 'COMPONENT/FUNCTION/searchtlcp.php', // Modify this to the PHP file that handles the search
+                method: 'GET',
+                data: { search: searchQuery },
+                success: function(response) {
+                    $('#showlciddata').html(response);
+                }
             });
-        });
-    </script>
+        } else {
+            $('#showlciddata').empty();
+        }
+    });
+});
+</script>
 
 </body>
 
