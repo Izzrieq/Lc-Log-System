@@ -50,28 +50,32 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 <input class="w-40 rounded-md" type="text" id="getName" placeholder="Search"/>
             </div>
         </div>
-        <table id="table-data" class="w-full text-sm text-center text-grey-500 dark:text-gray-400  border-solid border-neutral-950">
-            <thead class="text-xs text-black uppercase bg-white dark:bg-gray-700 dark:text-black ">
-                <tr>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">
+        <div class="overflow-hidden">
+        <div class="flex flex-col pt-6 pr-4 pl-4">
+            <div class="overflow-x-auto sm:-mx-8 lg:-mx-8">
+                <div class="py-2 inline-block min-w-full sm:px-8 lg:px-8">
+                    <table class="min-w-full border text-center bg-white" id="table-data">
+            <thead>
+                <tr class="border-b bg-gray-700">
+                    <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                         ID
                     </th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                    <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                         DATE/TIME
                     </th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                         CUSTOMER NAME
                     </th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                    <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
                         CUSTOMER NO.HP
                     </th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                         CATEGORY
                     </th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                         TYPE
                     </th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">
+                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                         STATUS
                     </th>
                 </tr>

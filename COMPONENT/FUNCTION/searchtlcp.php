@@ -111,7 +111,7 @@
                         </thead>
             </thead>
             <tbody id="showlciddata" class="bg-white text-black">
-                <?php echo $data; ?>
+                <?php echo $lciddata; ?>
             </tbody>
         </table>
         
