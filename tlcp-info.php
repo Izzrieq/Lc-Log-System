@@ -1,6 +1,7 @@
 <?php
 include_once "COMPONENT/DB/config.php";
 include "COMPONENT/header.php";
+
 $id = $_GET['id'];
 $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
  while ($r = mysqli_fetch_array($data))
@@ -36,7 +37,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input name="id" type="id"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                        value=<?php echo $r["id"]; ?> disabled />
+                                        value=<?php echo $r['id']; ?> disabled />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -242,7 +243,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                             Number</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                            type='text' name="operatornohp" value=<?php echo $r["ownernohp"]; ?> disabled>
+                                            type='text' name="operatornohp" value=<?php echo $r["operatornohp"]; ?> disabled>
                                     </div>
                                 </div>
                                 <div class='w-auto md:w-full px-3 mb-6'>
