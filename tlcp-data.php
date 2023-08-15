@@ -66,6 +66,9 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     KINDERGARTEN NUMBER
                                 </th>
+                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                    Complaint Count
+                                </th>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     ACTION
                                 </th>
@@ -93,6 +96,11 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                 }
                 $result = mysqli_query($conn,"SELECT * FROM lcdetails LIMIT $start, $rows_per_pages") or die( mysqli_error($conn)); 
                 while ($r = mysqli_fetch_array($result)){
+                    $lcid = $r['lcid'];
+                    $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = '$lcid'";
+                    $complaintCountResult = mysqli_query($conn, $complaintCountQuery);
+                    $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
+                    $complaintCount = $complaintCountRow['complaint_count'];
                 ?>
                         <tbody id="showlciddata">
                             <tr>
@@ -104,6 +112,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <td class="border-r border-b px-8"><?php echo $r['ownername']; ?></td>
                                 <td class="border-r border-b px-2"><?php echo $r['eduemail']; ?></td>
                                 <td class="border-r border-b px-0"><?php echo $r['kindernohp']; ?></td>
+                                <td class="border-r border-b"><?php echo $complaintCount; ?></td>
                                 <td class="border-r border-b p-2">
                                     <div class="flex items-center justify-between mt-2">
                                         <button
