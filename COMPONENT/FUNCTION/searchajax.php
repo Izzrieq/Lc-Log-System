@@ -12,7 +12,7 @@
     <!-- Other CSS links -->
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="COMPONENT/STYLE/style.css">
+    <!-- <link rel="stylesheet" href="COMPONENT/STYLE/style.css"> -->
     <!-- ... (other CSS links) ... -->
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
