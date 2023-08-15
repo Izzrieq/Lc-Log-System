@@ -1,5 +1,3 @@
-<?php include "COMPONENT/header.php" ?>
-
 <!DOCTYPE html>
  <html lang="en">
  <head>
@@ -19,16 +17,13 @@
      	<h2>LOGIN</h2>
         <img src="COMPONENT/img/user.png" alt="user">
         <br>
-     	<?php if (isset($_GET['error'])) { ?>
-     		<p class="error"><?php echo $_GET['error']; ?></p>
-     	<?php } ?>
-     	<label>User Name</label> <br>
-     	<input type="text" name="username" ><br>
+        <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
 
-     	<label>User Password</label> <br>
-     	<input type="password" name="password" ><br>
-            <br>
-         <button type="submit" class="btn btn-primary">Login</button>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <input type="submit" value="Login">
      </form>
      </center>
  </body>

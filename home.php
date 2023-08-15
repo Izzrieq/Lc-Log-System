@@ -1,5 +1,15 @@
-<?php include "COMPONENT/DB/config.php" ?> 
-<?php include "COMPONENT/header.php" ?>
+<?php 
+    include "COMPONENT/DB/config.php"; 
+    include "COMPONENT/header.php";
+
+    //wajib ada setiap page
+    session_start();
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+        exit;
+    }
+
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +23,7 @@
 </head>
 
 <body>
-    
+    <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
     <h1 class="text-center text-white mt-3">Our Services</h1>
     <div class="d-flex justify-content-center">
         

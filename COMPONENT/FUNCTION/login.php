@@ -1,49 +1,32 @@
-<?php 
-session_start(); 
-include "../DB/config.php";
+<?php
+session_start();
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+ include "../DB/config.php"; 
+// Get user input
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-	function validate($data){
-       $data = trim($data);
-	   $data = stripslashes($data);
-	   $data = htmlspecialchars($data);
-	   return $data;
-	}
+// Perform database query
+$sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+$result = $conn->query($sql);
 
-	$username = validate($_POST['username']);
-	$pass = validate($_POST['password']);
-
-	if (empty($username)) {
-		header("Location: index.php?error=User Name is required");
-	    exit();
-	}else if(empty($pass)){
-        header("Location: index.php?error=Password is required");
-	    exit();
-	}else{
-		$sql = "SELECT * FROM user WHERE username='$username' AND password='$pass'";
-
-		$result = mysqli_query($conn, $sql);
-
-		if (mysqli_num_rows($result) === 1) {
-			$row = mysqli_fetch_assoc($result);
-            if ($row['username'] === $username && $row['password'] === $pass) {
-            	$_SESSION['username'] = $row['username'];
-            	$_SESSION['password'] = $row['password'];
-            	$_SESSION['id'] = $row['id'];
-            	header("Location: ../../header.php");
-		        exit();
-            }else{
-				header("Location: index.php?>Incorect User name or password</p>");
-		        exit();
-			}
-		}else{
-			header("Location: index.php?error=Incorect User name or password");
-	        exit();
-		}
-	}
-	
-}else{
-	header("Location: index.php");
-	exit();
+if ($result === false) {
+    echo "Query error: " . $conn->error;
+    exit;
 }
+
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    $_SESSION['logged_in'] = true;
+    $_SESSION['username'] = $username;
+
+    if ($row['type'] == 'admin') {
+        header("Location: ../../home.php");
+    } else {
+        header("Location: ../USERS/home.php");
+    }
+} else {
+    echo "<script>alert('Invalid login credentials.'); window.location.href = '../../index.php';</script>";
+}
+
+?>

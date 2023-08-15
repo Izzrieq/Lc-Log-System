@@ -9,7 +9,7 @@ body {
     background: linear-gradient(45deg, #ffffff, #2B3990);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    height: 75vh;
   }
 
   a img{
@@ -18,7 +18,7 @@ body {
     margin: 10px;
 }
 .login{
-    margin-top: 3%;
+    margin-top: 10%;
     padding: 10px;
     max-width: 30%;
     /* From https://css.glass */
@@ -30,11 +30,11 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .login h2{
-    position: absolute;
     padding: 10px;
+    margin: 10px;
 }
 .login img{
-    margin-top: 10%;
+    margin-bottom: 15px;
     height: 100px;
     width: 100px;
 }

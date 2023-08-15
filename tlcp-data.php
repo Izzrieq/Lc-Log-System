@@ -2,6 +2,12 @@
 include_once "COMPONENT/DB/config.php";
 include "COMPONENT/header.php";
 
+session_start();
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+        exit;
+    }
+
 $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
  
  ?>
