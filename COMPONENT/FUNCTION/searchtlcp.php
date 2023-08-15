@@ -58,7 +58,7 @@ if (isset($_GET['search'])) {
         <td class='border-r text-l py-2 px-4'>".$row['city']."</td>   
         <td class='border-r text-l py-2 px-4'>".$row['state']."</td>   
         <td class='border-r text-l py-2 px-4'>".$row['type']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['ownernohp']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['kindernohp']."</td>   
         <td class='border-r text-l py-2 px-4'>".$row['operatoraddress']."</td>   
         <td class='border-r text-l py-2 px-4'>
           <a href='bliss-updatecomplain.php?id=".$row['id']."'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
@@ -90,7 +90,7 @@ if (isset($_GET['search'])) {
                 </tr>
             </thead>
             <tbody id="showlciddata" class="bg-white text-black">
-                <?php echo $data; ?>
+                <?php echo $lciddata; ?>
             </tbody>
         </table>
         <!-- ... (Pagination and other content) ... -->
