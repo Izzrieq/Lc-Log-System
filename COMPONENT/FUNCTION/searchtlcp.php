@@ -23,7 +23,7 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <!-- MDB -->
-<?php 
+    <?php 
  include("../DB/config.php");
 
     $searchQuery = $_POST['lcid'];
@@ -37,34 +37,19 @@
     $lciddata = '';
 
         while ($row = mysqli_fetch_assoc($result)) {
-         $lciddata .=  "<tr class='bg-gray-100'>
-        <td class='border-r text-l py-2 px-4'>".$row['id']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['stateid']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['bizstype']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['lcid']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['operatorname']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['ownername']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['status']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['yearsigned']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['datesigned']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['dateoperated']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['tlcppackage']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['annuallicense']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['eduemail']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['kindername']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['kindernohp']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['noblock']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['street']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['postcode']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['city']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['state']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['type']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['kindernohp']."</td>   
-        <td class='border-r text-l py-2 px-4'>".$row['operatoraddress']."</td>   
-        <td class='border-r text-l py-2 px-4'>
-          <a href='bliss-updatecomplain.php?id=".$row['id']."'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
-          <a href='bliss-deletecomplain.php?id=".$row['id']."'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
-          <a href='bliss-actioncomplain.php?id=".$row['id']."'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
+         $lciddata .=  "<tr class='bg-white'>
+        <td class='border-r border-b'>".$row['id']."</td>
+        <td class='border-r border-b'>".$row['stateid']."</td>
+        <td class='border-r border-b'>".$row['bizstype']."</td>
+        <td class='border-r border-b px-2'>".$row['lcid']."</td>
+        <td class='border-r border-b px-8'>".$row['operatorname']."</td>
+        <td class='border-r border-b px-8'>".$row['ownername']."</td>    
+        <td class='border-r border-b px-2'>".$row['eduemail']."</td>   
+        <td class='border-r border-b px-0'>".$row['kindernohp']."</td>   
+        <td class='border-r border-b p-2 flex items-center justify-between mt-2'>
+          <a href='tlcp-info.php?id=".$row['id']."'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>Update</button></a>
+          <a href='tlcp-update.php?id=".$row['id']."'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>Delete</button></a>
+          <a href='delete.php?id=".$row['id']."'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>Action</button></a>
         </td>
     
         </tr>";
@@ -73,12 +58,15 @@
 </head>
 
 <body>
-<div class="relative overflow-x-auto shadow-md p-3">
-        <!-- ... (search input and table header) ... -->
-        
-        <table class="w-full text-sm text-center text-grey-500 dark:text-gray-400 border-solid border-neutral-950">
-            <thead class="text-xs text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
-            <tr class="border-b bg-gray-700">
+    <!-- <div class="relative overflow-x-auto shadow-md p-3"> -->
+    <!-- ... (search input and table header) ... -->
+    <div class="overflow-hidden">
+        <div class="flex flex-col">
+            <div class="overflow-x-auto lg:-mx-8">
+                <div class="py-0 inline-block min-w-full sm:px-8 lg:px-8">
+                    <table class="w-full text-center text-grey-500 dark:text-gray-400">
+                        <thead class="text-center uppercase">
+                            <tr class="border-b bg-gray-700">
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     ID
                                 </th>
@@ -109,14 +97,16 @@
                             </tr>
 
                         </thead>
-            </thead>
-            <tbody id="showlciddata" class="bg-white text-black">
-                <?php echo $lciddata; ?>
-            </tbody>
-        </table>
-        
-        <!-- ... (Pagination and other content) ... -->
+                        </thead>
+                        <tbody id="showlciddata" class="bg-white text-black">
+                            <?php echo $lciddata; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- ... (Pagination and other content) ... -->
 </body>
 
 </html>
