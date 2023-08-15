@@ -30,13 +30,11 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 border border-green-700 rounded ml-20">
         <a href='tlcp-add.php'>ADD TLCP</a>
     </button>
-    <div class="py-4">
-    <form method="GET">
-        <label for="search" class="sr-only">Search by LCID:</label>
-        <input type="text" id="search" name="search" placeholder="Search by LCID"
-            class="border rounded py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-600">
-    </form>
-</div>
+<div class="input-group mb-4 mt-3">
+            <div class="form-outline ml-3">
+                <input class="w-40 rounded-md" type="text" id="search" name="search" placeholder="Search"/>
+            </div>
+        </div>
     <div class="overflow-hidden">
         <div class="flex flex-col pt-6 pr-4 pl-4">
             <div class="overflow-x-auto sm:-mx-8 lg:-mx-8">
@@ -201,23 +199,21 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         </div>
     </div>
     <script>
-$(document).ready(function() {
-    $('#search').on('input', function() {
-        var searchQuery = $(this).val();
-        if (searchQuery !== '') {
-            $.ajax({
-                url: 'COMPONENT/FUNCTION/searchtlcp.php', // Modify this to the PHP file that handles the search
-                method: 'GET',
-                data: { search: searchQuery },
-                success: function(response) {
-                    $('#showlciddata').html(response);
-                }
+ $(document).ready(function () {
+            $('#search').on("keyup", function () {
+                var search = $(this).val();
+                $.ajax({
+                    method: 'POST',
+                    url: 'COMPONENT/FUNCTION/searchtlcp.php',
+                    data: {
+                        lcid: search
+                    },
+                    success: function (response) {
+                        $("#table_tlcp").html(response);
+                    }
+                });
             });
-        } else {
-            $('#showlciddata').empty();
-        }
-    });
-});
+        });
 </script>
 
 </body>

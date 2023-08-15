@@ -119,6 +119,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                 class="rounded-md bg-green-700 text-white p-2 m-2">Send Email</button></a>
                     </td>
                 </tr>
+                </tbody>
                 <?php
                 }
                 ?>

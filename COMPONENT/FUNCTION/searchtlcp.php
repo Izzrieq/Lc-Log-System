@@ -12,7 +12,6 @@
     <!-- Other CSS links -->
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="COMPONENT/STYLE/style.css">
     <!-- ... (other CSS links) ... -->
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -27,12 +26,14 @@
 <?php
 include("..//DB/config.php");
 
-if (isset($_GET['search'])) {
-    $searchQuery = $_GET['search'];
+    $searchQuery = $_POST['lcid'];
     $start = 0;
+
+    //total display per page
     $rows_per_pages = 35;
-    $query = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id DESC LIMIT $start, $rows_per_pages";
-    $result = mysqli_query($conn, $query);
+
+    $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id ASC LIMIT $start, $rows_per_pages";
+    $result = mysqli_query($conn, $sql);
     $lciddata = '';
 
         while ($row = mysqli_fetch_assoc($result)) {
@@ -68,18 +69,52 @@ if (isset($_GET['search'])) {
     
         </tr>";
         }
-    } 
 ?>
 </head>
 
 <body>
 <div class="relative overflow-x-auto shadow-md p-3">
         <!-- ... (search input and table header) ... -->
-        <table class="w-full text-sm text-center text-grey-500 dark:text-red-400 border-solid border-neutral-950">
-            <tbody id="showlciddata" class="bg-white text-black">
+        
+        <table class="w-full text-sm text-center text-grey-500 dark:text-gray-400 border-solid border-neutral-950">
+            <thead class="text-xs text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
+            <tr class="border-b bg-gray-700">
+                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                    ID
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                    STATE_ID
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    BIZ_TYPE
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
+                                    LITTLECALIPH_ID
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    OPERATOR_NAME
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    OWNER_NAME
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    EDU_EMAIL
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    KINDERGARTEN NUMBER
+                                </th>
+                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    ACTION
+                                </th>
+                            </tr>
+
+                        </thead>
+            </thead>
+            <tbody id="showdata" class="bg-white text-black">
                 <?php echo $lciddata; ?>
             </tbody>
         </table>
+        
         <!-- ... (Pagination and other content) ... -->
     </div>
 </body>
