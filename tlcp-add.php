@@ -52,14 +52,14 @@ if(isset($_POST['id'])) {
                             <h2 class="text-2xl font-bold text-gray-900">ADD TLCP :</h2>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ID
+                                    <label class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>ID
                                     </label>
                                     <input name="id" type="text"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>State
+                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>State
                                         ID
                                     </label>
                                     <input name="stateid" type="text"
@@ -67,7 +67,7 @@ if(isset($_POST['id'])) {
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Biz
+                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Biz
                                         Type
                                     </label>
                                     <input name="bizstype" type='text'
@@ -75,7 +75,7 @@ if(isset($_POST['id'])) {
                                 </div>
                             </div>
                             <div class='w-full md:w-1/2 px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Little
+                                <label class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Little
                                     Caliph
                                     ID</label>
                                 <input name="lcid" type="text"
@@ -83,20 +83,20 @@ if(isset($_POST['id'])) {
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
+                                    class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Operator
                                     Name</label>
                                 <input name="operatorname" type="text"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Owner
+                                <label class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Owner
                                     Name</label>
                                 <input name="ownername" type="text"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
                             </div>
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Kindergarten 
+                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Kindergarten 
                                         Number
                                     </label>
                                     <input
@@ -105,7 +105,7 @@ if(isset($_POST['id'])) {
                                 </div>
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Edu
+                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Edu
                                         Email
                                     </label>
                                     <input

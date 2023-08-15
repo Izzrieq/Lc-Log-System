@@ -134,19 +134,19 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                         <ul class="inline-flex -space-x-px text-sm h-8 mr-3">
                             <li>
                                 <a href="?page-nr=1"
-                                    class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-white bg-gray-700 border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
+                                    class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-white bg-gray-700 border border-gray-300 rounded-l-lg hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
                             </li>
                             <li>
                                 <?php 
                     if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1){
                         ?>
                                 <a href="?page-nr=<?php echo $_GET['page-nr'] - 1 ?>"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-100 hover:bg-gray-800 hover:text-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
                                 <?php
                     }else{
                         ?>
                                 <a href=""
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
                                 <?php
                     }
                 ?>
@@ -158,7 +158,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                 for($counter = 1; $counter <= $pages; $counter ++ ){
                     ?>
                                 <a href="?page-nr=<?php echo $counter ?>"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $counter ?></a>
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $counter ?></a>
                                 <?php
                 }
             ?>
@@ -171,18 +171,18 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                 if(!isset($_GET['page-nr'])){
                     ?>
                                 <a href="?page-nr=2"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
                                 <?php
                 }else{
                     if($_GET['page-nr'] >= $pages){
                         ?>
                                 <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
                                 <?php
                     }else{
                         ?>
                                 <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
                                 <?php
                     }
                 }
@@ -190,7 +190,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                             </li>
                             <li>
                                 <a href="?page-nr=<?php echo $pages ?>"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300 rounded-r-lg hover:bg-gray-500 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300 rounded-r-lg hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
                             </li>
                         </ul>
                     </nav>
