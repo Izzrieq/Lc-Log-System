@@ -13,17 +13,17 @@ $username = $_SESSION['username'];
 $getTasksQuery = "SELECT task FROM users WHERE username = '$username'";
 $getTasksResult = mysqli_query($conn, $getTasksQuery);
 $row = mysqli_fetch_assoc($getTasksResult);
-$tasks = unserialize($row['task']);
+$task = unserialize($row['task']);
 
 // Handle task deletion
 if (isset($_GET['delete'])) {
     $taskIndex = $_GET['delete'];
-    if (array_key_exists($taskIndex, $tasks)) {
-        unset($tasks[$taskIndex]);
-        $serializedTasks = serialize($tasks);
+    if (array_key_exists($taskIndex, $task)) {
+        unset($task[$taskIndex]);
+        $serializedTasks = serialize($task);
         
         // Clear the status for the deleted task
-        $tasks[$taskIndex]['status'] = '';
+        $task[$taskIndex]['status'] = '';
         
         $updateTasksQuery = "UPDATE users SET task = '$serializedTasks' WHERE username = '$username'";
         mysqli_query($conn, $updateTasksQuery);
@@ -87,8 +87,7 @@ mysqli_close($conn);
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($tasks as $taskIndex => $task) : ?>
-                <tr class="<?php echo ($task['status'] === 'not done') ? 'not-done' : (($task['status'] === 'in-progress') ? 'in-progress' : 'done'); ?>">
+        <tr class="<?php echo ($task['status'] === 'not done') ? 'not-done' : (($task['status'] === 'in-progress') ? 'in-progress' : 'done'); ?>">
     <td><?php echo $task['due_date']; ?></td> <!-- New line for due date -->
     <td><?php echo $task['task']; ?></td>
     <td><?php echo $task['status']; ?></td>
@@ -96,7 +95,6 @@ mysqli_close($conn);
         <a href="?delete=<?php echo $taskIndex; ?>" onclick="return confirm('Are you sure you want to delete this task?')">Delete</a>
     </td>
 </tr>
-            <?php endforeach; ?>
         </tbody>
     </table>
 

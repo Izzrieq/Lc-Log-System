@@ -41,6 +41,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -352,7 +353,7 @@
 
 
             <!-- Widgets Start -->
-            <div class="container-fluid pt-4 px-4">
+            <!-- <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-md-6 col-xl-4">
                         <div class="h-100 bg-light rounded p-4">
@@ -363,33 +364,8 @@
                             <div id="calender"></div>
                         </div>
                     </div>
-                    <div class="w-full">
-                        <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">To Do List</h6>
-                                <a href="all_tasks.php">Show All</a>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <input id="taskInput" class="form-control bg-transparent" type="text"
-                                    placeholder="Enter task">
-                                <input id="dueDateInput" class="form-control mx-2" type="date" placeholder="Due Date">
-                                <!-- Add this line -->
-                                <select id="taskStatus" class="form-select mx-2">
-                                    <option value="not_done">Not Done</option>
-                                    <option value="in_progress">In Progress</option>
-                                    <option value="done">Done</option>
-                                </select>
-                                <button id="addTaskBtn" type="button" class="btn btn-primary">Add</button>
-                            </div>
-                            <div id="taskList" class="d-flex flex-column">
-                                <!-- Task items will be dynamically added here -->
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-            </div>
-            <!-- Widgets End -->
+            </div> -->
 
 
             <!-- Footer Start -->
@@ -431,56 +407,6 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#addTaskBtn').click(function () {
-                const taskInput = $('#taskInput').val().trim();
-                const taskStatus = $('#taskStatus').val();
-                const username = '<?php echo $_SESSION['
-                username ']; ?>'; // Get the username
-
-                if (taskInput !== '') {
-                    const taskItem = $('<div class="d-flex align-items-center border-bottom py-2">');
-                    taskItem.append($('<span>').text(taskInput));
-                    taskItem.append($('<select class="form-select mx-2">')
-                        .append($('<option value="not_done">Not Done</option>'))
-                        .append($('<option value="in_progress">In Progress</option>'))
-                        .append($('<option value="done">Done</option>'))
-                    );
-
-                    taskItem.append($('<button class="btn btn-sm"><i class="fa fa-save"></i></button>')
-                        .click(function () {
-                            const selectedStatus = $(this).siblings('.form-select').val();
-                            saveTask(username, taskInput, selectedStatus);
-                        })
-                    );
-
-                    $('#taskList').append(taskItem);
-                    $('#taskInput').val('');
-                }
-            });
-
-            // Function to save task to the server
-            function saveTask(username, task, status) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'save_task.php', // Replace with your PHP script URL
-                    data: {
-                        username: username,
-                        task: task,
-                        status: status
-                    },
-                    success: function (response) {
-                        // Handle success response if needed
-                    },
-                    error: function (error) {
-                        console.error('Error:', error);
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>
