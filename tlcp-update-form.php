@@ -8,44 +8,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 include_once "COMPONENT/DB/config.php";
 include "COMPONENT/header.php";
 
-if(isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $stateid = $_POST['stateid'];
-    $bizstype = $_POST['bizstype'];
-    $lcid = $_POST['lcid'];
-    $opsname = $_POST['operatorname'];
-    $ownername = $_POST['ownername'];
-    $email= $_POST['eduemail'];
-    $kindernohp= $_POST['kindernohp'];
-
-    $sql = "UPDATE lcdetails (id,stateid,bizstype,lcid,operatorname,ownername,eduemail,kindernohp) 
-    VALUES ('$id','$stateid','$bizstype','$lcid','$opsname','$ownername','$email','$kindernohp')";
-    $result = mysqli_query($conn, $sql); 
-    if ($result)
-        echo "<script>alert('SUCCESFULL ADD NEW TLCP')</script>";
-    else 
-        echo "<script>alert('SORRY, YOU FAILED..TRY AGAIN! :( ')</script>";
-        echo "<script>window.location='tlcp-add.php'</script>";
-}
-$id= $_GET['id'];
-$sql = "SELECT * FROM lcdetails WHERE id = '$id' ";
-$result = mysqli_query($conn, $sql);
-while ($r = mysqli_fetch_array($result)) {
-    $id = $r['id'];
-    $stateid = $r['stateid'];
-    $bizstype = $r['bizstype'];
-    $lcid= $r['lcid'];
-    $opsname = $r['operatorname'];
-    $ownername = $r['ownername'];
-    $status = $r['status'];
-    $yearsigned = $r['yearsigned'];
-    $datesigned = $r['datesigned'];
-    $dateoperated = $r['dateoperated'];
-    $tlcppackage = $r['tlcppackage'];
-    $annuallicense = $r['annuallicense'];
-    $eduemail = $r['eduemail'];
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,10 +21,39 @@ while ($r = mysqli_fetch_array($result)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
-
+<?php
+$id = $_GET['id'];
+$result = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id = '$id'");
+while ($res = mysqli_fetch_array($result)) {
+    $id = $res['id'];
+    $stateid = $res['stateid'];
+    $bizstype = $res['bizstype'];
+    $lcid = $res['lcid'];
+    $opsname = $res['operatorname'];
+    $ownername = $res['ownername'];
+    $status = $res['status'];
+    $yearsigned = $res['yearsigned'];
+    $datesigned = $res['datesigned'];
+    $dateoperated = $res['dateoperated'];
+    $tlcppackage = $res['tlcppackage'];
+    $annuallicense = $res['annuallicense'];
+    $eduemail = $res['eduemail'];
+    $kindername = $res['kindername'];
+    $kindernohp = $res['kindernohp'];
+    $noblock = $res['noblock'];
+    $street = $res['street'];
+    $postcode = $res['postcode'];
+    $city = $res['city'];
+    $state = $res['state'];
+    $type = $res['type'];
+    $ownernohp = $res['ownernohp'];
+    $opsaddress= $res['operatoraddress'];
+}
+?>
 <body class="bg-neutral-50">
     <!-- component -->
     <!-- component -->
+    <form action="tlcp-updates.php" method="POST">
     <div class="container-box" style="display: flex; justify-content:center;">
         <div class="bg-gray-200 min-h-screen pt-0 font-mono my-0">
             <div class="container mx-auto">
@@ -188,30 +179,14 @@ while ($r = mysqli_fetch_array($result)) {
                                         type='text' name="eduemail" value=<?php echo $eduemail ?> />
                                 </div>
                             </div>
-                            </form>
+                        
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-        <?php
-            $id = $_GET['id'];
-            $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
-                while ($r = mysqli_fetch_array($data)){
-                    $kindername = $r['kindername'];
-                    $kindernohp = $r['kindernohp'];
-                    $noblock = $r['noblock'];
-                    $street = $r['street'];
-                    $postcode = $r['postcode'];
-                    $city = $r['city'];
-                    $state = $r['state'];
-                    $type = $r['type'];
-                    $ownernohp = $r['ownernohp'];
-                    $opsaddress= $r['operatoraddress'];
 
-            }
-        ?>
         <div class="container-box pb-20" style="display: flex;">
             <div class="bg-gray-200 min-h-screen pt-0 my-0">
                 <div class="container mx-auto border-2">
@@ -224,7 +199,7 @@ while ($r = mysqli_fetch_array($result)) {
                                     Name</label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='kindername' name="kindername" value=<?php echo $kindername; ?> disabled>
+                                    type='kindername' name="kindername" value=<?php echo $kindername; ?>>
                             </div>
                             <div class='w-auto md:w-1/2 px-3 mb-6'>
                                 <label
@@ -232,7 +207,7 @@ while ($r = mysqli_fetch_array($result)) {
                                     Number</label>
                                 <input
                                     class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='kindernohp' name="kindernohp" value=<?php echo $kindernohp; ?> disabled>
+                                    type='kindernohp' name="kindernohp" value=<?php echo $kindernohp; ?>>
                             </div>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/4 px-3 mb-6'>
@@ -247,7 +222,7 @@ while ($r = mysqli_fetch_array($result)) {
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Street</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='street' name="street" value=<?php echo $street; ?> disabled>
+                                        type='street' name="street" value=<?php echo $street; ?>>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-4">
@@ -257,7 +232,7 @@ while ($r = mysqli_fetch_array($result)) {
                                         Code</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='postcode' name="postcode" value=<?php echo $postcode; ?> disabled>
+                                        type='postcode' name="postcode" value=<?php echo $postcode; ?>>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -265,7 +240,7 @@ while ($r = mysqli_fetch_array($result)) {
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='city' name="city" value=<?php echo $city; ?> disabled>
+                                        type='city' name="city" value=<?php echo $city; ?>>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -273,7 +248,7 @@ while ($r = mysqli_fetch_array($result)) {
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='state' name="state" value=<?php echo $state; ?> disabled>
+                                        type='state' name="state" value=<?php echo $state; ?>>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-2">
@@ -283,7 +258,7 @@ while ($r = mysqli_fetch_array($result)) {
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='type' name="type" value=<?php echo $type; ?> disabled>
+                                        type='type' name="type" value=<?php echo $type; ?>>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -291,7 +266,7 @@ while ($r = mysqli_fetch_array($result)) {
                                         Number</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='ownernohp' name="ownernohp" value=<?php echo $ownernohp; ?> disabled>
+                                        type='ownernohp' name="ownernohp" value=<?php echo $ownernohp; ?>>
                                 </div>
                             </div>
                             <div class='w-auto md:w-full px-3 mb-6'>
@@ -300,12 +275,12 @@ while ($r = mysqli_fetch_array($result)) {
                                     Address</label>
                                 <textarea name="operatoraddress"
                                     class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 font-medium placeholder-gray-700 focus:outline-none focus:bg-white'
-                                    disabled><?php echo $opsaddress; ?></textarea>
+                                    ><?php echo $opsaddress; ?></textarea>
                             </div>
                             <div class="flex justify-end">
                                 <button class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 p-2 m-2"
                                     onclick="printWithLandscape()">Print</button>
-                                <button class="rounded-md bg-green-700 text-white p-2 m-2" type="submit">Save
+                                <button type="submit" name="update" class="rounded-md bg-green-700 text-white p-2 m-2"  >Save
                                     Changes</button>
                             </div>
                         </div>
@@ -313,6 +288,27 @@ while ($r = mysqli_fetch_array($result)) {
                     </div>
                 </div>
             </div>
+            <script>
+function printWithLandscape() {
+    var css = '@page { size: landscape; }',
+        head = document.head || document.getElementsByTagName('head')[0],
+        style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.media = 'print';
+
+    if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+    } else {
+        style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
+
+    window.print();
+}
+
+            </script>
 </body>
 
 </html>
