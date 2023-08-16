@@ -226,7 +226,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                         lcid: search
                     },
                     success: function (response) {
-                        $("#table_tlcp tbody").html(response);
+                        $("#table_tlcp").html(response);
                     }
                 });
             });

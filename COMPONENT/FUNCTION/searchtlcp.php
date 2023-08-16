@@ -36,7 +36,12 @@
     $result = mysqli_query($conn, $sql);
     $lciddata = '';
 
-        while ($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_array($result)) {
+         $lcid = $row['lcid'];
+         $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = '$lcid'";
+         $complaintCountResult = mysqli_query($conn, $complaintCountQuery);
+         $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
+        $complaintCount = $complaintCountRow['complaint_count'];
          $lciddata .=  "<tr class='bg-white'>
         <td class='border-r border-b'>".$row['id']."</td>
         <td class='border-r border-b'>".$row['stateid']."</td>
@@ -46,6 +51,7 @@
         <td class='border-r border-b px-8'>".$row['ownername']."</td>    
         <td class='border-r border-b px-2'>".$row['eduemail']."</td>   
         <td class='border-r border-b px-0'>".$row['kindernohp']."</td>   
+        <td class='border-r border-b px-0'>".$complaintCount."</td>
         <td class='border-r border-b p-2 flex items-center justify-between mt-2'>
           <a href='tlcp-info.php?id=".$row['id']."'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>Update</button></a>
           <a href='tlcp-update.php?id=".$row['id']."'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>Delete</button></a>
@@ -60,10 +66,7 @@
 <body>
     <!-- <div class="relative overflow-x-auto shadow-md p-3"> -->
     <!-- ... (search input and table header) ... -->
-    <div class="overflow-hidden">
-        <div class="flex flex-col">
-            <div class="overflow-x-auto lg:-mx-8">
-                <div class="py-0 inline-block min-w-full sm:px-8 lg:px-8">
+    <div class="relative overflow-x-auto shadow-md p-3">
                     <table class="w-full text-center text-grey-500 dark:text-gray-400">
                         <thead class="text-center uppercase">
                             <tr class="border-b bg-gray-700">
@@ -91,20 +94,18 @@
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     KINDERGARTEN NUMBER
                                 </th>
+                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    COMPLAINT COUNT
+                                </th>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     ACTION
                                 </th>
                             </tr>
-
                         </thead>
-                        </thead>
-                        <tbody id="showlciddata" class="bg-white text-black">
+                        <tbody class="bg-white text-black">
                             <?php echo $lciddata; ?>
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- ... (Pagination and other content) ... -->
 </body>
