@@ -72,7 +72,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0"><?php echo $_SESSION['username']; ?>!</h6>
-                        <span><?php echo $_SESSION['department']; ?></span>
+                        <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['usertype']; ?>)</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
