@@ -3,7 +3,7 @@ include "../DB/config.php";
 session_start();
 
 // Check if the user is logged in and is an admin
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SESSION['usertype'] !== 'admin') {
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SESSION['type'] !== 'admin') {
     echo "<script>alert('You must log in as an admin first.'); window.location.href = 'index.php';</script>";
     exit;
 }

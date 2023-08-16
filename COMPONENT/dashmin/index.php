@@ -72,13 +72,14 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0"><?php echo $_SESSION['username']; ?>!</h6>
-                        <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['usertype']; ?>)</span>
+                        <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['type']; ?>)</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.php" class="nav-item nav-link active"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="task.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Task</a>
+                    <a href="viewtask.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>View Task</a>
                     <a href="dates.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Calender</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Progress</a>
                     <a href="register.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Register</a>

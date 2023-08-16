@@ -27,12 +27,14 @@ if ($result->num_rows == 1) {
         $_SESSION['logged_in'] = true;
         $_SESSION['username'] = $username;
         $_SESSION['department'] = $row['department'];
-        $_SESSION['usertype'] = $row['usertype'];
+        $_SESSION['type'] = $row['type'];
 
-        if ($row['usertype'] == 'admin') {
+        if ($row['type'] == 'admin') {
             header("Location: ../../home.php"); // Redirect admin to this page
-        } else {
+        } else if ($row['type'] == 'user') {
             header("Location: ../USERS/home.php"); // Redirect non-admin users to this page
+        } else {
+            echo "<script>alert('Invalid user type.'); window.location.href = '../../index.php';</script>";
         }
     } else {
         echo "<script>alert('Invalid login credentials.'); window.location.href = '../../index.php';</script>";
