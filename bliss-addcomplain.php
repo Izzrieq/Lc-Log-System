@@ -77,27 +77,27 @@
     });
 </script>
 
-<body>
+<body class="bg-neutral-50">
     <section class=" py-1 bg-blueGray-50">
         <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
             <div
                 class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                 <div class="rounded-t bg-white mb-0 px-6 py-6">
                     <div class="text-center flex justify-between">
-                        <h6 class="text-blueGray-700 text-xl font-bold">
+                        <h6 class="text-blueGray-700 text-2xl font-bold">
                             ISSUE COMPLAIN
                         </h6>
                     </div>
                 </div>
-                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <div class="flex-auto px-4 lg:px-10 py-8 pt-0">
                     <form id="issueform" class="issue" action="COMPONENT/FUNCTION/add.php" method="POST">
-                        <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                        <h6 class="text-blueGray-400 text-xl mt-3 mb-6 font-bold uppercase">
                             Customer Information
                         </h6>
                         <div class="flex flex-wrap">
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
                                         htmlfor="grid-password">
                                         Customer Name
                                     </label>
@@ -107,7 +107,7 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
                                         htmlfor="grid-password">
                                         Customer NO.HP
                                     </label>
@@ -118,7 +118,7 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
                                         htmlfor="grid-password">
                                         Category
                                     </label>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
                                         htmlfor="grid-password">
                                         Type
                                     </label>
@@ -153,7 +153,7 @@
                         <div class="flex flex-wrap">
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
                                         htmlfor="grid-password">
                                         Details
                                     </label>
@@ -166,7 +166,7 @@
                         <div class="flex flex-wrap">
                             <div class="w-full lg:w-12/12 px-4">
                                 <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
                                         htmlfor="grid-password">
                                         Action
                                     </label>
@@ -179,13 +179,13 @@
 
                         <hr class="mt-6 border-b-1 border-blueGray-300">
 
-                        <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                        <h6 class="text-blueGray-400 text-xl mt-3 mb-6 font-bold uppercase">
                             LC Details
                         </h6>
                         <div class="flex flex-wrap">
                             <div class="w-full lg:w-12/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="lcid">
+                                <div class="relative w-full mb-2">
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-0" for="lcid">
                                         LC ID
                                     </label>
                                     <input type="text" name="lcid" id="lcid"
@@ -196,7 +196,7 @@
                         </div>
                         <div class="w-full lg:w-12/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="lcowner">
+                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="lcowner">
                                     Owner Name
                                 </label>
                                 <input type="text" name="lcowner" id="lcowner"
@@ -206,7 +206,7 @@
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
                                     for="ownernohp">
                                     Owner No Hp
                                 </label>
@@ -217,7 +217,7 @@
                         </div>
                         <hr class="mt-6 border-b-1 border-blueGray-300">
                         <button name="submit"
-                            class="bg-pink-500 w-full h-10 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            class="bg-pink-500 w-full text-white active:bg-pink-600 font-bold text-lg uppercase px-4 py-2.5 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                             type="submit">
                             SUBMIT
                         </button>

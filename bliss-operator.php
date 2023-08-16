@@ -44,9 +44,9 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
     });
 </script>
 
-<body>
+<body class="bg-neutral-50">
     <!-- navbar -->
-
+    <center class="font-bold text-2xl mt-6">LIST COMPLAINT</center>
     <div class="relative overflow-x-auto shadow-md p-3">
         <div class="input-group mb-4 mt-3">
             <div class="form-outline ml-3">
@@ -78,7 +78,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                     <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                         TYPE
                                     </th>
-                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                    <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                         STATUS
                                     </th>
                                 </tr>

@@ -23,7 +23,7 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-neutral-50">
 
     <h2 class="px-6 py-4">WELCOME, <?php echo strtoupper ($_SESSION['username']); ?>!</h2>
     <h1 class="text-center text-black">Our Services</h1>
@@ -42,9 +42,9 @@
         <div class="m-4">
             <div class="card" style="width: 20rem; height: 13rem;">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
-                    <h5 class="card-title font-bold">COMPLAIN</h5>
+                    <h5 class="card-title font-bold">COMPLAINT</h5>
                     <br>
-                    <p class="card-text">Getting issue complain.</p>
+                    <p class="card-text">Getting issue complaint.</p>
                     <a href="bliss-operator.php" class="btn btn-primary mt-10">Go Somewhere</a>
                 </div>
             </div>

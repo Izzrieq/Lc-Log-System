@@ -18,8 +18,8 @@
     VALUES ('$id', '$date', '$cname', '$cnohp', '$category', '$type', '$details', '$lcid', '$lcowner', '$ownernohp', '$action')";
     $result = mysqli_query($conn, $sql); 
     if ($result)
-        echo "<script>alert('Add Complain Success')</script>";
+        echo "<script>alert('Add Complaint Success')</script>";
     else 
-        echo "<script>alert('Add Complain Not Success')</script>";
+        echo "<script>alert('Add Complaint Not Success')</script>";
         echo "<script>window.location='../../bliss-operator.php'</script>";
 }

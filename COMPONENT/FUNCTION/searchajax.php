@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <!-- Include the Tailwind CSS script -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Other CSS links -->
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -24,7 +24,7 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <!-- MDB -->
-<?php 
+    <?php 
  include("../DB/config.php");
 
  $cname = $_POST['cname'];
@@ -45,7 +45,7 @@
         <td class='border-r text-l py-2 px-4'>".$row['cnohp']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['category']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['type']."</td>   
-        <td class='border-r text-l py-2 px-4'>
+        <td class='border-r text-l py-2 px-2'>
           <a href='bliss-updatecomplain.php?id=".$row['id']."'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
           <a href='bliss-deletecomplain.php?id=".$row['id']."'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
           <a href='bliss-actioncomplain.php?id=".$row['id']."'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
@@ -57,25 +57,25 @@
 </head>
 
 <body>
-<div class="relative overflow-x-auto shadow-md p-3">
-        <!-- ... (search input and table header) ... -->
-        <table class="w-full text-sm text-center text-grey-500 dark:text-gray-400 border-solid border-neutral-950">
-            <thead class="text-xs text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
-                <tr>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">ID</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">DATE/TIME</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">CUSTOMER NAME</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">CUSTOMER NO.HP</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">CATEGORY</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">TYPE</th>
-                    <th scope="col" class="px-6 py-3 bg-stone-400">STATUS</th>
-                </tr>
-            </thead>
-            <tbody id="showdata" class="bg-white text-black">
-                <?php echo $data; ?>
-            </tbody>
-        </table>
-        <!-- ... (Pagination and other content) ... -->
+    <!-- ... (search input and table header) ... -->
+    <!-- <div class="relative overflow-x-auto shadow-md p-3"> -->
+    <table class="w-full text-centerw-full text-center text-grey-500 dark:text-gray-400">
+        <thead class="text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
+            <tr class="border-b bg-gray-700">
+                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">ID</th>
+                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">DATE/TIME</th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">CUSTOMER NAME</th>
+                <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">CUSTOMER NO.HP</th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">CATEGORY</th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">TYPE</th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">STATUS</th>
+            </tr>
+        </thead>
+        <tbody id="showdata" class="bg-white text-black">
+            <?php echo $data; ?>
+        </tbody>
+    </table>
+    <!-- ... (Pagination and other content) ... -->
     </div>
 </body>
 

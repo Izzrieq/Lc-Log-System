@@ -40,7 +40,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
 
 </head>
 
-<body>
+<body class="bg-neutral-50">
     <!-- component -->
     <!-- component -->
     <div class="container-box pb-20 " style="display: flex; justify-content:center;">

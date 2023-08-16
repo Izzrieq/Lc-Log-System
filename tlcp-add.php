@@ -46,7 +46,7 @@ if(isset($_POST['id'])) {
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-neutral-50">
     <!-- component -->
     <!-- component -->
     <div class="container-box" style="display: flex; justify-content:center;">
@@ -122,7 +122,7 @@ if(isset($_POST['id'])) {
                             </div>
                         </div>
                         <div class="flex justify-center">
-                        <button class="w-full pr-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 border border-green-700 rounded" type="submit">SUBMIT</button>
+                        <button class="w-full pr-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2.5 px-3 border border-green-700 rounded" type="submit">SUBMIT</button>
                         </div>
                     </div>
                 </div>
