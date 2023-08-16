@@ -33,10 +33,11 @@
     justify-content: space-between;
     background-color: white;
     padding: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     color: black;
 }
 .navbar-left{
-    margin-left: 15px;
+    margin-left: 5%;
 }
 
 .navbar-left ul {
@@ -118,11 +119,11 @@
         </div>
 </header>
 <nav class="navbar">
-        <div class="navbar-left">
+        <div class="navbar-left font-bold">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
+                <li><a href="home.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">HOME</a></li>
+                <li><a href="#" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">ABOUT</a></li>
+                <li><a href="#" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">SERVICES</a></li>
             </ul>
         </div>
         <div class="navbar-right">
