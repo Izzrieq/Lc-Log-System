@@ -19,17 +19,15 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLCP DATA</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    
 
 </head>
 
-<body>
+<body class="bg-neutral-50">
 
     <center class="font-bold text-2xl mt-6">LIST TLCP</center>
     <button
@@ -111,7 +109,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                     $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
                     $complaintCount = $complaintCountRow['complaint_count'];
                 ?>
-                            <tr>
+                            <tr class="text-black">
                                 <td class="border-r border-b"><?php echo $r['id']; ?></td>
                                 <td class="border-r border-b"><?php echo $r['stateid']; ?></td>
                                 <td class="border-r border-b"><?php echo $r['bizstype']; ?></td>
@@ -133,7 +131,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                         </button>
                                         <button
                                             class="rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2">
-                                            <a href='delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
+                                            <a href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
                                         </button>
                                     </div>
                                 </td>

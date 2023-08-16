@@ -10,14 +10,33 @@
     <link rel="stylesheet" href="COMPONENT/STYLE/style.css">
 
 </head>
-<body>
-<div class="flex flex-col h-screen bg-gradient-to-l from-[#2B3990] to-white">
-    <div class="grid place-items-center mx-2 my-20 sm:my-auto" x-data="{ showPass: true }">
-        <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12
-                px-6 py-10 sm:px-10 sm:py-6
-                bg-white rounded-lg shadow-md lg:shadow-lg">
+<style>
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+ }
+
+</style>
+<body class="m-0 p-0 font-sans md:font-serif overflow-y-hidden">
+<header class="d-flex justify-content-between bg-white ">
+        <div class="w-25 p-0 h-25 d-inline-block">
+            <a href="index.php">
+            <img  class="w-100 m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
+            </a>
+        </div>
+        <div class="p-0 ">
+            <h1 class="mt-5 m-3 h1 text-primary">BLISS CUSTOMER E-LOG</h1>
+        </div>
+</header>
+
+<div class="flex flex-col h-screen bg-neutral-50">
+    <div class="grid place-items-center sm:my-auto" x-data="{ showPass: true }">
+        <div class="w-11/12 p-20 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 mb-36
+                px-6 py-8 sm:px-12 sm:py-10
+                bg-white rounded-lg shadow-xl shadow-blue-200">
             <div class="mb-4">
-                <h6 class="font-bold text-[#063970] text-2xl">Login Page</h6>
+                <h6 class="font-bold text-[#063970] text-3xl">Login Page</h6>
             </div>
             <?php if (isset($_GET['error'])) { ?>
             <p class="error"><?php echo $_GET['error']; ?></p>
@@ -25,7 +44,7 @@
         } 
         ?>
         <center>
-            <img src="COMPONENT/img/user.png" alt="user" class="h-1/5 w-1/5">
+            <img src="COMPONENT/img/user.png" alt="user" class="h-1/6 w-1/6 pb-2">
         </center>
             <form class="space-y-5" action="COMPONENT/FUNCTION/login.php" method="POST">
                 <div>
