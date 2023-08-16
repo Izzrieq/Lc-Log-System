@@ -36,11 +36,11 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 border border-green-700 rounded ml-20">
         <a href='tlcp-add.php'>ADD TLCP</a>
     </button>
-<div class="input-group mb-4 mt-8">
-            <div class="form-outline ml-3">
-                <input class="w-40 rounded-md" type="text" id="search" name="search" placeholder="Search"/>
-            </div>
+    <div class="input-group mb-4 mt-8">
+        <div class="form-outline ml-3">
+            <input class="w-40 rounded-md" type="text" id="search" name="search" placeholder="Search" />
         </div>
+    </div>
     <div class="overflow-hidden">
         <div class="flex flex-col pt-3 pr-4 pl-4">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -73,7 +73,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                     KINDERGARTEN NUMBER
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    Complaint Count
+                                    COMPLAINT COUNT
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     ACTION
@@ -81,7 +81,10 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                             </tr>
 
                         </thead>
-                        <?php
+                        <tbody id="showlciddata">
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <?php
                 //starting pages
                 $start = 0;
 
@@ -108,7 +111,6 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                     $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
                     $complaintCount = $complaintCountRow['complaint_count'];
                 ?>
-                        <tbody id="showlciddata">
                             <tr>
                                 <td class="border-r border-b"><?php echo $r['id']; ?></td>
                                 <td class="border-r border-b"><?php echo $r['stateid']; ?></td>
@@ -214,7 +216,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         </div>
     </div>
     <script>
- $(document).ready(function () {
+        $(document).ready(function () {
             $('#search').on("keyup", function () {
                 var search = $(this).val();
                 $.ajax({
@@ -229,7 +231,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                 });
             });
         });
-</script>
+    </script>
 
 </body>
 
