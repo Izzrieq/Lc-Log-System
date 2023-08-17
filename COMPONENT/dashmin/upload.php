@@ -10,7 +10,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 // Check if a file was uploaded
 if (isset($_FILES['fileToUpload'])) {
-    $taskId = $_POST['taskId'];
+    $taskId = mysqli_real_escape_string($conn, $_POST['taskId']); // Sanitize user input
     $targetDir = "uploads/"; // Change this to the directory where you want to store uploaded files
     $targetFile = $targetDir . basename($_FILES['fileToUpload']['name']);
     

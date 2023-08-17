@@ -25,6 +25,7 @@ if ($result->num_rows == 1) {
     // Verify password
     if ($password == $row['password']) { // This is plain text comparison
         $_SESSION['logged_in'] = true;
+        $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['username'] = $username;
         $_SESSION['department'] = $row['department'];
         $_SESSION['type'] = $row['type'];

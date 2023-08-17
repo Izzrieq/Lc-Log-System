@@ -10,7 +10,7 @@ if (isset($_GET['file_id'])) {
 
     if ($file) {
         $file_name = $file['file_name'];
-        $file_path = "../uploads/" . $file_name;
+        $file_path = "uploads/" . $file_name;
 
         if (file_exists($file_path)) {
             header('Content-Type: application/octet-stream');
