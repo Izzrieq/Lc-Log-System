@@ -127,7 +127,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                         </button>
                                         <button
                                             class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2">
-                                            <a href='tlcp-update.php?id=<?php echo $r['id'];?>'>UPDATE</a>
+                                            <a href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
                                         </button>
                                         <button
                                             class="rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2">

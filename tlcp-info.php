@@ -79,11 +79,12 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Little
-                                    Caliph
-                                    ID</label>
-                                <input name="lcid" type="lcid"
-                                    class='appearance-none block w-1/2 bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value=<?php echo $lcid; ?> disabled>
+                                    Caliphs ID
+                                </label>
+                                <input name="lcid" type="text"
+                                    class="appearance-none block w-1/2 bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4"
+                                    value="<?php echo htmlspecialchars($lcid); ?>" disabled>
+
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label
@@ -91,14 +92,14 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     Name</label>
                                 <input name="operatorname" type="operatorname"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value=<?php echo $opsname; ?> disabled>
+                                    value="<?php echo $opsname; ?>" disabled>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Owner
                                     Name</label>
                                 <input name="ownername" type="ownername"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value=<?php echo $ownername; ?> disabled>
+                                    value="<?php echo $ownername; ?>" disabled>
                             </div>
                             <div class="flex items-center justify-between mt-2">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
@@ -107,7 +108,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input name="status" type="status"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value=<?php echo $status; ?> disabled>
+                                        value="<?php echo $status; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-2/5 px-3 mb-6'>
                                     <label
@@ -116,7 +117,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input name="yearsigned" type='yearsigned'
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value=<?php echo $yearsigned; ?> disabled>
+                                        value="<?php echo $yearsigned; ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-2">
@@ -127,7 +128,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="datesigned" value=<?php echo $datesigned; ?> disabled>
+                                        type='text' name="datesigned" value="<?php echo $datesigned; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -136,7 +137,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="stateid" value=<?php echo $dateoperated; ?> disabled>
+                                        type='text' name="stateid" value="<?php echo $dateoperated; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -145,7 +146,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="bizstype" value=<?php echo $tlcppackage; ?> disabled>
+                                        type='text' name="bizstype" value="<?php echo $tlcppackage; ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-0">
@@ -156,7 +157,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="annuallicense" value=<?php echo $annuallicense; ?> disabled>
+                                        type='text' name="annuallicense" value="<?php echo $annuallicense; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <label
@@ -165,7 +166,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="eduemail" value=<?php echo $eduemail; ?> disabled>
+                                        type='text' name="eduemail" value="<?php echo $eduemail; ?>" disabled>
                                 </div>
                             </div>
                             </form>
@@ -205,7 +206,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     Name</label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='kindername' name="kindername" value=<?php echo $kindername; ?> disabled>
+                                    type='kindername' name="kindername" value="<?php echo $kindername; ?>" disabled>
                             </div>
                             <div class='w-auto md:w-1/2 px-3 mb-6'>
                                 <label
@@ -213,7 +214,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     Number</label>
                                 <input
                                     class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='kindernohp' name="kindernohp" value=<?php echo $kindernohp; ?> disabled>
+                                    type='kindernohp' name="kindernohp" value="<?php echo $kindernohp; ?>" disabled>
                             </div>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/4 px-3 mb-6'>
@@ -221,14 +222,14 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>No.Block/House</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='noblock' name="noblock" value=<?php echo $noblock; ?> disabled>
+                                        type='noblock' name="noblock" value="<?php echo $noblock; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-full px-3 mb-6 ml-3'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Street</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='street' name="street" value=<?php echo $street; ?> disabled>
+                                        type='street' name="street" value="<?php echo $street; ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-4">
@@ -238,7 +239,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                         Code</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='postcode' name="postcode" value=<?php echo $postcode; ?> disabled>
+                                        type='postcode' name="postcode" value="<?php echo $postcode; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -246,7 +247,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='city' name="city" value=<?php echo $city; ?> disabled>
+                                        type='city' name="city" value="<?php echo $city; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -254,7 +255,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='state' name="state" value=<?php echo $state; ?> disabled>
+                                        type='state' name="state" value="<?php echo $state; ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-2">
@@ -264,7 +265,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='type' name="type" value=<?php echo $type; ?> disabled>
+                                        type='type' name="type" value="<?php echo $type; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -272,7 +273,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                         Number</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='ownernohp' name="ownernohp" value=<?php echo $ownernohp; ?> disabled>
+                                        type='ownernohp' name="ownernohp" value="<?php echo $ownernohp; ?>" disabled>
                                 </div>
                             </div>
                             <div class='w-auto md:w-full px-3 mb-6'>
@@ -284,10 +285,11 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     disabled><?php echo $opsaddress; ?></textarea>
                             </div>
                             <div class="flex justify-end">
-                                <button class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 p-2 m-2"
-                                onclick="printWithLandscape()">Print</button>
-                                <button class="rounded-md bg-green-700 text-white p-2 m-2" type="submit">Save
-                                    Changes</button>
+                                <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
+                                    type="back">BACK</button>
+                                <button
+                                    class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 px-3 py-2 m-2"
+                                    onclick="printWithLandscape()">PRINT</button>
                             </div>
                         </div>
                         </form>
@@ -295,25 +297,24 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                 </div>
             </div>
             <script>
-function printWithLandscape() {
-    var css = '@page { size: landscape; }',
-        head = document.head || document.getElementsByTagName('head')[0],
-        style = document.createElement('style');
+                function printWithLandscape() {
+                    var css = '@page { size: landscape; }',
+                        head = document.head || document.getElementsByTagName('head')[0],
+                        style = document.createElement('style');
 
-    style.type = 'text/css';
-    style.media = 'print';
+                    style.type = 'text/css';
+                    style.media = 'print';
 
-    if (style.styleSheet) {
-        style.styleSheet.cssText = css;
-    } else {
-        style.appendChild(document.createTextNode(css));
-    }
+                    if (style.styleSheet) {
+                        style.styleSheet.cssText = css;
+                    } else {
+                        style.appendChild(document.createTextNode(css));
+                    }
 
-    head.appendChild(style);
+                    head.appendChild(style);
 
-    window.print();
-}
-
+                    window.print();
+                }
             </script>
 </body>
 

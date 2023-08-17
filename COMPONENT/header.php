@@ -123,6 +123,7 @@
                 <li><a href="home.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">HOME</a></li>
                 <li><a href="#" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">ABOUT</a></li>
                 <li><a href="#" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">SERVICES</a></li>
+                <li><a href="COMPONENT/FUNCTION/choose-report.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">REPORT</a></li>
             </ul>
         </div>
         <div class="navbar-right">
