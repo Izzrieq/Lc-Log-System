@@ -41,21 +41,16 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    
+
 </head>
+<style>
+    .bg-light-blue {
+        background-color: lightblue;
+    }
+</style>
 
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
-        <!-- Spinner Start -->
-        <div id="spinner"
-            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
-
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
@@ -93,80 +88,74 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <!-- ... (your existing navbar content) ... -->
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <?php
+                                $user_id = $_SESSION['user_id'];
+                                $notifications_query = "SELECT * FROM notifications WHERE user_id = '$user_id' ORDER BY created_at DESC";
+                                $notifications_result = mysqli_query($conn, $notifications_query);
+
+                                $unread_notification_count = 0; // Initialize the counter for unread notifications
+
+                                    if (mysqli_num_rows($notifications_result) > 0) {
+                                    while ($notification_row = mysqli_fetch_assoc($notifications_result)) {
+                                    $notification_status = $notification_row['status'];
+
+                                    if ($notification_status === 'unread') {
+                                    $unread_notification_count++; // Increment the counter for unread notifications
+                                    }
+                                }
+                            }
+                        ?>
+                            <?php if ($unread_notification_count > 0) : ?>
+                            <span id="notificationCount" class="badge bg-danger"><?php echo $unread_notification_count; ?></span>
+                            <?php endif; ?>
                             <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                            <span class="d-none d-lg-inline-flex">Notification</span>
+                            <!-- Display unread notification count -->
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
+                            <!-- Loop through notifications and display them here -->
+                            <?php
+                                $notifications_result = mysqli_query($conn, $notifications_query);
+
+                                if (mysqli_num_rows($notifications_result) > 0) {
+                                    while ($notification_row = mysqli_fetch_assoc($notifications_result)) {
+                                    $notification_id = $notification_row['notification_id'];
+                                    $notification_message = $notification_row['message'];
+                                    $notification_status = $notification_row['status'];
+                                    $notification_date = $notification_row['created_at'];
+                            ?>
+                            <!-- Display individual notifications -->
+                            <a href="viewtask.php?notification_id=<?php echo $notification_id; ?>"
+                                class="dropdown-item">
+                                <div
+                                    class="d-flex align-items-center <?php echo $notification_status === 'unread' ? 'bg-light-blue' : ''; ?>">
+                                    <i
+                                        class="fa fa-bell me-2 text-<?php echo $notification_status === 'unread' ? 'primary' : 'secondary'; ?>"></i>
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0"><?php echo $notification_message; ?></h6>
+                                        <small><?php echo $notification_date; ?></small>
+                                    </div>
+                                </div>
                             </a>
                             <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
+                            <?php
+                        }
+                            } else {
+                                echo '<p class="dropdown-item text-center mb-0">No new notifications</p>';
+                            }
+                                    ?>
+                           <a href="#" class="dropdown-item text-center" onclick="clearNotifications()">Clear Notifications</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -331,24 +320,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Recent Sales End -->
-
-
-            <!-- Widgets Start -->
-            <!-- <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Calender</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div id="calender"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
@@ -390,5 +361,141 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
+        <script>
+            
+function updateStatus(taskId, status) {
+    // ... (your existing code)
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Refresh the page after updating status
+                location.reload();
+            } else {
+                alert('Error updating task status');
+            }
+        }
+    };
+    xhr.open('POST', 'update_status.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('task_id=' + taskId + '&status=' + status);
 
+    if (status === 'completed') {
+        if ("<?php echo $type; ?>" === 'admin') {
+            // Send a notification to admin
+            var notificationMessage = "Task #" + taskId +
+                " has been marked as completed by user <?php echo $_SESSION['username']; ?>";
+            sendNotificationToAdmin(notificationMessage);
+        }
+    }
+}
+
+function sendNotification(username, message) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Notification sent successfully
+                // You can optionally handle the response here
+            } else {
+                alert('Error sending notification');
+            }
+        }
+    };
+    xhr.open('POST', 'send_notification.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('username=' + encodeURIComponent(username) + '&message=' + encodeURIComponent(message));
+}
+
+function deleteFile(fileId) {
+    var confirmDelete = confirm('Are you sure you want to delete this file?');
+    if (confirmDelete) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Refresh the page after deleting file
+                    location.reload();
+                } else {
+                    alert('Error deleting file');
+                }
+            }
+        };
+        xhr.open('POST', 'delete_file.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('file_id=' + fileId);
+    }
+}
+
+function deleteTask(taskId) {
+    var confirmDelete = confirm('Are you sure you want to delete this task?');
+    if (confirmDelete) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Check the response from the server
+                    if (xhr.responseText === "success") {
+                        // Task deleted successfully
+                        location.reload();
+                    } else {
+                        // Error deleting task
+                        alert('Error deleting task');
+                    }
+                } else {
+                    alert('Error deleting task');
+                }
+            }
+        };
+        xhr.open('POST', 'delete_task.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('task_id=' + taskId);
+    }
+}
+function clearNotifications() {
+    var confirmClear = confirm('Are you sure you want to clear all notifications?');
+    if (confirmClear) {
+        // Perform the action to clear notifications
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Parse the response to get the new notification count and message
+                    var response = JSON.parse(xhr.responseText);
+                    var newCount = response.count;
+                    var newMessage = response.message;
+
+                    // Update the notification count element
+                    var notificationCountElement = document.getElementById('notificationCount');
+                    notificationCountElement.innerText = newCount;
+
+                    // Display the new message in the dropdown
+                    var notificationsDropdown = document.getElementById('notificationsDropdown');
+                    notificationsDropdown.innerHTML = newMessage;
+
+                } else {
+                    alert('Error clearing notifications');
+                }
+            }
+        };
+        xhr.open('POST', 'clear_notifications_read.php', true); // Change the URL to the script that clears notifications
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send();
+    }
+}
+    function updateNotificationCount(count) {
+        var notificationCountElement = document.getElementById('notificationCount');
+        notificationCountElement.innerText = count;
+    }
+
+    function sendNotificationToAdmin(message) {
+        var adminUsername = "<?php echo $adminUsername; ?>"; // Replace with actual admin username
+        sendNotification(adminUsername, message);
+
+        // Update the notification count
+        var notificationCountElement = document.getElementById('notificationCount');
+        var currentCount = parseInt(notificationCountElement.innerText);
+        notificationCountElement.innerText = currentCount + 1;
+    }
+        </script>
 </html>
