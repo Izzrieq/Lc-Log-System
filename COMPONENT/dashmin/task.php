@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a href="index.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="task.php" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Task</a>
                     <a href="viewtask.php" class="nav-item nav-link "><i class="fa fa-th me-2"></i>View Task</a>
-                    <a href="dates.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Calender</a>
+                    <a href="dates.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Calendar</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Progress</a>
                     <a href="register.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Register</a>
                 </div>
@@ -271,10 +271,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <label for="task_description" class="form-label">Task Description</label>
     <textarea class="form-control" name="task_description" rows="3" required></textarea>
 </div>
-<div class="mb-3">
+<!-- <div class="mb-3">
     <label for="department" class="form-label">Department</label>
     <input type="text" name="department" id="department" placeholder="-- department --" readonly>
-</div>
+</div> -->
 <button type="submit" class="btn btn-primary">Assign Task</button>
             </form>
         </div>

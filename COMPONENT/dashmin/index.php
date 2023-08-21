@@ -75,7 +75,7 @@
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="task.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Task</a>
                     <a href="viewtask.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>View Task</a>
-                    <a href="dates.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Calender</a>
+                    <a href="dates.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Calendar</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Progress</a>
                     <a href="register.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Register</a>
                 </div>
