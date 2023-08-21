@@ -46,9 +46,9 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
 
 <body class="bg-neutral-50">
     <!-- navbar -->
-    <center class="font-bold text-2xl mt-6">LIST COMPLAINT</center>
+    <center class="font-bold text-2xl mt-4">LIST COMPLAINT</center>
     <div class="relative overflow-x-auto shadow-md p-3">
-        <div class="input-group mb-4 mt-3">
+        <div class="input-group mb-2 mt-2">
             <div class="form-outline ml-3">
                 <input class="w-40 rounded-md" type="text" id="getName" placeholder="Search" />
             </div>
@@ -118,7 +118,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                     <td class="border-r text-l"><?php echo $r['category']; ?></td>
                                     <td class="border-r text-l"><?php echo $r['type']; ?></td>
                                     <td class="d-flex justify-content-center">
-                                        <a href='bliss-updatecomplain.php?id=<?php echo $r['id'];?>'><button
+                                        <a href='bliss-updatecomplain-form.php?id=<?php echo $r['id'];?>'><button
                                                 class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
                                         <a href='bliss-deletecomplain.php?id=<?php echo $r['id'];?>'
                                             onclick="return confirm('Are you sure you want to delete?')"><button
@@ -134,10 +134,10 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 ?>
                         </table>
                         <button
-                            class="bg-blue-500 hover:bg-blue-700  font-bold mt-3 py-2 px-3 border border-blue-700 rounded">
+                            class="bg-blue-500 hover:bg-blue-700 font-bold mt-2 py-2 px-3 border border-blue-700 rounded">
                             <a href="bliss-addcomplain.php" class="text-white">ADD ISSUE</a>
                         </button>
-                        <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
+                        <nav class="flex items-center justify-between pt-2" aria-label="Table navigation">
                             <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3">Showing
                                 <span><?php echo $rows_per_pages; ?> Data</span> of <?php echo $pages ?> Pages</span>
                             <ul class="inline-flex -space-x-px text-sm h-8 mr-3">
