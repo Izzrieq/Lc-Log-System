@@ -315,7 +315,8 @@ while ($res = mysqli_fetch_array($result)) {
                                 <button class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 p-2 m-2"
                                     onclick="printWithLandscape()">PRINT</button>
                                 <button type="submit" name="update"
-                                    class="rounded-md bg-green-700 text-white p-2 m-2">SAVE CHANGES</button>
+                                    class="rounded-md bg-green-700 text-white p-2 m-2">SAVE CHANGES
+                                </button>
                             </div>
                         </div>            
         </div>
