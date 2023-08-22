@@ -68,7 +68,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
     <div class="overflow-hidden">
         <div class="flex flex-col pt-3 pr-4 pl-4">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-2 inline-block min-w-full sm:px-8 lg:px-8">
+                <div class="py-0 inline-block min-w-full sm:px-8 lg:px-8">
                     <table class="content min-w-full border text-center bg-white" id="table_tlcp">
                         <thead>
                             <tr class="border-b bg-gray-700">
@@ -76,15 +76,15 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                     ID
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    STATE_ID
+                                    STATE
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    BIZ_TYPE
+                                    BIZ
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
                                     LITTLECALIPH_ID
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     OPERATOR_NAME
                                 </th>
                                 <!-- <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
@@ -94,13 +94,13 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                     EDU_EMAIL
                                 </th> -->
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    KINDERGARTEN NUMBER
+                                    KINDY NUMBER
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     COMPLAINT COUNT
                                 </th>
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     ACTION
                                 </th>
                                 <?php } ?>
@@ -148,18 +148,18 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <td class="border-r border-b px-0"><?php echo $r['kindernohp']; ?></td>
                                 <td class="border-r border-b"><?php echo $complaintCount; ?></td>
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
-                                <td class="border-r border-b p-2">
-                                    <div class="flex items-center justify-between mt-2">
+                                <td class="border-r border-b p-0">
+                                    <div class="flex items-center justify-between text-xs mt-2">
                                         <button
-                                            class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2">
+                                            class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-1">
                                             <a href='tlcp-info.php?id=<?php echo $r['id'];?>'>INFO</a>
                                         </button>
                                         <button
-                                            class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2">
+                                            class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-1">
                                             <a href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
                                         </button>
                                         <button
-                                            class="rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2">
+                                            class="rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-1">
                                             <a href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
                                         </button>
                                     </div>

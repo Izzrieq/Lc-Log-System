@@ -27,19 +27,19 @@
 
 <body class="bg-neutral-50 ">
 
-    <h2 class="px-6 mb-0 mt-2 text-primary">WELCOME, <?php echo strtoupper($_SESSION['username']); ?>!<br>
+    <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo strtoupper($_SESSION['username']); ?>!<br>
         <h5 class="px-7 text-secondary"><?php echo ($_SESSION['type'])?></h5>
     </h2>
 
-    <h1 class="text-center text-black">Our Services</h1>
+    <h1 class="text-center text-black text-2xl">Our Services</h1>
 
     <div class="container">
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
-                    <h5 class="card-title font-bold">TLCP</h5>
-                    <p class="card-text">The Little Caliph Playschool.</p>
+                    <h5 class="card-title font-bold text-base">KINDY DETAILS</h5>
+                    <p class="card-text">All kindergarten information.</p>
                     <a href="tlcp-data.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
@@ -47,7 +47,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
-                    <h5 class="card-title font-bold">COMPLAINT</h5>
+                    <h5 class="card-title font-bold text-base">COMPLAINT</h5>
                     <p class="card-text">Getting issue complaint.</p>
                     <a href="bliss-operator.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
@@ -56,7 +56,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
-                    <h5 class="card-title font-bold">INFO</h5>
+                    <h5 class="card-title font-bold text-base">INFO</h5>
                     <p class="card-text">Masih tiada idea.</p>
                     <a href="#" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>

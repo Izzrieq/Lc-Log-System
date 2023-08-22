@@ -106,12 +106,12 @@
             <h1 class="mt-3 m-3 text-primary" style="font-size: 2rem; ">BLISS CUSTOMER E-LOG</h1>
         </div>
 </header>
-<nav class="navbar w-1/1 d-flex justify-content-between shadow bg-white rounded">
+<nav class="navbar w-full d-flex justify-content-between shadow bg-white rounded">
         <div class="navbar-left font-bold">
             <ul class="d-flex">
                 <li><a href="home.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-3 text-decoration-none">HOME</a></li>
                 <li><a href="COMPONENT/FUNCTION/info.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2 text-decoration-none">ABOUT</a></li>
-                <li><a href="COMPONENT/FUNCTION/choose-report.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2 text-decoration-none">REPORT</a></li>
+                <li><a href="COMPONENT/FUNCTION/choose-report.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-3 text-decoration-none">REPORT</a></li>
             </ul>
         </div>
         <div class="navbar-right">
@@ -125,4 +125,4 @@
                 </ul>
             </div>
         </div>
-    </nav>
+</nav>
