@@ -87,6 +87,7 @@
                         <h6 class="text-blueGray-700 text-2xl font-bold">
                             ISSUE COMPLAIN
                         </h6>
+                        <i class="fa fa-undo" aria-hidden="true" onclick="history.back()"></i>
                     </div>
                 </div>
                 <div class="flex-auto px-4 lg:px-10 py-8 pt-0">

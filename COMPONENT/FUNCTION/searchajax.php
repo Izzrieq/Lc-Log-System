@@ -44,13 +44,14 @@
         <td class='border-r text-l py-2 px-4'>".$row['cname']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['cnohp']."</td>
         <td class='border-r text-l py-2 px-4'>".$row['category']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['type']."</td>   
+        <td class='border-r text-l py-2 px-4'>".$row['type']."</td> 
+        "if ($_SESSION['type'] === 'admin') {"
         <td class='border-r text-l py-2 px-2'>
           <a href='bliss-updatecomplain.php?id=".$row['id']."'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
           <a href='bliss-deletecomplain.php?id=".$row['id']."'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
           <a href='bliss-actioncomplain.php?id=".$row['id']."'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
         </td>
-    
+        "}"
         </tr>";
  }
  ?>
@@ -68,7 +69,10 @@
                 <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">CUSTOMER NO.HP</th>
                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">CATEGORY</th>
                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">TYPE</th>
+        
+                <?php if ($_SESSION['type'] === 'admin') { ?>
                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">STATUS</th>
+                <?php } ?>
             </tr>
         </thead>
         <tbody id="showdata" class="bg-white text-black">

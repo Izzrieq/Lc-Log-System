@@ -25,7 +25,10 @@
 
 <body class="bg-neutral-50">
 
-    <h2 class="px-6 py-4">WELCOME, <?php echo strtoupper ($_SESSION['username']); ?>!</h2>
+    <h2 class="px-6 py-4">WELCOME, <?php echo strtoupper ($_SESSION['username']); ?>! <br>
+    <span><?php echo ($_SESSION['type'])?></span>
+    </h2>
+    
     <h1 class="text-center text-black">Our Services</h1>
 
     <div class="d-flex justify-content-center">

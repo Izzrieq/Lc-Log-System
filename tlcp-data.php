@@ -73,9 +73,11 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     COMPLAINT COUNT
                                 </th>
+                                <?php if ($_SESSION['type'] === 'admin') { ?>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     ACTION
                                 </th>
+                                <?php } ?>
                             </tr>
 
                         </thead>
@@ -87,7 +89,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                 $start = 0;
 
                 //total display
-                $rows_per_pages = 35;
+                $rows_per_pages = 50;
                 
                 //get total
                 $records = $conn->query("SELECT * FROM lcdetails");
@@ -119,6 +121,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <td class="border-r border-b px-2"><?php echo $r['eduemail']; ?></td>
                                 <td class="border-r border-b px-0"><?php echo $r['kindernohp']; ?></td>
                                 <td class="border-r border-b"><?php echo $complaintCount; ?></td>
+                                <?php if ($_SESSION['type'] === 'admin') { ?>
                                 <td class="border-r border-b p-2">
                                     <div class="flex items-center justify-between mt-2">
                                         <button
@@ -135,6 +138,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                         </button>
                                     </div>
                                 </td>
+                                <?php } ?>
 
                             </tr>
                         </tbody>
