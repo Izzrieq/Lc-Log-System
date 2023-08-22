@@ -37,6 +37,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
     <link rel="stylesheet" href="styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -198,6 +199,9 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
             <div class="bg-gray-200 min-h-screen pt-0 my-0">
                 <div class="container mx-auto border-2">
                     <div class="inputs w-full y-full max-w-xl p-6">
+                        <div class="flex justify-end">
+                    <i class="fa fa-undo" aria-hidden="true" onclick="history.back()"></i>
+                        </div>
                         <!-- <div class='flex items-center justify-between mt-2'> -->
                         <div class="personal w-full md:w-full pt-2">
                             <div class='w-full md:w-full px-3'>

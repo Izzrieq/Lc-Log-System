@@ -24,7 +24,33 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     
+    <style>
+        @media (max-width:320px){
 
+            .font-bold {
+                font-size: 0.8rem;
+            }
+            .overflow-hidden {
+                flex-direction: column;
+            }
+            th, td{
+                font-size: 0.5rem;
+            }
+            .bg-green-500{
+                padding-right: 3px;
+                padding-left: 3px;
+                font-size: 0.6rem;
+            }
+            .rounded-md, .text-md{
+                padding: 0%;
+                font-size: 0.5rem;
+            }
+            .w-40{
+                width: 120%;
+                padding-left: 5px;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-neutral-50">
@@ -43,7 +69,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         <div class="flex flex-col pt-3 pr-4 pl-4">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 inline-block min-w-full sm:px-8 lg:px-8">
-                    <table class="min-w-full border text-center bg-white" id="table_tlcp">
+                    <table class="content min-w-full border text-center bg-white" id="table_tlcp">
                         <thead>
                             <tr class="border-b bg-gray-700">
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
@@ -52,7 +78,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     STATE_ID
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     BIZ_TYPE
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
@@ -61,16 +87,16 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     OPERATOR_NAME
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                <!-- <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     OWNER_NAME
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     EDU_EMAIL
-                                </th>
+                                </th> -->
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     KINDERGARTEN NUMBER
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     COMPLAINT COUNT
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
@@ -115,10 +141,10 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <td class="border-r border-b"><?php echo $r['bizstype']; ?></td>
                                 <td class="border-r border-b px-2"><?php echo $r['lcid']; ?></td>
                                 <td class="border-r border-b px-8"><?php echo $r['operatorname']; ?></td>
-                                <td class="border-r border-b px-8"><?php echo $r['ownername']; ?></td>
-                                <td class="border-r border-b px-2"><?php echo $r['eduemail']; ?></td>
+                                <!-- <td class="border-r border-b px-8"><?php echo $r['ownername']; ?></td>
+                                <td class="border-r border-b px-2"><?php echo $r['eduemail']; ?></td> -->
                                 <td class="border-r border-b px-0"><?php echo $r['kindernohp']; ?></td>
-                                <td class="border-r border-b"><?php echo $complaintCount; ?></td>
+                                <td class="border-r border-b px-0"><?php echo $complaintCount; ?></td>
                                 <td class="border-r border-b p-2">
                                     <div class="flex items-center justify-between mt-2">
                                         <button
