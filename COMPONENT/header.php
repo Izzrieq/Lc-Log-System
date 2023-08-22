@@ -26,34 +26,6 @@
     padding: 0;
     font-family: Arial, sans-serif;
 }
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-    color: black;
-}
-.navbar-left{
-    margin-left: 5%;
-}
-
-.navbar-left ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.navbar-left li {
-    margin-right: 20px;
-}
-
-.navbar-left a {
-    color: black;
-    text-decoration: none;
-}
 .navbar-right{
     margin-right: 15px ;
 }
@@ -64,10 +36,10 @@
     padding: 0;
     cursor: pointer;
 }
-.user-icon img {
-    width: 40px; /* Set the desired width */
-    height: 40px; /* Set the desired height */
-}
+/* .user-icon img {
+    width: 40px; 
+    height: 40px;
+} */
 
 
 .user-options {
@@ -104,31 +76,47 @@
 .user-icon:hover .user-options {
     display: block;
 }
+@media (max-width: 576px) {
+            .logo {
+                width: 150px;
+               
+
+            }
+            .m-0{
+                display: none;
+            }
+            a{
+                font-size: 0.80rem;
+            }
+            .user-icon{
+                width:3vh;
+                height:auto;
+            }
+}
 
 </style>
 <body>
-<header class="d-flex justify-content-between bg-white ">
-        <div class="w-25 p-0 h-75 d-inline-block">
+<header class="d-flex justify-content-between bg-white p-3">
+        <div class="logo" style="width: 350px; height: auto; padding: 0px;">
             <a href="home.php">
-            <img  class="w-100 m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
+            <img  class="w-100 h-100" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
             </a>
         </div>
-        <div class="p-0 ">
-            <h1 class="mt-3 m-3 h1 text-primary">BLISS CUSTOMER E-LOG</h1>
+        <div class="m-0 p-0">
+            <h1 class="mt-3 m-3 text-primary" style="font-size: 2rem; ">BLISS CUSTOMER E-LOG</h1>
         </div>
 </header>
-<nav class="navbar">
+<nav class="navbar w-1/1 d-flex justify-content-between shadow bg-white rounded">
         <div class="navbar-left font-bold">
-            <ul>
-                <li><a href="home.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">HOME</a></li>
-                <li><a href="#" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">ABOUT</a></li>
-                <li><a href="#" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">SERVICES</a></li>
-                <li><a href="COMPONENT/FUNCTION/choose-report.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2">REPORT</a></li>
+            <ul class="d-flex">
+                <li><a href="home.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-3 text-decoration-none">HOME</a></li>
+                <li><a href="COMPONENT/FUNCTION/info.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2 text-decoration-none">ABOUT</a></li>
+                <li><a href="COMPONENT/FUNCTION/choose-report.php" class="hover:bg-gray-50 hover:text-blue-500 py-3 px-2 text-decoration-none">REPORT</a></li>
             </ul>
         </div>
         <div class="navbar-right">
             <button class="user-icon">
-                <img src="COMPONENT/img/user-icon.png" alt="User Icon">
+                <img src="COMPONENT/img/user-icon.png" alt="User Icon" style="width: 40px; height: auto;">
             </button>
             <div class="user-options">
                 <ul>

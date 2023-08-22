@@ -18,52 +18,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Portal Little Caliphs</title>
     <link rel="icon" type="image/png" href="COMPONENT/img/logolc.png">
-    <!-- <link rel="stylesheet" href="COMPONENT/STYLE/style.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        /* Additional CSS if needed */
+    </style>
 </head>
 
-<body class="bg-neutral-50">
+<body class="bg-neutral-50 ">
 
-    <h2 class="px-6 py-4">WELCOME, <?php echo strtoupper ($_SESSION['username']); ?>! <br>
-    <span><?php echo ($_SESSION['type'])?></span>
+    <h2 class="px-6 mb-0 mt-2 text-primary">WELCOME, <?php echo strtoupper($_SESSION['username']); ?>!<br>
+        <h5 class="px-7 text-secondary"><?php echo ($_SESSION['type'])?></h5>
     </h2>
-    
+
     <h1 class="text-center text-black">Our Services</h1>
 
-    <div class="d-flex justify-content-center">
-        <div class="m-4">
-            <div class="card" style="width: 20rem; height: 13rem;">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
                     <h5 class="card-title font-bold">TLCP</h5>
-                    <br>
                     <p class="card-text">The Little Caliph Playschool.</p>
-                    <a href="tlcp-data.php" class="btn btn-primary mt-10">Go Somewhere</a>
+                    <a href="tlcp-data.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>
-        <div class="m-4">
-            <div class="card" style="width: 20rem; height: 13rem;">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
                     <h5 class="card-title font-bold">COMPLAINT</h5>
-                    <br>
                     <p class="card-text">Getting issue complaint.</p>
-                    <a href="bliss-operator.php" class="btn btn-primary mt-10">Go Somewhere</a>
+                    <a href="bliss-operator.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>
-        <div class="m-4">
-            <div class="card" style="width: 20rem; height: 13rem;">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
                     <h5 class="card-title font-bold">INFO</h5>
-                    <br>
                     <p class="card-text">Masih tiada idea.</p>
-                    <a href="#" class="btn btn-primary mt-10">Go Somewhere</a>
+                    <a href="#" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
-
+    <?php include "COMPONENT/footer.php" ?>
 </html>
-<?php include "COMPONENT/footer.php" ?>

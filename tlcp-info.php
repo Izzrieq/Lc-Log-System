@@ -39,6 +39,13 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 </head>
+<style>
+    @media print{
+        button{
+            display: none;
+        }
+    }
+</style>
 
 <body class="bg-neutral-50">
     <!-- component -->
