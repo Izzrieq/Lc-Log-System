@@ -245,7 +245,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Street</label>
                                     <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
                                         type='street' name="street" value="<?php echo $street; ?>" disabled/>
                                 </div>
                             </div>
