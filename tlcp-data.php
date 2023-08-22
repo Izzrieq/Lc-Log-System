@@ -146,12 +146,8 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <!-- <td class="border-r border-b px-8"><?php echo $r['ownername']; ?></td>
                                 <td class="border-r border-b px-2"><?php echo $r['eduemail']; ?></td> -->
                                 <td class="border-r border-b px-0"><?php echo $r['kindernohp']; ?></td>
-<<<<<<< HEAD
-                                <td class="border-r border-b px-0"><?php echo $complaintCount; ?></td>
-=======
                                 <td class="border-r border-b"><?php echo $complaintCount; ?></td>
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
->>>>>>> ef8bb60306d7f46a0fd824ea3b483f3cba327696
                                 <td class="border-r border-b p-2">
                                     <div class="flex items-center justify-between mt-2">
                                         <button
