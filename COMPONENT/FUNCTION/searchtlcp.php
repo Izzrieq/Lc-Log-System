@@ -52,11 +52,13 @@
         <td class='border-r border-b px-2'>".$row['eduemail']."</td>   
         <td class='border-r border-b px-0'>".$row['kindernohp']."</td>   
         <td class='border-r border-b'>".$complaintCount."</td>
+        "if ($_SESSION['type'] === 'admin') {"
         <td class='border-r border-b p-2 flex items-center justify-between mt-2'>
           <a href='tlcp-info.php?id=".$row['id']."'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
           <a href='tlcp-update-form.php?id=".$row['id']."'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>UPDATE</button></a>
           <a href='tlcp-delete.php?id=".$row['id']."'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
         </td>
+        "}"
     
         </tr>";
         }
@@ -96,9 +98,11 @@
                                  <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     COMPLAINT COUNT
                                 </th>
+                                <?php if ($_SESSION['type'] === 'admin') { ?>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                     ACTION
                                 </th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody class="bg-white text-black">

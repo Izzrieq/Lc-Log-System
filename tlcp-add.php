@@ -47,8 +47,7 @@ if(isset($_POST['id'])) {
 </head>
 
 <body class="bg-neutral-50">
-    <!-- component -->
-    <!-- component -->
+    <!-- component -->  
     <div class="container-box" style="display: flex; justify-content:center;">
         <div class="bg-gray-200 min-h-screen pt-0 font-mono my-5">
             <div class="container mx-auto">
@@ -57,6 +56,7 @@ if(isset($_POST['id'])) {
                     <div class='flex items-center justify-between mt-2'>
                         <div class="personal w-full pt-2">
                             <h2 class="text-2xl font-bold text-gray-900">ADD TLCP :</h2>
+                            <i class="fa fa-undo" aria-hidden="true" onclick="history.back()"></i>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>ID

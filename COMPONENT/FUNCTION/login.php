@@ -33,7 +33,7 @@ if ($result->num_rows == 1) {
         if ($row['type'] == 'admin') {
             header("Location: ../../home.php"); // Redirect admin to this page
         } else if ($row['type'] == 'user') {
-            header("Location: ../USERS/home.php"); // Redirect non-admin users to this page
+            header("Location: ../../home.php"); // Redirect non-admin users to this page
         } else {
             echo "<script>alert('Invalid user type.'); window.location.href = '../../index.php';</script>";
         }

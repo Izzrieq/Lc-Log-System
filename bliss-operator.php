@@ -78,9 +78,11 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                     <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                         TYPE
                                     </th>
+                                    <?php if ($_SESSION['type'] === 'admin') { ?>
                                     <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                         STATUS
                                     </th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody id="showdata" class="bg-white text-black">
@@ -117,6 +119,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                     <td class="border-r text-l"><?php echo $r['cnohp']; ?></td>
                                     <td class="border-r text-l"><?php echo $r['category']; ?></td>
                                     <td class="border-r text-l"><?php echo $r['type']; ?></td>
+                                    <?php if ($_SESSION['type'] === 'admin') { ?>
                                     <td class="d-flex justify-content-center">
                                         <a href='bliss-updatecomplain-form.php?id=<?php echo $r['id'];?>'><button
                                                 class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
@@ -127,6 +130,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                                 class="rounded-md bg-green-700 text-white p-2 m-2">Send
                                                 Email</button></a>
                                     </td>
+                                    <?php } ?>
                                 </tr>
                             </tbody>
                             <?php
