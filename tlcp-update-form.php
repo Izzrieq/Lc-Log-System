@@ -84,7 +84,7 @@ while ($res = mysqli_fetch_array($result)) {
     <!-- component -->
     <form action="COMPONENT/FUNCTION/tlcp-updates.php" method="POST">
         <div class="container-box" style="display: flex; justify-content:center;">
-            <div class="bg-gray-200 min-h-screen pt-0 font-mono my-0">
+            <div class="bg-gray-200 min-h-screen pt-0 my-0">
                 <div class="container mx-auto">
                     <div class="inputs w-full max-w-xl p-6">
                         <div class='flex items-center justify-between mt-2'>
@@ -243,40 +243,42 @@ while ($res = mysqli_fetch_array($result)) {
                                             class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
                                             type='kindernohp' name="kindernohp" value="<?php echo $kindernohp; ?>" />
                                     </div>
-                                    <div class='w-full md:w-1/3 px-3 mb-6'>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
                                         <label
                                             class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>No.Block/House</label>
                                         <input
-                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
                                             type='noblock' name="noblock" value="<?php echo $noblock; ?>" />
                                     </div>
                                 </div>
+                                <div class="flex items-center justify-between mt-2">
+                                    <div class='w-full md:w-full px-3 mb-4'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Street</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='street' name="street" value="<?php echo $street; ?>" />
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between mt-0">
+                                    <div class='w-full md:w-1/3 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Post
+                                            Code</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='postcode' name="postcode" value="<?php echo $postcode; ?>" />
+                                    </div>
+                                    <div class='w-full md:w-full px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>City
+                                        </label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='city' name="city" value="<?php echo $city; ?>" />
+                                    </div>
+                                </div>
                                 <div class='w-full md:w-full px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Street</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='street' name="street" value="<?php echo $street; ?>" />
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between mt-4">
-                                <div class='w-full md:w-1/3 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Post
-                                        Code</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='postcode' name="postcode" value="<?php echo $postcode; ?>" />
-                                </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>City
-                                    </label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='city' name="city" value="<?php echo $city; ?>" />
-                                </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>State
                                     </label>
@@ -284,42 +286,43 @@ while ($res = mysqli_fetch_array($result)) {
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
                                         type='state' name="state" value="<?php echo $state; ?>" />
                                 </div>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Type
-                                    </label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='type' name="type" value="<?php echo $type; ?>" />
+                                <div class="flex items-center justify-between mt-2">
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Type
+                                        </label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='type' name="type" value="<?php echo $type; ?>" />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operater
+                                            Number</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
+                                            type='ownernohp' name="ownernohp" value="<?php echo $ownernohp; ?>" />
+                                    </div>
                                 </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
+                                <div class='w-auto md:w-full px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operater
-                                        Number</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='ownernohp' name="ownernohp" value="<?php echo $ownernohp; ?>" />
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
+                                        Address</label>
+                                    <textarea name="operatoraddress"
+                                        class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white'><?php echo $opsaddress; ?></textarea>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button class="rounded-md bg-blue-700 text-white p-2 m-2" type="back"
+                                        onclick="goToPreviousPage()">BACK</button>
+                                    <button
+                                        class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 p-2 m-2"
+                                        onclick="printWithLandscape()">PRINT</button>
+                                    <button type="submit" name="update"
+                                        class="rounded-md bg-green-700 text-white p-2 m-2">SAVE CHANGES
+                                    </button>
                                 </div>
                             </div>
-                            <div class='w-auto md:w-full px-3 mb-6'>
-                                <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
-                                    Address</label>
-                                <textarea name="operatoraddress"
-                                    class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white'><?php echo $opsaddress; ?></textarea>
-                            </div>
-                            <div class="flex justify-end">
-                                <button class="rounded-md bg-blue-700 text-white p-2 m-2" type="back" onclick="goToPreviousPage()">BACK</button>
-                                <button class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 p-2 m-2"
-                                    onclick="printWithLandscape()">PRINT</button>
-                                <button type="submit" name="update"
-                                    class="rounded-md bg-green-700 text-white p-2 m-2">SAVE CHANGES
-                                </button>
-                            </div>
-                        </div>            
-        </div>
+                        </div>
     </form>
 
 </body>

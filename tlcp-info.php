@@ -44,9 +44,9 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
     <!-- component -->
     <!-- component -->
     <div class="container-box pb-20 " style="display: flex; justify-content:center;">
-        <div class="bg-gray-200 min-h-fit pt-0 my-0">
-            <div class="container mx-auto border-2">
-                <div class="inputs w-full y-full max-w-xl p-6">
+        <div class="bg-gray-200 min-h-screen pt-0 my-0">
+            <div class="container mx-auto">
+                <div class="inputs w-full max-w-xl p-6">
                     <div class='flex items-center justify-between mt-2'>
                         <div class="personal w-full pt-2">
                             <h2 class="text-2xl text-gray-900">TLCP INFO:</h2>
@@ -200,122 +200,124 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                     <div class="inputs w-full y-full max-w-xl p-6">
                         <!-- <div class='flex items-center justify-between mt-2'> -->
                         <div class="personal w-full md:w-full pt-2">
+                            <div class='w-full md:w-full px-3'>
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Edu
+                                    Email
+                                </label>
+                                <input
+                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
+                                    type='text' name="eduemail" value="<?php echo $eduemail ?>" disabled/>
+                            </div>
                             <div class='w-full md:w-full px-3 mb-6 pt-4'>
                                 <label
                                     class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Kindergarten
                                     Name</label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='kindername' name="kindername" value="<?php echo $kindername; ?>" disabled>
-                            </div>
-                            <div class='w-auto md:w-1/2 px-3 mb-6'>
-                                <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Kindergarten
-                                    Number</label>
-                                <input
-                                    class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='kindernohp' name="kindernohp" value="<?php echo $kindernohp; ?>" disabled>
+                                    type='kindername' name="kindername" value="<?php echo $kindername; ?>" disabled/>
                             </div>
                             <div class="flex items-center justify-between mt-4">
-                                <div class='w-full md:w-1/4 px-3 mb-6'>
+                                <div class='w-auto md:w-1/2 px-3 mb-6'>
+                                    <label
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Kindergarten
+                                        Number</label>
+                                    <input
+                                        class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                        type='kindernohp' name="kindernohp" value="<?php echo $kindernohp; ?>" disabled/>
+                                </div>
+                                <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>No.Block/House</label>
                                     <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='noblock' name="noblock" value="<?php echo $noblock; ?>" disabled>
+                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
+                                        type='noblock' name="noblock" value="<?php echo $noblock; ?>" disabled/>
                                 </div>
-                                <div class='w-full md:w-full px-3 mb-6 ml-3'>
+                            </div>
+                            <div class="flex items-center justify-between mt-0">
+                                <div class='w-full md:w-full px-3 mb-4'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Street</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='street' name="street" value="<?php echo $street; ?>" disabled>
+                                        type='street' name="street" value="<?php echo $street; ?>" disabled/>
                                 </div>
                             </div>
-                            <div class="flex items-center justify-between mt-4">
-                                <div class='w-full md:w-1/3 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Post
-                                        Code</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='postcode' name="postcode" value="<?php echo $postcode; ?>" disabled>
-                                </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>City
-                                    </label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='city' name="city" value="<?php echo $city; ?>" disabled>
-                                </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>State
-                                    </label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='state' name="state" value="<?php echo $state; ?>" disabled>
-                                </div>
+                            <div class="flex items-center justify-between mt-0">
+                            <div class='w-full md:w-1/3 px-3 mb-6'>
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Post
+                                    Code</label>
+                                <input
+                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                    type='postcode' name="postcode" value="<?php echo $postcode; ?>" disabled/>
                             </div>
-                            <div class="flex items-center justify-between mt-2">
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Type
-                                    </label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='type' name="type" value="<?php echo $type; ?>" disabled>
-                                </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operater
-                                        Number</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='ownernohp' name="ownernohp" value="<?php echo $ownernohp; ?>" disabled>
-                                </div>
-                            </div>
-                            <div class='w-auto md:w-full px-3 mb-6'>
-                                <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
-                                    Address</label>
-                                <textarea name="operatoraddress"
-                                    class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 font-medium placeholder-gray-700 focus:outline-none focus:bg-white'
-                                    disabled><?php echo $opsaddress; ?></textarea>
-                            </div>
-                            <div class="flex justify-end">
-                                <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
-                                    type="back">BACK</button>
-                                <button
-                                    class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 px-3 py-2 m-2"
-                                    onclick="printWithLandscape()">PRINT</button>
+                            <div class='w-full md:w-full px-3 mb-6'>
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>City
+                                </label>
+                                <input
+                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                    type='city' name="city" value="<?php echo $city; ?>" disabled/>
                             </div>
                         </div>
-                        </form>
+                        <div class='w-full md:w-full px-3 mb-6'>
+                            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>State
+                            </label>
+                            <input
+                                class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                type='state' name="state" value="<?php echo $state; ?>" disabled/>
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class='w-full md:w-1/2 px-3 mb-6'>
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Type
+                                </label>
+                                <input
+                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                    type='type' name="type" value="<?php echo $type; ?>" disabled/>
+                            </div>
+                            <div class='w-full md:w-1/2 px-3 mb-6'>
+                                <label
+                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operater
+                                    Number</label>
+                                <input
+                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
+                                    type='ownernohp' name="ownernohp" value="<?php echo $ownernohp; ?>" disabled/>
+                            </div>
+                        </div>
+                        <div class='w-auto md:w-full px-3 mb-6'>
+                            <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
+                                Address</label>
+                            <textarea name="operatoraddress"
+                                class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white'><?php echo $opsaddress; ?></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2" type="back">BACK</button>
+                            <button class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 px-3 py-2 m-2"
+                                onclick="printWithLandscape()">PRINT</button>
+                        </div>
                     </div>
-                </div>
+                    
+                </div></form>
             </div>
-            <script>
-                function printWithLandscape() {
-                    var css = '@page { size: landscape; }',
-                        head = document.head || document.getElementsByTagName('head')[0],
-                        style = document.createElement('style');
+        </div>
+        <script>
+            function printWithLandscape() {
+                var css = '@page { size: landscape; }',
+                    head = document.head || document.getElementsByTagName('head')[0],
+                    style = document.createElement('style');
 
-                    style.type = 'text/css';
-                    style.media = 'print';
+                style.type = 'text/css';
+                style.media = 'print';
 
-                    if (style.styleSheet) {
-                        style.styleSheet.cssText = css;
-                    } else {
-                        style.appendChild(document.createTextNode(css));
-                    }
-
-                    head.appendChild(style);
-
-                    window.print();
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
                 }
-            </script>
+
+                head.appendChild(style);
+
+                window.print();
+            }
+        </script>
 </body>
 
 </html>
