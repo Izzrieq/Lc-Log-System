@@ -58,7 +58,7 @@ while ($r = mysqli_fetch_array($result)) {
 <body>
     <form action="COMPONENT/FUNCTION/bliss-updatecomplaint.php" method="POST">
     <div class="container-box" style="display: flex; justify-content:center;">
-        <div class="bg-gray-200 min-h-screen pt-0 font-mono my-0">
+        <div class="bg-gray-200 min-h-screen pt-0 my-0">
             <div class="container mx-auto">
                 <div class="inputs w-full max-w-xl p-6">
                     <div class='flex items-center justify-between mt-2'>
