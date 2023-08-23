@@ -27,46 +27,57 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
     <style>
         @media (max-width:320px){
 
-            .font-bold {
-                font-size: 0.8rem;
-            }
-            .overflow-hidden {
-                flex-direction: column;
-            }
+        }
+        @media (max-width:1024px) {
             th, td{
-                font-size: 0.5rem;
+                font-size: 0.80rem;
+            }
+        }
+        @media (max-width:768px) {
+            th, td{
+                font-size: 0.60rem;
+                padding: 0;
             }
             .bg-green-500{
-                padding-right: 3px;
-                padding-left: 3px;
-                font-size: 0.6rem;
-            }
-            .rounded-md, .text-md{
-                padding: 0%;
-                font-size: 0.5rem;
+                font-size: 0.60rem;
             }
             .w-40{
-                width: 120%;
-                padding-left: 5px;
+                width:126px;
+                font-size: 0.60rem;
+                padding: 5px;
+            }
+        }
+        @media (max-width:425px) {
+            th, td{
+                font-size: 0.30rem;
+                padding: 0;
+            }
+            .bg-green-500{
+                font-size: 0.30rem;
+            }
+            .w-40{
+                width:126px;
+                font-size: 0.30rem;
+                padding: 5px;
             }
         }
     </style>
 </head>
 
-<body class="bg-neutral-50">
+<body class="bg-neutral-50 ">
 
     <center class="font-bold text-2xl mt-6">LIST TLCP</center>
     <button
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 border border-green-700 rounded ml-20">
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
         <a href='tlcp-add.php'>ADD TLCP</a>
     </button>
-    <div class="input-group mb-4 mt-8">
+    <div class="input-group mb-4 mt-2">
         <div class="form-outline ml-3">
             <input class="w-40 rounded-md" type="text" id="search" name="search" placeholder="Search" />
         </div>
     </div>
-    <div class="overflow-hidden">
-        <div class="flex flex-col pt-3 pr-4 pl-4">
+    <div class="overflow-hidden m-0 p-0 ">
+        <div class="flex flex-col m-0 p-0 ">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 inline-block min-w-full sm:px-8 lg:px-8">
                     <table class="content min-w-full border text-center bg-white" id="table_tlcp">

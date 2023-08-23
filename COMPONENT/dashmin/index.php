@@ -8,6 +8,21 @@
         exit;
     }
 
+    
+    $query = "SELECT stateid, COUNT(lcid) AS total_lcid FROM lcdetails GROUP BY stateid";
+    $result = mysqli_query($conn, $query);
+
+    // Prepare data array for chart
+    $chartData = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $chartData[] = array(
+            "stateid" => $row['stateid'],
+            "total_lcid" => intval($row['total_lcid'])
+        );
+    }
+
+    // Convert data to JSON format
+    $chartDataJSON = json_encode($chartData);
     ?>
 
 <!DOCTYPE html>
@@ -42,6 +57,10 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
+    <!-- amChart -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 </head>
 <style>
     .bg-light-blue {
@@ -77,7 +96,6 @@
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Progress</a>
                     <?php if ($_SESSION['type'] === 'admin') { ?>
             <a href="task.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Task</a>
-            <a href="register.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Register</a>
         <?php } ?>
                 </div>
             </nav>
@@ -253,28 +271,15 @@
             </div>
             <!-- Sale & Revenue End -->
 
-
             <!-- Sales Chart Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
                         <div class="bg-light text-center rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Worldwide Sales</h6>
-                                <a href="">Show All</a>
+                                <h6 class="mb-0">Worldwide LCID</h6>
                             </div>
-                            <canvas id="worldwide-sales"></canvas>
+                            <div id="chartDiv" style="width: 100%; height: 300px;"></div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Salse & Revenue</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <canvas id="salse-revenue"></canvas>
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- Sales Chart End -->
@@ -351,9 +356,6 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
@@ -363,37 +365,10 @@
     <script src="js/main.js"></script>
 </body>
         <script>
-            
-function updateStatus(taskId, status) {
-    // ... (your existing code)
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Refresh the page after updating status
-                location.reload();
-            } else {
-                alert('Error updating task status');
-            }
-        }
-    };
-    xhr.open('POST', 'update_status.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('task_id=' + taskId + '&status=' + status);
 
-    if (status === 'completed') {
-        if ("<?php echo $type; ?>" === 'admin') {
-            // Send a notification to admin
-            var notificationMessage = "Task #" + taskId +
-                " has been marked as completed by user <?php echo $_SESSION['username']; ?>";
-            sendNotificationToAdmin(notificationMessage);
-        }
-    }
-}
-
-function sendNotification(username, message) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
+    function sendNotification(username, message) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 // Notification sent successfully
@@ -406,11 +381,11 @@ function sendNotification(username, message) {
     xhr.open('POST', 'send_notification.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send('username=' + encodeURIComponent(username) + '&message=' + encodeURIComponent(message));
-}
+    }
 
-function deleteFile(fileId) {
-    var confirmDelete = confirm('Are you sure you want to delete this file?');
-    if (confirmDelete) {
+    function deleteFile(fileId) {
+        var confirmDelete = confirm('Are you sure you want to delete this file?');
+        if (confirmDelete) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -425,12 +400,12 @@ function deleteFile(fileId) {
         xhr.open('POST', 'delete_file.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send('file_id=' + fileId);
+        }
     }
-}
 
-function deleteTask(taskId) {
-    var confirmDelete = confirm('Are you sure you want to delete this task?');
-    if (confirmDelete) {
+    function deleteTask(taskId) {
+        var confirmDelete = confirm('Are you sure you want to delete this task?');
+        if (confirmDelete) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -451,11 +426,11 @@ function deleteTask(taskId) {
         xhr.open('POST', 'delete_task.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send('task_id=' + taskId);
+        }
     }
-}
-function clearNotifications() {
-    var confirmClear = confirm('Are you sure you want to clear all notifications?');
-    if (confirmClear) {
+    function clearNotifications() {
+        var confirmClear = confirm('Are you sure you want to clear all notifications?');
+        if (confirmClear) {
         // Perform the action to clear notifications
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -482,21 +457,54 @@ function clearNotifications() {
         xhr.open('POST', 'clear_notifications_read.php', true); // Change the URL to the script that clears notifications
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send();
+        }
     }
-}
     function updateNotificationCount(count) {
         var notificationCountElement = document.getElementById('notificationCount');
         notificationCountElement.innerText = count;
     }
 
-    function sendNotificationToAdmin(message) {
-        var adminUsername = "<?php echo $adminUsername; ?>"; // Replace with actual admin username
-        sendNotification(adminUsername, message);
+    document.addEventListener("DOMContentLoaded", function() {
+    am4core.ready(function() {
+        // Create chart instance
+        var chart = am4core.create("chartDiv", am4charts.XYChart);
 
-        // Update the notification count
-        var notificationCountElement = document.getElementById('notificationCount');
-        var currentCount = parseInt(notificationCountElement.innerText);
-        notificationCountElement.innerText = currentCount + 1;
-    }
+        // Add data
+        chart.data = <?php echo $chartDataJSON; ?>;
+
+        // Create axes
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "stateid";
+        categoryAxis.title.text = "State ID";
+        categoryAxis.renderer.labels.template.rotation = 0;
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "Total LCID";
+        valueAxis.min = 5;
+        valueAxis.max = 45;
+
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "total_lcid";
+        series.dataFields.categoryX = "stateid";
+        series.name = "Total LCID";
+        series.columns.template.tooltipText = "State ID: {categoryX}\nTotal LCID: {valueY}";
+
+        // Set the column width
+        series.columns.template.width = am4core.percent(40);
+
+        // Set up fade-in animation
+        series.columns.template.hiddenState.properties.opacity = 0;
+        series.columns.template.showOnInit = true;
+
+        // Trigger the fade-in animation on chart's ready event
+        chart.events.on("ready", function() {
+            series.columns.each(function(column) {
+                column.animate({ property: "opacity", to: 1 }, 1000); // Adjust duration as needed
+            });
+        });
+    });
+});
+
         </script>
 </html>

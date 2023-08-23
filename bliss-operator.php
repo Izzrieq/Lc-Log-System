@@ -44,7 +44,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
     });
 </script>
 
-<body class="bg-neutral-50">
+<body class="bg-neutral-50" style="height: 120vh;">
     <!-- navbar -->
     <center class="font-bold text-2xl mt-4">LIST COMPLAINT</center>
     <div class="relative overflow-x-auto shadow-md p-3">

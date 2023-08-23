@@ -116,7 +116,6 @@ function getUnreadNotificationCountForAdmin($adminUsername) {
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Progress</a>
                     <?php if ($_SESSION['type'] === 'admin') { ?>
             <a href="task.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Task</a>
-            <a href="register.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Register</a>
         <?php } ?>
                 </div>
             </nav>
