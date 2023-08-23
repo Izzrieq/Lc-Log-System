@@ -44,66 +44,74 @@ if(isset($_POST['id'])) {
     <link rel="stylesheet" href="styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body class="bg-neutral-50">
     <!-- component -->  
+    <div class="p-3">                              
+        <button class="rounded-md bg-blue-700 text-white text-sm px-3 py-2 m-2" type="back"
+                onclick="history.back()">BACK
+        </button>
+    </div>
     <div class="container-box" style="display: flex; justify-content:center;">
-        <div class="bg-gray-200 min-h-screen pt-0 font-mono my-5">
+        <div class="bg-gray-200 min-h-screen pt-0 mt-0 mb-4">
             <div class="container mx-auto">
                 <form action="tlcp-add.php" method="POST" name="form-tlcp-add">
-                <div class="inputs w-full max-w-xl p-6">
-                    <div class='flex items-center justify-between mt-2'>
-                        <div class="personal w-full pt-2">
-                            <h2 class="text-2xl font-bold text-gray-900">ADD TLCP :</h2>
-                            <i class="fa fa-undo" aria-hidden="true" onclick="history.back()"></i>
-                            <div class="flex items-center justify-between mt-4">
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>ID
-                                    </label>
-                                    <input name="id" type="text"
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
+                    <div class="inputs w-full max-w-xl p-6">
+                        <div class='flex items-center justify-between mt-2'>
+                            <div class="personal w-full pt-2">
+                                <h2 class="text-center text-2xl font-bold text-gray-900">ADD TLCP</h2>
+                                <div class="flex items-center justify-between mt-4">
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ID
+                                        </label>
+                                        <input name="id" type="text"
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>State
+                                            ID
+                                        </label>
+                                        <input name="stateid" type="text"
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Biz
+                                            Type
+                                        </label>
+                                        <input name="bizstype" type='text'
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
+                                    </div>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>State
-                                        ID
-                                    </label>
-                                    <input name="stateid" type="text"
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Little
+                                        Caliph
+                                        ID</label>
+                                    <input name="lcid" type="text"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
                                 </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Biz
-                                        Type
-                                    </label>
-                                    <input name="bizstype" type='text'
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
-                                </div>
-                            </div>
-                            <div class='w-full md:w-1/2 px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Little
-                                    Caliph
-                                    ID</label>
-                                <input name="lcid" type="text"
-                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
-                            </div>
-                            <div class='w-full md:w-full px-3 mb-6'>
-                                <label
-                                    class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Operator
-                                    Name</label>
-                                <input name="operatorname" type="text"
-                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
-                            </div>
-                            <div class='w-full md:w-full px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Owner
-                                    Name</label>
-                                <input name="ownername" type="text"
-                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
-                            </div>
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Kindergarten 
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
+                                        Name</label>
+                                    <input name="operatorname" type="text"
+                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
+                                </div>
+                                <div class='w-full md:w-full px-3 mb-6'>
+                                    <label
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Owner
+                                        Name</label>
+                                    <input name="ownername" type="text"
+                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500' />
+                                </div>
+                                <div class='w-full md:w-full px-3 mb-6'>
+                                    <label
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Kindergarten
                                         Number
                                     </label>
                                     <input
@@ -112,7 +120,7 @@ if(isset($_POST['id'])) {
                                 </div>
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-base font-bold mb-2'>Edu
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Edu
                                         Email
                                     </label>
                                     <input
@@ -122,13 +130,16 @@ if(isset($_POST['id'])) {
                             </div>
                         </div>
                         <div class="flex justify-center">
-                        <button class="w-full pr-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2.5 px-3 border border-green-700 rounded" type="submit">SUBMIT</button>
+                            <button
+                                class="w-full pr-4 bg-green-500 hover:bg-green-700 text-white text-xs font-bold py-2.5 px-3 border border-green-700 rounded"
+                                type="submit">SUBMIT</button>
                         </div>
                     </div>
-                </div>
-                </form> 
             </div>
+            </form>
         </div>
     </div>
+    </div>
 </body>
+
 </html>

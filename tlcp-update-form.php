@@ -17,9 +17,10 @@ include "COMPONENT/header.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLCP Update</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="styles/style.css">
+    <!-- <link rel="stylesheet" href="styles/style.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script>
         function printWithLandscape() {
@@ -82,6 +83,11 @@ while ($res = mysqli_fetch_array($result)) {
 <body class="bg-neutral-50">
     <!-- component -->
     <!-- component -->
+    <div class="pl-8 py-2">
+        <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2" 
+                type="back" onclick="history.back()">BACK
+        </button>
+    </div>
     <form action="COMPONENT/FUNCTION/tlcp-updates.php" method="POST">
         <div class="container-box" style="display: flex; justify-content:center;">
             <div class="bg-gray-200 min-h-screen pt-0 my-0">
@@ -312,11 +318,6 @@ while ($res = mysqli_fetch_array($result)) {
                                         class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white'><?php echo $opsaddress; ?></textarea>
                                 </div>
                                 <div class="flex justify-end">
-                                    <button class="rounded-md bg-blue-700 text-white p-2 m-2" type="back"
-                                        onclick="goToPreviousPage()">BACK</button>
-                                    <button
-                                        class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 p-2 m-2"
-                                        onclick="printWithLandscape()">PRINT</button>
                                     <button type="submit" name="update"
                                         class="rounded-md bg-green-700 text-white p-2 m-2">SAVE CHANGES
                                     </button>

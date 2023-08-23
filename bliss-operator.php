@@ -46,15 +46,15 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
 
 <body class="bg-neutral-50" style="height: 120vh;">
     <!-- navbar -->
-    <center class="font-bold text-2xl mt-4">LIST COMPLAINT</center>
+    <center class="font-bold text-2xl mt-2">LIST COMPLAINT</center>
     <div class="relative overflow-x-auto shadow-md p-3">
-        <div class="input-group mb-2 mt-2">
+        <div class="input-group mb-2 mt-0">
             <div class="form-outline ml-3">
                 <input class="w-40 rounded-md" type="text" id="getName" placeholder="Search" />
             </div>
         </div>
         <div class="overflow-hidden">
-            <div class="flex flex-col pt-6 pr-4 pl-4">
+            <div class="flex flex-col pt-2 pr-4 pl-4">
                 <div class="overflow-x-auto sm:-mx-8 lg:-mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-8 lg:px-8">
                         <table class="min-w-full border text-center bg-white" id="table-data">
@@ -142,9 +142,9 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                             <a href="bliss-addcomplain.php" class="text-white">ADD ISSUE</a>
                         </button>
                         <nav class="flex items-center justify-between pt-2" aria-label="Table navigation">
-                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3">Showing
+                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3 mb-8">Showing
                                 <span><?php echo $rows_per_pages; ?> Data</span> of <?php echo $pages ?> Pages</span>
-                            <ul class="inline-flex -space-x-px text-sm h-8 mr-3">
+                            <ul class="inline-flex -space-x-px text-sm h-8 mr-3 mb-8">
                                 <li>
                                     <a href="?page-nr=1"
                                         class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-white bg-gray-700 border border-gray-300 rounded-l-lg hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
