@@ -23,40 +23,51 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    
-    <style>
-        @media (max-width:320px){
 
-        }
+    <style>
+        @media (max-width:320px) {}
+
         @media (max-width:1024px) {
-            th, td{
+
+            th,
+            td {
                 font-size: 0.80rem;
             }
         }
+
         @media (max-width:768px) {
-            th, td{
+
+            th,
+            td {
                 font-size: 0.60rem;
                 padding: 0;
             }
-            .bg-green-500{
+
+            .bg-green-500 {
                 font-size: 0.60rem;
             }
-            .w-40{
-                width:126px;
+
+            .w-40 {
+                width: 126px;
                 font-size: 0.60rem;
                 padding: 5px;
             }
         }
+
         @media (max-width:425px) {
-            th, td{
+
+            th,
+            td {
                 font-size: 0.30rem;
                 padding: 0;
             }
-            .bg-green-500{
+
+            .bg-green-500 {
                 font-size: 0.30rem;
             }
-            .w-40{
-                width:126px;
+
+            .w-40 {
+                width: 126px;
                 font-size: 0.30rem;
                 padding: 5px;
             }
@@ -67,13 +78,17 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
 <body class="bg-neutral-50 ">
 
     <center class="font-bold text-2xl mt-6">LIST TLCP</center>
-    <button
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
-        <a href='tlcp-add.php'>ADD TLCP</a>
-    </button>
-    <div class="input-group mb-4 mt-2">
-        <div class="form-outline ml-3">
-            <input class="w-40 rounded-md" type="text" id="search" name="search" placeholder="Search" />
+    <div class="grid justify-items-stretch">
+        <div class="justify-self-end mr-3">
+            <button
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
+                <a href='tlcp-add.php'>ADD TLCP</a>
+            </button>
+        </div>
+        <div class="input-group justify-self-start mb-2">
+            <div class="form-outline ml-3">
+                <input class="w-40 rounded-md" type="text" id="search" name="search" placeholder="Search" />
+            </div>
         </div>
     </div>
     <div class="overflow-hidden m-0 p-0 ">

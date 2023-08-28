@@ -48,7 +48,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
     }
 </style>
 
-<body class="bg-neutral-50 text-xs font-medium">
+<body class="bg-neutral-50">
     <!-- component -->
     <!-- component -->
     <div class="container-box pb-20 " style="display: flex; justify-content:center;">
@@ -57,7 +57,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                 <div class="inputs w-full max-w-xl p-6">
                     <div class='flex items-center justify-between mt-2'>
                         <div class="personal w-full pt-2">
-                            <h2 class="text-2xl text-gray-900 text-lg">TLCP INFO:</h2>
+                            <h2 class="text-2xl text-gray-900 text-lg">TLCP INFO</h2>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ID

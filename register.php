@@ -80,30 +80,23 @@ $departments = mysqli_fetch_all($departments_result, MYSQLI_ASSOC);
     <link rel="stylesheet" href="COMPONENT/STYLE/style.css">
 
 </head>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
-</style>
 
-<body class="m-0 p-0 font-sans md:font-serif overflow-y-hidden">
+<body class="bg-neutral-50 m-0 p-0 font-medium md:font-serif ">
     <header class="d-flex justify-content-between bg-white ">
         <div class="w-25 p-0 h-25 d-inline-block">
             <a href="index.php">
-                <img class="w-100 m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png"
+                <img class="w-full m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png"
                     alt="logo">
             </a>
         </div>
         <div class="p-0 ">
-            <h1 class="mt-5 m-3 h1 text-primary">BLISS CUSTOMER E-LOG</h1>
+            <h1 class="m-3 h1 text-primary">BLISS CUSTOMER E-LOG</h1>
         </div>
     </header>
-    <div class="bg-grey-lighter min-h-screen flex flex-col">
-        <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-            <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                <h2 class="mb-8 text-3xl text-center">Register New User</h2>
+    <div class="bg-grey-lighter min-h-screen flex-col">
+        <div class="container max-w-sm mx-auto flex flex-col items-center justify-center px-2 mt-2">
+            <div class="bg-white px-6 py-3 rounded shadow-md text-black w-full md:full">
+                <h2 class="text-2xl text-center">Register New User</h2>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div>
                         <label>Username:</label>
@@ -136,7 +129,7 @@ $departments = mysqli_fetch_all($departments_result, MYSQLI_ASSOC);
                         <span><?php echo $department_err; ?></span>
                     </div>
                     <div>
-                        <input type="submit" value="Register">
+                        <input type="submit" value="Register" class="w-full text-white bg-sky-400 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 p-2">
                     </div>
                 </form>
             </div>

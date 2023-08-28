@@ -25,7 +25,7 @@
     </style>
 </head>
 
-<body class="bg-neutral-50 ">
+<body class="bg-neutral-50">
 
     <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo strtoupper($_SESSION['username']); ?>!<br>
         <h5 class="px-7 text-secondary"><?php echo ($_SESSION['type'])?></h5>
