@@ -12,42 +12,47 @@
 
 </head>
 <body>
-    <center>
-    <div class="relative overflow-x-auto">
-        <table class="w-full text-left text-black">
+<form action="print-selection.php" method="post">
+        <table>
             <tr>
-                <th>NO.</th>
-                <th>LC ID</th>
-                <th>DATE/TIME</th>
-                <th>TOTAL</th>
+                <th>Lcid</th>
+                <th>Date</th>
+                <th>Type</th>
             </tr>
-
-            <?php   
-    $sql = "SELECT * FROM complaintbliss";
-    $lcid = $_POST["lcid"];
-	$date = date("Y-m-d H:i:s");
-    $year = 2019;  //laporan untuk tahun semasa
-    $listmonth = array("JAN","FEB","MAR","APR","MAY", 
-                     "JUNE","JULY","AUG","SEPT","OCT","NOV","DEC");
-    $bil = 1;
-    ?>
-
             <tr>
-                <td><?php echo $bil; ?></td>
-                <td><?php echo $lcid; ?></td>             
-                <td><?php echo $date; ?></td>
-                <td>
-
-    <?php 
-        $bil = $bil + 1;  
-    ?>
+                <td><select name="lcid">
+                <?php
+                    //masukkan nama homestay dari jadual
+                    $sql = "select * from lcdetails";
+                    $data = mysqli_query($conn, $sql);
+                    while ($lcid = mysqli_fetch_array($data)) {
+                      echo "<option value='$lcid[lcid]'>$lcid[lcid]</option>";
+                    }
+                ?> 
+                </select>
+                <td><select name="bulan">
+                    <?php
+                        //masukkan nama bulan dalam pilihan
+                        $bulan = array("January", "February", "March", "April", "Mai", "June",
+                                      "July", "August","September","October", "November", "December");
+                        for($i = 0; $i < 12; $i++ ) {
+                            $b = $i + 1;
+                            echo "<option value = $b> $bulan[$i] </option>";
+                        }
+                    ?> 
+                </select>
                 </td>
+                <td><select name="pilihan">
+                    <option value=1>Semua Lcid, Semua Bulan</option>
+                    <option value=2>Mengikut Lcid</option>
+                    <option value=3>Mengikut Bulan</option>
+                    <option value=4>Mengikut Lcid dan Bulan</option>
+                    </select>
+                </td>    
             </tr>
-        </table><button style="background-image: url(image/printer-icon.png);" onclick="window.print()">Cetak</button>
-    </div>
-    </center>
-   
-
+        </table>
+        <button style="background-image: url(image/printer-icon.png);" type="submit">Papar</button>
+    </form>
 </body>
 
 </html> 
