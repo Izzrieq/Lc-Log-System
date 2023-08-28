@@ -49,11 +49,11 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
     <center class="font-bold text-2xl mt-2">LIST COMPLAINT</center>
     <button
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
-        <a class="text-white no-underline" href='bliss-addcomplain.php'>ADD ISSUE</a>
+        <a class="text-white no-underline" href='bliss-addcomplaint.php'>ADD ISSUE</a>
     </button>
-    <div class="input-group mb-4 mt-2">
+    <div class="input-group mt-2">
         <div class="form-outline ml-3">
-            <input class="w-ful rounded-md" type="text" id="getName" placeholder="Search"/>
+            <input class="w-ful rounded-md" type="text" id="getName" placeholder="Search" />
         </div>
     </div>
     <div class="relative shadow-md p-3">
@@ -112,14 +112,15 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                     <td class="border-r text-l"><?php echo $r['type']; ?></td>
                                     <?php if ($_SESSION['type'] === 'admin') { ?>
                                     <td class="d-flex justify-content-center">
-                                        <a href='bliss-updatecomplain-form.php?id=<?php echo $r['id'];?>'><button
+                                        <a href='bliss-infocomplaint.php?id=<?php echo $r['id'];?>'><button
+                                                class="rounded-md bg-gray-400 text-white p-2 m-2">Info</button></a>
+                                        <a href='bliss-updatecomplaint-form.php?id=<?php echo $r['id'];?>'><button
                                                 class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
-                                        <a href='bliss-deletecomplain.php?id=<?php echo $r['id'];?>'
+                                        <a href='bliss-deletecomplaint.php?id=<?php echo $r['id'];?>'
                                             onclick="return confirm('Are you sure you want to delete?')"><button
                                                 class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
-                                        <a href='bliss-actioncomplain.php?id=<?php echo $r['id'];?>'><button
-                                                class="rounded-md bg-green-700 text-white p-2 m-2">Send
-                                                Email</button></a>
+                                        <a href='bliss-actioncomplaint.php?id=<?php echo $r['id'];?>'><button
+                                                class="rounded-md bg-green-700 text-white p-2 m-2">Email</button></a>
                                     </td>
                                     <?php } ?>
                                 </tr>
