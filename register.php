@@ -82,56 +82,68 @@ $departments = mysqli_fetch_all($departments_result, MYSQLI_ASSOC);
 </head>
 <style>
     body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
- }
-
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
 </style>
+
 <body class="m-0 p-0 font-sans md:font-serif overflow-y-hidden">
-<header class="d-flex justify-content-between bg-white ">
+    <header class="d-flex justify-content-between bg-white ">
         <div class="w-25 p-0 h-25 d-inline-block">
             <a href="index.php">
-            <img  class="w-100 m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
+                <img class="w-100 m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png"
+                    alt="logo">
             </a>
         </div>
         <div class="p-0 ">
             <h1 class="mt-5 m-3 h1 text-primary">BLISS CUSTOMER E-LOG</h1>
         </div>
-</header>
-<h2>Register New User</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div>
-            <label>Username:</label>
-            <input type="text" name="username" value="<?php echo $username; ?>">
-            <span><?php echo $username_err; ?></span>
+    </header>
+    <div class="bg-grey-lighter min-h-screen flex flex-col">
+        <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+            <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                <h2 class="mb-8 text-3xl text-center">Register New User</h2>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <div>
+                        <label>Username:</label>
+                        <input type="text" name="username" class="block border border-grey-light w-full p-3 rounded mb-4" 
+                         value="<?php echo $username; ?>">
+                        <span><?php echo $username_err; ?></span>
+                    </div>
+                    <div>
+                        <label>Password:</label>
+                        <input type="password" name="password" class="block border border-grey-light w-full p-3 rounded mb-4"
+                         value="<?php echo $password; ?>">
+                        <span><?php echo $password_err; ?></span>
+                    </div>
+                    <div>
+                        <label>Confirm Password:</label>
+                        <input type="password" name="confirm_password" class="block border border-grey-light w-full p-3 rounded mb-4"
+                         value="<?php echo $confirm_password; ?>">
+                        <span><?php echo $confirm_password_err; ?></span>
+                    </div>
+                    <div>
+                        <label>Department:</label>
+                        <select name="department" class="block border border-grey-light w-full p-3 rounded mb-4">
+                            <?php foreach ($departments as $dept) { ?>
+                            <option value="<?php echo $dept['department_name']; ?>"
+                                <?php echo ($department == $dept['department_name']) ? 'selected' : ''; ?>>
+                                <?php echo $dept['department_name']; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                        <span><?php echo $department_err; ?></span>
+                    </div>
+                    <div>
+                        <input type="submit" value="Register">
+                    </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <label>Password:</label>
-            <input type="password" name="password" value="<?php echo $password; ?>">
-            <span><?php echo $password_err; ?></span>
-        </div>
-        <div>
-            <label>Confirm Password:</label>
-            <input type="password" name="confirm_password" value="<?php echo $confirm_password; ?>">
-            <span><?php echo $confirm_password_err; ?></span>
-        </div>
-        <div>
-    <label>Department:</label>
-    <select name="department">
-        <?php foreach ($departments as $dept) { ?>
-            <option value="<?php echo $dept['department_name']; ?>" <?php echo ($department == $dept['department_name']) ? 'selected' : ''; ?>>
-                <?php echo $dept['department_name']; ?>
-            </option>
-        <?php } ?>
-    </select>
-    <span><?php echo $department_err; ?></span>
-</div>
-        <div>
-            <input type="submit" value="Register">
-        </div>
-    </form>
+    </div>
 </body>
+
 </html>
 
 <?php include "COMPONENT/footer.php" ?>
