@@ -19,8 +19,6 @@
                 <table class="w-full text-left text-black">
                         <tr class="text-black uppercase bg-gray-700 border-b">
                             <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">LCID</th>
-                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">CATEGORY COMPLAINT :</th>
-                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">TYPE COMPLAIN</th>
                             <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">MONTH</th>
                             <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">TYPE OF REPORT</th>
                         </tr>
@@ -33,25 +31,6 @@
                     $data = mysqli_query($conn, $sql);
                     while ($lcid = mysqli_fetch_array($data)) {
                       echo "<option value='$lcid[lcid]'>$lcid[lcid]</option>";
-                    }
-                ?>
-                            </select>
-                        <td><select name="category">
-                                <?php
-                    //masukkan category dari jadual complaint bliss
-                    $sql = "SELECT * FROM complaintbliss";
-                    $data = mysqli_query($conn, $sql);
-                    while ($category = mysqli_fetch_array($data)) {
-                      echo "<option value='$category[category]'>$category[category]</option>";
-                    }
-                ?>
-                        <td><select name="type">
-                                <?php
-                    //masukkan type dari jadual complaint bliss
-                    $sql = "SELECT * FROM complaintbliss";
-                    $data = mysqli_query($conn, $sql);
-                    while ($type = mysqli_fetch_array($data)) {
-                      echo "<option value='$type[type]'>$type[type]</option>";
                     }
                 ?>
                             </select>

@@ -47,12 +47,16 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
 <body class="bg-neutral-50" style="height: 120vh;">
     <!-- navbar -->
     <center class="font-bold text-2xl mt-2">LIST COMPLAINT</center>
-    <div class="relative overflow-x-auto shadow-md p-3">
-        <div class="input-group mb-2 mt-0">
-            <div class="form-outline ml-3">
-                <input class="w-40 rounded-md" type="text" id="getName" placeholder="Search" />
-            </div>
+    <button
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
+        <a class="text-white no-underline" href='bliss-addcomplain.php'>ADD ISSUE</a>
+    </button>
+    <div class="input-group mb-4 mt-2">
+        <div class="form-outline ml-3">
+            <input class="w-ful rounded-md" type="text" id="getName" placeholder="Search"/>
         </div>
+    </div>
+    <div class="relative shadow-md p-3">
         <div class="overflow-hidden">
             <div class="flex flex-col pt-2 pr-4 pl-4">
                 <div class="overflow-x-auto sm:-mx-8 lg:-mx-8">
@@ -95,19 +99,6 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
 
                 //total display
                 $rows_per_pages = 5;
-                
-                //get total
-                $records = $conn->query("SELECT * FROM complaintbliss");
-                $nr_of_rows = $records->num_rows;
-
-                //calculating pages
-                $pages = ceil($nr_of_rows / $rows_per_pages);
-
-                //if the user click on pagination set a new starting point
-                if(isset($_GET['page-nr'])){
-                    $pages = $_GET['page-nr'] - 1;
-                    $start = $pages * $rows_per_pages;
-                }
 
                 $result = mysqli_query($conn,"SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages"); 
                 while ($r = mysqli_fetch_array($result)){
@@ -137,76 +128,6 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 }
                 ?>
                         </table>
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 font-bold mt-2 py-2 px-3 border border-blue-700 rounded">
-                            <a href="bliss-addcomplain.php" class="text-white">ADD ISSUE</a>
-                        </button>
-                        <nav class="flex items-center justify-between pt-2" aria-label="Table navigation">
-                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 ml-3 mb-8">Showing
-                                <span><?php echo $rows_per_pages; ?> Data</span> of <?php echo $pages ?> Pages</span>
-                            <ul class="inline-flex -space-x-px text-sm h-8 mr-3 mb-8">
-                                <li>
-                                    <a href="?page-nr=1"
-                                        class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-white bg-gray-700 border border-gray-300 rounded-l-lg hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">First</a>
-                                </li>
-                                <li>
-                                    <?php 
-                    if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1){
-                        ?>
-                                    <a href="?page-nr=<?php echo $_GET['page-nr'] - 1 ?>"
-                                        class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                                    <?php
-                    }else{
-                        ?>
-                                    <a href=""
-                                        class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                                    <?php
-                    }
-                ?>
-                                </li>
-                                <li class="flex items-center">
-                                    <!-- Page Number -->
-
-                                    <?php
-                for($counter = 1; $counter <= $pages; $counter ++ ){
-                    ?>
-                                    <a href="?page-nr=<?php echo $counter ?>"
-                                        class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?php echo $counter ?></a>
-                                    <?php
-                }
-            ?>
-                                </li>
-                                <!-- <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a> -->
-
-                                <!-- Next page -->
-                                <li>
-                                    <?php
-                if(!isset($_GET['page-nr'])){
-                    ?>
-                                    <a href="?page-nr=2"
-                                        class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                                    <?php
-                }else{
-                    if($_GET['page-nr'] >= $pages){
-                        ?>
-                                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
-                                        class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                                    <?php
-                    }else{
-                        ?>
-                                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1 ?>"
-                                        class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300  hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                                    <?php
-                    }
-                }
-                ?>
-                                </li>
-                                <li>
-                                    <a href="?page-nr=<?php echo $pages ?>"
-                                        class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-gray-700 border border-gray-300 rounded-r-lg hover:bg-gray-800 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Last</a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                     <script>
                         $(document).ready(function () {

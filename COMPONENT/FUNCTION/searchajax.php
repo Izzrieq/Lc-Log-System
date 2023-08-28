@@ -27,6 +27,8 @@
     <?php 
  include("../DB/config.php");
 
+ session_start(); // Start the session
+
  $cname = $_POST['cname'];
  $start = 0;
 
@@ -38,28 +40,31 @@
  $data = '';
  
  while ($row = mysqli_fetch_assoc($query)) {
-     $data .=  "<tr class='bg-gray-100'>
-        <td class='border-r text-l py-2 px-4'>".$row['id']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['date']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['cname']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['cnohp']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['category']."</td>
-        <td class='border-r text-l py-2 px-4'>".$row['type']."</td> 
-        "if ($_SESSION['type'] === 'admin') {"
-        <td class='border-r text-l py-2 px-2'>
-          <a href='bliss-updatecomplain.php?id=".$row['id']."'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
-          <a href='bliss-deletecomplain.php?id=".$row['id']."'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
-          <a href='bliss-actioncomplain.php?id=".$row['id']."'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
-        </td>
-        "}"
-        </tr>";
- }
+    $data .= "<tr class='bg-gray-100'>
+        <td class='border-r text-l py-2 px-4'>" . $row['id'] . "</td>
+        <td class='border-r text-l py-2 px-4'>" . $row['date'] . "</td>
+        <td class='border-r text-l py-2 px-4'>" . $row['cname'] . "</td>
+        <td class='border-r text-l py-2 px-4'>" . $row['cnohp'] . "</td>
+        <td class='border-r text-l py-2 px-4'>" . $row['category'] . "</td>
+        <td class='border-r text-l py-2 px-4'>" . $row['type'] . "</td>";
+
+    if ($_SESSION['type'] === 'admin') {
+        $data .= "<td class='border-r text-l py-2 px-2'>
+          <a href='bliss-updatecomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
+          <a href='bliss-deletecomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
+          <a href='bliss-actioncomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
+        </td>";
+    }
+
+    $data .= "</tr>";
+}
  ?>
 </head>
 
 <body>
-    <!-- ... (search input and table header) ... -->
-    <!-- <div class="relative overflow-x-auto shadow-md p-3"> -->
+<?php
+    if (mysqli_num_rows($query) > 0) {
+    ?>
     <table class="w-full text-centerw-full text-center text-grey-500 dark:text-gray-400">
         <thead class="text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
             <tr class="border-b bg-gray-700">
@@ -79,7 +84,11 @@
             <?php echo $data; ?>
         </tbody>
     </table>
-    <!-- ... (Pagination and other content) ... -->
+    <?php
+    } else {
+        echo "<h1 class='text-center text-danger mt-5'>No data found</h1>";
+    }
+    ?>
     </div>
 </body>
 

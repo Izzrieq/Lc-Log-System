@@ -21,11 +21,11 @@ while ($row = $result->fetch_assoc()) {
     $startDateTime = $row['start_date'] . ' ' . $row['start_time'];
     
     $events[] = [
-        'title' => $row['title'],
+        'id' => $row['event_id'], // Add the event_id property
+        'title' => $row['title'] . ' (' . $row['start_time'] . ')',
         'start' => $startDateTime,
         'end' => $row['end_date'],
         'departmentTitle' => $row['department']
-        // Use a different key, like 'departmentTitle'
     ];
 }
 

@@ -19,14 +19,14 @@
 
 </style>
 <body class="m-0 p-0 font-sans md:font-serif overflow-y-hidden">
-<header class="d-flex justify-content-between bg-white ">
-        <div class="w-25 p-0 h-25 d-inline-block">
+<header class="d-flex justify-content-between">
+        <div class="w-25 p-0 h-25 d-inline-block ml-2 md:w-32 lg:w-48">
             <a href="index.php">
-            <img  class="w-100 m-0 h-100 d-inline-block" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
+            <img  class="w-100 m-0 h-100 d-inline-block " src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
             </a>
         </div>
-        <div class="p-0 ">
-            <h1 class="mt-5 m-3 h1 text-primary">BLISS CUSTOMER E-LOG</h1>
+        <div class="p-3 h-full max-lg:hidden">
+            <h1 class="mt-3 m-3 h1 text-primary ">BLISS CUSTOMER E-LOG</h1>
         </div>
 </header>
 
