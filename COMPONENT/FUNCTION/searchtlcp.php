@@ -26,91 +26,91 @@
     <?php 
  include("../DB/config.php");
 
-    $searchQuery = $_POST['lcid'];
-    $start = 0;
-
-    //total display per page
-    $rows_per_pages = 35;
-
-    $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id ASC LIMIT $start, $rows_per_pages";
-    $result = mysqli_query($conn, $sql);
-    $lciddata = '';
-
-        while ($row = mysqli_fetch_array($result)) {
-         $lcid = $row['lcid'];
-         $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = '$lcid'";
-         $complaintCountResult = mysqli_query($conn, $complaintCountQuery);
-         $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
-        $complaintCount = $complaintCountRow['complaint_count'];
-         $lciddata .=  "<tr class='bg-white'>
-        <td class='border-r border-b'>".$row['id']."</td>
-        <td class='border-r border-b'>".$row['stateid']."</td>
-        <td class='border-r border-b'>".$row['bizstype']."</td>
-        <td class='border-r border-b px-2'>".$row['lcid']."</td>
-        <td class='border-r border-b px-8'>".$row['operatorname']."</td>
-        <td class='border-r border-b px-8'>".$row['ownername']."</td>    
-        <td class='border-r border-b px-2'>".$row['eduemail']."</td>   
-        <td class='border-r border-b px-0'>".$row['kindernohp']."</td>   
-        <td class='border-r border-b'>".$complaintCount."</td>
-        "if ($_SESSION['type'] === 'admin') {"
-        <td class='border-r border-b p-2 flex items-center justify-between mt-2'>
-          <a href='tlcp-info.php?id=".$row['id']."'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
-          <a href='tlcp-update-form.php?id=".$row['id']."'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>UPDATE</button></a>
-          <a href='tlcp-delete.php?id=".$row['id']."'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
-        </td>
-        "}"
     
-        </tr>";
-        }
+ session_start();
+ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+     echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+     exit;
+ }
+ 
+ $searchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : ''; // Use the correct key here
+ $start = 0;
+ $rows_per_pages = 50;
+ 
+ $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id ASC LIMIT $start, $rows_per_pages";
+ $result = mysqli_query($conn, $sql);
+ $lciddata = '';
+ 
+ while ($row = mysqli_fetch_array($result)) {
+    $lcid = $row['lcid'];
+    $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = '$lcid'";
+    $complaintCountResult = mysqli_query($conn, $complaintCountQuery);
+    $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
+    $complaintCount = $complaintCountRow['complaint_count'];
+    $lciddata .= "<tr class='bg-white'>
+        <td class='border-r border-b'>" . $row['id'] . "</td>
+        <td class='border-r border-b'>" . $row['stateid'] . "</td>
+        <td class='border-r border-b'>" . $row['bizstype'] . "</td>
+        <td class='border-r border-b px-2'>" . $row['lcid'] . "</td>
+        <td class='border-r border-b px-8'>" . $row['operatorname'] . "</td>
+        <td class='border-r border-b px-0'>" . $row['kindernohp'] . "</td>
+        <td class='border-r border-b'>" . $complaintCount . "</td>";
+
+    if ($_SESSION['type'] === 'admin') {
+        $lciddata .= "<td class='border-r border-b p-2 flex items-center justify-between mt-2'>
+            <a href='tlcp-info.php?id=" . $row['id'] . "'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
+            <a href='tlcp-update-form.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>UPDATE</button></a>
+            <a href='tlcp-delete.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
+        </td>";
+    }
+
+    $lciddata .= "</tr>";
+}
 ?>
 </head>
 
 <body>
-    <!-- ... (search input and table header) ... -->
-    <!-- <div class="relative overflow-x-auto shadow-md p-3"> -->
-                    <table class="w-full text-center text-grey-500 dark:text-gray-400">
-                        <thead class="text-center uppercase">
-                            <tr class="border-b bg-gray-700">
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    ID
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    STATE_ID
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    BIZ_TYPE
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
-                                    LITTLECALIPH_ID
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    OPERATOR_NAME
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    OWNER_NAME
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    EDU_EMAIL
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    KINDERGARTEN NUMBER
-                                </th>
-                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    COMPLAINT COUNT
-                                </th>
-                                <?php if ($_SESSION['type'] === 'admin') { ?>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    ACTION
-                                </th>
-                                <?php } ?>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white text-black">
-                            <?php echo $lciddata; ?>
-                        </tbody>
-                    </table>
-    </div>
-    <!-- ... (Pagination and other content) ... -->
+<?php
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+    <table class="w-full text-center text-grey-500 dark:text-gray-400">
+        <thead class="text-center uppercase">
+            <tr class="border-b bg-gray-700">
+                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                    ID
+                </th>
+                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                    STATE_ID
+                </th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                    BIZ_TYPE
+                </th>
+                <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
+                    LITTLECALIPH_ID
+                </th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                    OPERATOR_NAME
+                </th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                    KINDERGARTEN NUMBER
+                </th>
+                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                    COMPLAINT COUNT
+                </th>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                    ACTION
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-white text-black">
+            <?php echo $lciddata; ?>
+        </tbody>
+    </table>
+    <?php
+    } else {
+        echo "<h1 class='text-center text-danger mt-5'>No data found</h1>";
+    }
+    ?>
 </body>
 
 </html>

@@ -47,12 +47,16 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
 <body class="bg-neutral-50" style="height: 120vh;">
     <!-- navbar -->
     <center class="font-bold text-2xl mt-2">LIST COMPLAINT</center>
-    <div class="relative overflow-x-auto shadow-md p-3">
-        <div class="input-group mb-2 mt-0">
-            <div class="form-outline ml-3">
-                <input class="w-40 rounded-md" type="text" id="getName" placeholder="Search" />
-            </div>
+    <button
+        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
+        <a class="text-white no-underline" href='bliss-addcomplain.php'>ADD ISSUE</a>
+    </button>
+    <div class="input-group mb-4 mt-2">
+        <div class="form-outline ml-3">
+            <input class="w-ful rounded-md" type="text" id="getName" placeholder="Search"/>
         </div>
+    </div>
+    <div class="relative shadow-md p-3">
         <div class="overflow-hidden">
             <div class="flex flex-col pt-2 pr-4 pl-4">
                 <div class="overflow-x-auto sm:-mx-8 lg:-mx-8">
@@ -95,19 +99,6 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
 
                 //total display
                 $rows_per_pages = 5;
-                
-                //get total
-                $records = $conn->query("SELECT * FROM complaintbliss");
-                $nr_of_rows = $records->num_rows;
-
-                //calculating pages
-                $pages = ceil($nr_of_rows / $rows_per_pages);
-
-                //if the user click on pagination set a new starting point
-                if(isset($_GET['page-nr'])){
-                    $pages = $_GET['page-nr'] - 1;
-                    $start = $pages * $rows_per_pages;
-                }
 
                 $result = mysqli_query($conn,"SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages"); 
                 while ($r = mysqli_fetch_array($result)){
@@ -138,6 +129,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 }
                 ?>
                         </table>
+<<<<<<< HEAD
                         <button
                             class="bg-blue-500 hover:bg-blue-700 font-bold mt-2 py-2 px-3 border border-blue-700 rounded">
                             <a href="bliss-addcomplaint.php" class="text-white">ADD ISSUE</a>
@@ -208,6 +200,8 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                 </li>
                             </ul>
                         </nav>
+=======
+>>>>>>> ce06da19db031a2aa52b755c1525b698e82828c0
                     </div>
                     <script>
                         $(document).ready(function () {
