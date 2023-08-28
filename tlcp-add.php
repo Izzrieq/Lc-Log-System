@@ -1,4 +1,6 @@
 <?php
+include_once "COMPONENT/DB/config.php";
+include "COMPONENT/header.php";
 
 session_start();
     if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
@@ -6,9 +8,6 @@ session_start();
         exit;
     }
     
-include_once "COMPONENT/DB/config.php";
-include "COMPONENT/header.php";
-
 if(isset($_POST['id'])) {
     $id = $_POST['id'];
     $stateid = $_POST['stateid'];
@@ -39,19 +38,23 @@ if(isset($_POST['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLCP Page</title>
+    <title>TLCP ADD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
+
 </head>
 
 <body class="bg-neutral-50">
     <!-- component -->  
-    <div class="p-3">                              
-        <button class="rounded-md bg-blue-700 text-white text-sm px-3 py-2 m-2" type="back"
-                onclick="history.back()">BACK
+    <div>                              
+        <button class="rounded-md bg-blue-700 text-white text-sm px-3 py-2 m-2" type="back" onclick="history.back()">BACK
+        <i class="fa fa-undo" aria-hidden="true"></i>
         </button>
     </div>
     <div class="container-box" style="display: flex; justify-content:center;">

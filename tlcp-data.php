@@ -19,6 +19,8 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TLCP DATA</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -26,7 +28,6 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
 
 
     <style>
-        @media (max-width:320px) {}
         @media (max-width:320px) {}
 
         @media (max-width:1024px) {
@@ -43,9 +44,7 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         @media (max-width:768px) {
 
 
-            th,
-           
-            td  {
+            th,td  {
                 font-size: 0.60rem;
                 padding: 0;
             }
@@ -53,9 +52,6 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
             .bg-green-500 {
                 font-size: 0.60rem;
             }
-
-            .w-40 {
-                width: 126px;
 
             .w-40 {
                 width: 126px;
@@ -87,12 +83,12 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
 
 <body class="bg-neutral-50 mb-10 ">
 
-    <center class="font-bold text-2xl mt-6">LIST TLCP</center>
+    <center class="font-bold text-2xl mt-3">LIST TLCP</center>
     <button
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
         <a class="text-white no-underline" href='tlcp-add.php'>ADD TLCP</a>
     </button>
-    <div class="input-group mb-4 mt-2">
+    <div class="input-group mb-3 mt-2">
         <div class="form-outline ml-3">
             <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search"
                 placeholder="Search LCID or State ID" />
@@ -169,16 +165,16 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <td class="border-r border-b p-0">
                                     <div class="flex items-center justify-between text-xs mt-2">
                                         <button
-                                            class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-1">
-                                            <a href='tlcp-info.php?id=<?php echo $r['id'];?>'>INFO</a>
+                                            class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
+                                            <a class="text-white text-decoration-none" href='tlcp-info.php?id=<?php echo $r['id'];?>'>INFO</a>
                                         </button>
                                         <button
-                                            class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-1">
-                                            <a href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
+                                            class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
+                                            <a class="text-white text-decoration-none" href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
                                         </button>
                                         <button
-                                            class="rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-1">
-                                            <a href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
+                                            class="rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1">
+                                            <a class="text-white text-decoration-none" href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
                                         </button>
                                     </div>
                                 </td>

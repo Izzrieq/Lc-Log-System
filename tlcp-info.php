@@ -301,7 +301,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                             </div>
                             <div class="flex justify-end">
                                 <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
-                                    type="back" onclick="history.back()">BACK</button>
+                                    type="back" onclick="history.back()">BACK <i class="fa fa-undo" aria-hidden="true"></i></button>
                                 <button
                                     class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 px-3 py-2 m-2"
                                     onclick="printWithLandscape()">PRINT</button>
