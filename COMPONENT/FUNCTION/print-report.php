@@ -9,27 +9,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
+<script>
+     $(document).ready(function () {
+        // Initialize the jQuery UI Autocomplete on LC ID input
+        $("#lcid").autocomplete({
+            source: "../../get_lc_suggestions.php", // URL to fetch suggestions
+            minLength: 2, // Minimum characters before showing suggestions
+        });
+
+        // ... Rest of your code ...
+    });
+</script>
 <body>
 <form action="print-selection.php" method="post">
         <table>
             <tr>
-                <th>Lcid</th>
                 <th>Date</th>
                 <th>Type</th>
             </tr>
             <tr>
-                <td><select name="lcid">
-                <?php
-                    //masukkan nama homestay dari jadual
-                    $sql = "select * from lcdetails";
-                    $data = mysqli_query($conn, $sql);
-                    while ($lcid = mysqli_fetch_array($data)) {
-                      echo "<option value='$lcid[lcid]'>$lcid[lcid]</option>";
-                    }
-                ?> 
-                </select>
+                
+                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-0" for="lcid">
+                                        LC ID
+                                    </label>
+                                    <input type="text" name="lcid" id="lcid"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        placeholder="Enter LC ID">
                 <td><select name="bulan">
                     <?php
                         //masukkan nama bulan dalam pilihan
