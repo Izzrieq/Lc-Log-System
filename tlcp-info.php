@@ -300,7 +300,7 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                                     class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white' disabled><?php echo $opsaddress; ?></textarea>
                             </div>
                             <div class="flex justify-end">
-                                <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
+                              <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
                                     type="back" onclick="history.back()">BACK <i class="fa fa-undo" aria-hidden="true"></i></button>
                                 <button
                                     class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 px-3 py-2 m-2"

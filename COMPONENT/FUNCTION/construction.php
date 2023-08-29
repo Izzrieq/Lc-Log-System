@@ -9,12 +9,12 @@
 
 
 </head>
-<body class="bg-neutral-50">
-    <center>
-        <button class="rounded-md bg-blue-700 text-white px-3 py-2 mt-6"
-                type="back" onclick="history.back()">GO BACK <i class="fa fa-undo" aria-hidden="true"></i>
-        </button>
-            <img src="../img/work in progress.png" alt="progress" class="w-fit h-fit mt-6">
-    </center>
+<body class="bg-neutral-50 overflow-hidden">
+    <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
+            type="back" onclick="history.back()">BACK <i class="fa fa-undo" aria-hidden="true"></i>
+    </button>
+<center>
+        <img src="../img/dangerous-zone.png" alt="progress" style="width: 50%; height: 50%;" class="mt-16">
+</center>   
 </body>
 </html>

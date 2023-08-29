@@ -55,7 +55,7 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
+                <div class="card-body shadow-md hover:shadow-lg hover:shadow-red-400">
                     <h5 class="card-title font-bold text-base">Not Active Yet</h5>
                     <p class="card-text">In Progress.</p>
                     <a href="COMPONENT/FUNCTION/construction.php" class="btn btn-primary mt-2">Go Somewhere</a>
