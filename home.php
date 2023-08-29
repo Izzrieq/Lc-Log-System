@@ -56,8 +56,8 @@
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
-                    <h5 class="card-title font-bold text-base">INFO</h5>
-                    <p class="card-text">Masih tiada idea.</p>
+                    <h5 class="card-title font-bold text-base">Not Active Yet</h5>
+                    <p class="card-text">In Progress.</p>
                     <a href="#" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
