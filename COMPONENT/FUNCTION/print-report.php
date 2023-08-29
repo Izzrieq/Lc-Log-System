@@ -33,7 +33,7 @@
                 <td><select name="bulan">
                     <?php
                         //masukkan nama bulan dalam pilihan
-                        $bulan = array("January", "February", "March", "April", "Mai", "June",
+                        $bulan = array("January", "February", "March", "April", "May ", "June",
                                       "July", "August","September","October", "November", "December");
                         for($i = 0; $i < 12; $i++ ) {
                             $b = $i + 1;

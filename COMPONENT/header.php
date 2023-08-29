@@ -111,7 +111,7 @@
             <ul class="d-flex">
                 <li><a href="home.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">HOME</a></li>
                 <li><a href="COMPONENT/FUNCTION/info.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">ABOUT</a></li>
-                <li><a href="COMPONENT/FUNCTION/choose-report.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">REPORT</a></li>
+                <li><a href="COMPONENT/FUNCTION/print-report.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">REPORT</a></li>
             </ul>
         </div>
         <div class="navbar-right">
