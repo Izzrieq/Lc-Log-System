@@ -58,7 +58,7 @@
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
                     <h5 class="card-title font-bold text-base">Not Active Yet</h5>
                     <p class="card-text">In Progress.</p>
-                    <a href="#" class="btn btn-primary mt-2">Go Somewhere</a>
+                    <a href="COMPONENT/FUNCTION/construction.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>
