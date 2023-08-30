@@ -204,7 +204,7 @@ function getUnreadNotificationCountForAdmin($adminUsername) {
                             <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['username']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Home</a>
+                            <a href="../../home.php" class="dropdown-item">Home</a>
                             <a href="../FUNCTION/logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
