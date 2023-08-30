@@ -1,6 +1,5 @@
 <?php
     include "../DB/config.php"; 
-    include_once "../header.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -29,8 +28,24 @@
 </script>
 
 <body>
+    <header class="d-flex justify-content-between bg-white p-3">
+        <div class="logo" style="width: 350px; height: auto; padding: 0px;">
+            <a href="../../home.php">
+                <img class="w-100 h-100" src="../img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
+            </a>
+        </div>
+        <div class="m-0 p-0">
+            <h1 class="mt-3 m-3 text-primary" style="font-size: 2rem; ">BLISS CUSTOMER E-LOG</h1>
+        </div>
+    </header>
     <center>
+        <div>
+            <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2" type="back" onclick="history.back()">BACK <i
+                    class="fa fa-undo" aria-hidden="true"></i>
+            </button>
+        </div>
         <form class="mt-2" action="print-selection.php" method="post">
+
             <table class="border border-gray-700 w-fit sm:px-6 lg:px-8">
                 <thead class="border-b border-gray-700">
                     <tr class="font-bold text-lg text-black">
@@ -81,7 +96,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="bg-blue-500 w-full text-white active:bg-pink-600 font-bold text-lg uppercase px-4 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            <button
+                                class="bg-blue-500 w-full text-white active:bg-pink-600 font-bold text-md uppercase px-4 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                 style="background-image: url(image/printer-icon.png);" type="submit">Papar</button>
                         </td>
                     </tr>
@@ -92,6 +108,7 @@
 </body>
 
 </html>
+
 <?php
 include "../footer.php";
 ?>
