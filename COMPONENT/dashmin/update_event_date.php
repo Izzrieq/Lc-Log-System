@@ -6,6 +6,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 include "../DB/config.php"; 
+// Debug: Output received data
+echo "Received eventID: " . $_POST["eventID"] . "<br>";
+echo "Received newStartDate: " . $_POST["newStartDate"] . "<br>";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $eventID = $_POST["eventID"];
@@ -14,12 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Perform the database update
     $queryUpdate = "UPDATE events SET start_date = ? WHERE event_id = ?";
     $stmtUpdate = $conn->prepare($queryUpdate);
-    $stmtUpdate->bind_param('si', $newStartDate, $eventID);
-    
-    if ($stmtUpdate->execute()) {
-        echo "Success";
+
+    if ($stmtUpdate) {
+        $stmtUpdate->bind_param('ss', $newStartDate, $eventID);
+        
+        if ($stmtUpdate->execute()) {
+            echo "Success";
+        } else {
+            echo "Error: " . $stmtUpdate->error;
+        }
+        
+
+        $stmtUpdate->close();
     } else {
-        echo "Error";
+        echo "Error: Unable to prepare the statement.";
     }
 }
 ?>

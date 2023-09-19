@@ -1,4 +1,41 @@
-<?php include "DB/config.php" ?>
+<?php
+include "DB/config.php"; // Include your database connection
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+    exit;
+}
+
+// Assuming you have a session or some way to identify the user, e.g., $_SESSION['user_id']
+$user_id = $_SESSION['user_id']; // Replace with the actual way you identify the user
+
+// Query to retrieve the user's image from the "users" table based on user_id
+$sql = "SELECT img FROM users WHERE user_id = ?";
+$stmt = $conn->prepare($sql);
+
+if ($stmt) {
+    $stmt->bind_param('s', $user_id); // 's' represents a string (assuming user_id is a string)
+    $stmt->execute();
+
+    // Check if the execution was successful
+    if ($stmt->errno) {
+        die("Execution failed: " . $stmt->error);
+    }
+
+    $stmt->bind_result($userImage);
+    $stmt->fetch();
+
+    $stmt->close();
+} else {
+    // Handle the case where prepare fails
+    die("Prepare failed: " . $conn->error);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +47,25 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+   document.addEventListener("DOMContentLoaded", function() {
     const userIcon = document.querySelector(".user-icon");
     const userOptions = document.querySelector(".user-options");
 
-    userIcon.addEventListener("click", function() {
-        userOptions.style.display = userOptions.style.display === "block" ? "none" : "block";
+    userIcon.addEventListener("click", function(event) {
+        event.stopPropagation(); // Prevent the click event from bubbling up to the document
+
+        if (userOptions.style.display === "block") {
+            userOptions.style.display = "none";
+        } else {
+            userOptions.style.display = "block";
+        }
+    });
+
+    // Close user options if user clicks anywhere outside the user icon and options
+    document.addEventListener("click", function(event) {
+        if (!userIcon.contains(event.target) && !userOptions.contains(event.target)) {
+            userOptions.style.display = "none";
+        }
     });
 });
 
@@ -27,8 +77,13 @@
     font-family: Arial, sans-serif;
 }
 .navbar-right{
-    margin-right: 15px ;
+    margin-right: 25px ;
 }
+.rounded-image {
+        border-radius: 50%; /* This creates a circular border */
+        width: 75px; /* Adjust the width and height as needed */
+        height: 75px;
+    }
 
 .user-icon {
     background: none;
@@ -36,16 +91,10 @@
     padding: 0;
     cursor: pointer;
 }
-/* .user-icon img {
-    width: 40px; 
-    height: 40px;
-} */
-
-
 .user-options {
     display: none;
     position: absolute;
-    top: 40px;
+    top: 80px;
     margin-right: 15px;
     right: 0;
     background-color: white;
@@ -79,30 +128,43 @@
 @media (max-width: 576px) {
             .logo {
                 width: 150px;
-               
-
             }
-            .m-0{
+            .mt-3{
                 display: none;
             }
             a{
-                font-size: 0.80rem;
+                font-size: 0.90rem;
             }
-            .user-icon{
-                width:3vh;
-                height:auto;
+            .rounded-image{
+                width: 60px;
+                height: 60px;
+            }
+            .navbar-left{
+                margin-top: 20px;
+            }
+            .navbar-right{
+                margin-top: 10px;
+                margin-right: 30px;
+            }
+            .user-options{
+                top: 70px;
             }
 }
 
 </style>
 <body>
+    <!-- <?php
+    echo "<script>
+    document.getElementById('user-image').src = 'COMPONENT/img/default-user-icon.png';
+  </script>";
+    ?> -->
 <header class="d-flex justify-content-between bg-white p-3">
         <div class="logo" style="width: 350px; height: auto; padding: 0px;">
             <a href="home.php">
             <img  class="w-100 h-100" src="COMPONENT/img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
             </a>
         </div>
-        <div class="m-0 p-0">
+        <div class="mt-3 p-0">
             <h1 class="mt-3 m-3 text-primary" style="font-size: 2rem; ">BLISS CUSTOMER E-LOG</h1>
         </div>
 </header>
@@ -111,20 +173,19 @@
             <ul class="d-flex">
                 <li><a href="home.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">HOME</a></li>
                 <li><a href="COMPONENT/FUNCTION/construction.php" class="hover:bg-red-100 text-black py-3 px-3 text-decoration-none">ABOUT</a></li>
-                <li><a href="COMPONENT/FUNCTION/customer-detail.php" class="hover:bg-red-100 text-black py-3 px-3 text-decoration-none">CUSTOMER DETAILS</a></li>
-                <li><a href="COMPONENT/dashmin" class="hover:bg-red-100 text-black py-3 px-3 text-decoration-none">DASHMIN</a></li>
                 <li><a href="COMPONENT/FUNCTION/print-report.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">REPORT</a></li>
             </ul>
         </div>
         <div class="navbar-right">
-            <button class="user-icon">
-                <img src="COMPONENT/img/user-icon.png" alt="User Icon" style="width: 40px; height: auto;">
-            </button>
-            <div class="user-options">
-                <ul>
-                    <li><a href="COMPONENT/">Setting</a></li>
-                    <li><a href="COMPONENT/FUNCTION/logout.php">Logout</a></li>
-                </ul>
-            </div>
-        </div>
+        <button class="user-icon" data-user-id="<?php echo $user_id; ?>">
+            <img class="rounded-image" src="data:image/jpeg;base64,<?php echo base64_encode($userImage); ?>" alt="User Image" width="75" height="75">
+        </button>
+
+        <div class="user-options">
+         <ul>
+             <li><a href="COMPONENT/">Setting</a></li>
+             <li><a href="COMPONENT/FUNCTION/logout.php">Logout</a></li>
+         </ul>
+    </div>
+</div>
 </nav>
