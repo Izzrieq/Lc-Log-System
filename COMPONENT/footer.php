@@ -2,7 +2,7 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 <footer class="fixed-bottom bg-gray-700 text-white align-middle text-center">
-            <p class="font-bold font-size-20px pt-2">© 2023 Niko & Nasy</p>
+            <p class="font-bold font-size-18px pt-1">© 2023 Niko & Nasy</p>
     </footer>
 </body>
 </html>

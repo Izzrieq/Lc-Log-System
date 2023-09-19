@@ -48,7 +48,7 @@
         </center>
             <form class="space-y-5" action="COMPONENT/FUNCTION/login.php" method="POST">
                 <div>
-                    <input type="text" name="username" class="block w-full py-3 px-3 mt-2
+                    <input type="text" name="user_id" class="block w-full py-3 px-3 mt-2
                             text-gray-800 appearance-none
                             border-2 border-gray-100
                             focus:text-gray-500 focus:outline-none focus:border-gray-200 rounded-md" />
