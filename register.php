@@ -2,8 +2,8 @@
 include "COMPONENT/DB/config.php";
 
     // Initialize variables
-$user_id = $name = $password = $confirm_password = $type = $department = "";
-$user_id_err = $name_err = $password_err = $confirm_password_err = $type_err = $department_err = "";
+$user_id = $username = $password = $confirm_password = $type = $department = "";
+$user_id_err = $username_err = $password_err = $confirm_password_err = $type_err = $department_err = "";
 
 // Handling form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -14,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = trim($_POST["user_id"]);
     }
     // Validate name
-    if (empty(trim($_POST["name"]))) {
+    if (empty(trim($_POST["username"]))) {
         $name_err = "Please enter a Name.";
     } else {
-        $name = trim($_POST["name"]);
+        $username = trim($_POST["username"]);
     }
 
     // Validate password
@@ -56,13 +56,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check for errors before inserting into database
-    if (empty($user_id_err) && empty($name_err) && empty($password_err) && empty($confirm_password_err) && empty($type_err) && empty($department_err)) {
+    if (empty($user_id_err) && empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($type_err) && empty($department_err)) {
         // Prepare an insert statement
-        $insert_query = "INSERT INTO users (user_id, name, password, type, department) VALUES (?, ?, ?, ?, ?)";
+        $insert_query = "INSERT INTO users (user_id, username, password, type, department) VALUES (?, ?, ?, ?, ?)";
 
         if ($insert_stmt = mysqli_prepare($conn, $insert_query)) {
             // Bind variables to the prepared statement
-            mysqli_stmt_bind_param($insert_stmt,'sssss', $user_id, $name, $password, $type, $department);
+            mysqli_stmt_bind_param($insert_stmt,'sssss', $user_id, $username, $password, $type, $department);
 
             // Execute the prepared statement
             if (mysqli_stmt_execute($insert_stmt)) {
@@ -121,9 +121,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div>
                         <label>Name:</label>
-                        <input type="text" name="name" class="block border border-grey-light w-full p-2 rounded mb-2"
-                            value="<?php echo $name; ?>">
-                        <span><?php echo $name_err; ?></span>
+                        <input type="text" name="username" class="block border border-grey-light w-full p-2 rounded mb-2"
+                            value="<?php echo $username; ?>">
+                        <span><?php echo $username_err; ?></span>
                     </div>
                     <div>
                         <label>Password:</label>
