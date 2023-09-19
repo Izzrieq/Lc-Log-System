@@ -10,6 +10,26 @@ session_start();
 
 $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
  
+// Pagination
+$combinedSearchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : '';
+
+// Pagination variables
+$start = 0;
+$rowsPerPage = 50;
+
+// Determine the current page number
+if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+    $currentPage = intval($_GET['page']);
+} else {
+    $currentPage = 1;
+}
+
+// Calculate the offset for the query
+$start = ($currentPage - 1) * $rowsPerPage;
+
+$sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%' ORDER BY id ASC LIMIT $start, $rowsPerPage";
+$result = mysqli_query($conn, $sql);
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,8 +54,8 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
 
 
             th,
-           
-            td  {
+
+            td {
                 font-size: 0.80rem;
             }
         }
@@ -44,7 +64,8 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
         @media (max-width:768px) {
 
 
-            th,td  {
+            th,
+            td {
                 font-size: 0.60rem;
                 padding: 0;
             }
@@ -164,17 +185,17 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
                                 <td class="border-r border-b p-0">
                                     <div class="flex items-center justify-between text-xs mt-2">
-                                        <button
-                                            class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
-                                            <a class="text-white text-decoration-none" href='tlcp-info.php?id=<?php echo $r['id'];?>'>INFO</a>
+                                        <button class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
+                                            <a class="text-white text-decoration-none"
+                                                href='tlcp-info.php?id=<?php echo $r['id'];?>'>INFO</a>
                                         </button>
-                                        <button
-                                            class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
-                                            <a class="text-white text-decoration-none" href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
+                                        <button class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
+                                            <a class="text-white text-decoration-none"
+                                                href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
                                         </button>
-                                        <button
-                                            class="rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1">
-                                            <a class="text-white text-decoration-none" href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
+                                        <button class="rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1">
+                                            <a class="text-white text-decoration-none"
+                                                href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
                                         </button>
                                     </div>
                                 </td>
@@ -187,28 +208,67 @@ $result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
                 ?>
 
                     </table>
+                    <div
+                        class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 no-underline">
+                        <!-- Pagination links -->
+                        <?php
+        $sqlCount = "SELECT COUNT(*) AS total FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%'";
+        $resultCount = mysqli_query($conn, $sqlCount);
+        $rowCount = mysqli_fetch_assoc($resultCount)['total'];
+
+        $totalPages = ceil($rowCount / $rowsPerPage);
+
+        if ($totalPages > 1) {
+            echo "<div class='flex flex-1 justify-between sm:hidden'>";
+            if ($currentPage > 1) {
+                $prevPage = $currentPage - 1;
+                echo "<a href='tlcp-data.php?page=$prevPage' class='relative inline-flex items-center rounded-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>Previous</a>";
+            }
+            if ($currentPage < $totalPages) {
+                $nextPage = $currentPage + 1;
+                echo "<a href='tlcp-data.php?page=$nextPage' class='relative ml-3 inline-flex items-center rounded-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>Next</a>";
+            }
+            echo "</div>";
+
+            echo "<div class='hidden sm:flex sm:flex-1 sm:items-center sm:justify-between'>";
+            echo "<div>";
+            echo "<p class='text-sm text-gray-700'>Showing <span class='font-medium'>$start</span> to <span class='font-medium'>$rowCount</span> of <span class='font-medium'>$rowCount</span> results</p>";
+            echo "</div>";
+            echo "<div>";
+            echo "<nav class='isolate inline-flex -space-x-px rounded-md shadow-sm no-underline' aria-label='Pagination'>";
+            
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $activeClass = $i === $currentPage ? 'bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0';
+                echo "<a href='list-task.php?page=$i' class='relative inline-flex items-center px-4 py-2 text-sm font-semibold $activeClass'>$i</a>";
+            }
+            
+            echo "</nav>";
+            echo "</div>";
+            echo "</div>";
+        }
+        ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            $('#combined_search').on("keyup", function () {
-                var combinedSearch = $(this).val();
-                $.ajax({
-                    method: 'POST',
-                    url: 'COMPONENT/FUNCTION/searchtlcp.php',
-                    data: {
-                        combined_search: combinedSearch
-                    },
-                    success: function (response) {
-                        $("#table_tlcp").html(response);
-                    }
+        <script>
+            $(document).ready(function () {
+                $('#combined_search').on("keyup", function () {
+                    var combinedSearch = $(this).val();
+                    $.ajax({
+                        method: 'POST',
+                        url: 'COMPONENT/FUNCTION/searchtlcp.php',
+                        data: {
+                            combined_search: combinedSearch
+                        },
+                        success: function (response) {
+                            $("#table_tlcp").html(response);
+                        }
+                    });
                 });
             });
-        });
-    </script>
-    <?php
+        </script>
+        <?php
     include "COMPONENT/footer.php";
 ?>
 </body>
