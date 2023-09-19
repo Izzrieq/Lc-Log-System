@@ -2,8 +2,8 @@
 include "COMPONENT/DB/config.php";
 
     // Initialize variables
-$user_id = $name = $password = $confirm_password = $type = $department = "";
-$user_id_err = $name_err = $password_err = $confirm_password_err = $type_err = $department_err = "";
+$user_id = $username = $password = $confirm_password = $type = $department = "";
+$user_id_err = $username_err = $password_err = $confirm_password_err = $type_err = $department_err = "";
 
 // Handling form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["name"]))) {
         $name_err = "Please enter a Name.";
     } else {
-        $name = trim($_POST["name"]);
+        $name = trim($_POST["username"]);
     }
 
     // Validate password
@@ -39,15 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    //Validate type
-    if (empty(trim($_POST["type"]))) {
-        $type_err = "Please enter your type.";
-    } elseif ($_POST["type"] !== "admin" && $_POST["type"] !== "user") {
-        $type_err = "Only HOD & CS can access to Admin.";
-    } else {
-        $type = trim($_POST["type"]);
-    }
-
     // Validate department
     if (empty(trim($_POST["department"]))) {
         $department_err = "Please enter a department.";
@@ -56,9 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check for errors before inserting into database
-    if (empty($user_id_err) && empty($name_err) && empty($password_err) && empty($confirm_password_err) && empty($type_err) && empty($department_err)) {
+    if (empty($user_id_err) && empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($type_err) && empty($department_err)) {
         // Prepare an insert statement
-        $insert_query = "INSERT INTO users (user_id, name, password, type, department) VALUES (?, ?, ?, ?, ?)";
+        $insert_query = "INSERT INTO users (user_id, username, password, type, department) VALUES (?, ?, ?, ?, ?)";
 
         if ($insert_stmt = mysqli_prepare($conn, $insert_query)) {
             // Bind variables to the prepared statement
@@ -138,14 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             class="block border border-grey-light w-full p-2 rounded mb-2"
                             value="<?php echo $confirm_password; ?>">
                         <span><?php echo $confirm_password_err; ?></span>
-                    </div>
-                    <div>
-                        <label>Type:</label>
-                        <select name="type" id="type" class="block border border-grey-light w-full p-2 rounded mb-2">
-                            <option value="" hidden>Only HOD & CS can be an Admin </option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                        </select>
                     </div>
                     <div>
                         <label>Department:</label>
