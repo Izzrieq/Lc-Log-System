@@ -3,15 +3,15 @@ session_start();
 include "../DB/config.php"; 
 
 // Get user input
-$username = $_POST['username'];
+$user_id = $_POST['user_id'];
 $password = $_POST['password'];
 
 // Sanitize user input to prevent SQL injection
-$username = mysqli_real_escape_string($conn, $username);
+$user_id = mysqli_real_escape_string($conn, $user_id);
 $password = mysqli_real_escape_string($conn, $password);
 
 // Perform database query
-$sql = "SELECT * FROM users WHERE username = '$username'";
+$sql = "SELECT * FROM users WHERE user_id = '$user_id'";
 $result = $conn->query($sql);
 
 if ($result === false) {
@@ -26,7 +26,7 @@ if ($result->num_rows == 1) {
     if ($password == $row['password']) { // This is plain text comparison
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $row['user_id'];
-        $_SESSION['username'] = $username;
+        $_SESSION['name'] = $row['name'];
         $_SESSION['department'] = $row['department'];
         $_SESSION['type'] = $row['type'];
 

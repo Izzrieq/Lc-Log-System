@@ -12,6 +12,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SESSI
 $departments_query = "SELECT DISTINCT department FROM users";
 $departments_result = mysqli_query($conn, $departments_query);
 
+//start dari sini
 if(isset($_GET['notification_id'])) {
     $notification_id = $_GET['notification_id'];
     
@@ -23,8 +24,8 @@ if(isset($_GET['notification_id'])) {
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $assigned_to = $_POST['assigned_to'];
-    $task_description = $_POST['task_description'];
-    $assigned_by = $_SESSION['username']; // Capture the username of the admin assigning the task
+    $task_desc = $_POST['task_desc'];
+    $assigned_by = $_SESSION['name']; // Capture the username of the admin assigning the task
 
     // Check if the assigned user is not the same as the assigner
     if ($assigned_to !== $assigned_by) {
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $date_assigned_utc = $date_assigned->format('Y-m-d H:i:s'); // Get current UTC time
 
         // Check if assigned user and assigner are in the same department
-        $same_department_query = "SELECT department FROM users WHERE username = '$assigned_to'";
+        $same_department_query = "SELECT department FROM users WHERE name = '$assigned_to'";
         $same_department_result = mysqli_query($conn, $same_department_query);
 
         if (mysqli_num_rows($same_department_result) == 1) {
@@ -137,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><?php echo $_SESSION['username']; ?>!</h6>
+                        <h6 class="mb-0"><?php echo $_SESSION['name']; ?>!</h6>
                         <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['type']; ?>)</span>
                     </div>
                 </div>
@@ -234,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../img/user-icon.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['username']; ?></span>
+                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="../../home.php" class="dropdown-item">Home</a>
@@ -259,10 +260,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php while ($department_row = mysqli_fetch_assoc($departments_result)) { ?>
             <optgroup label="<?php echo $department_row['department']; ?>">
                 <?php
-                $users_query = "SELECT username FROM users WHERE department = '{$department_row['department']}'";
+                $users_query = "SELECT name FROM users WHERE department = '{$department_row['department']}'";
                 $users_result = mysqli_query($conn, $users_query);
                 while ($user_row = mysqli_fetch_assoc($users_result)) {
-                    echo "<option value='{$user_row['username']}'>{$user_row['username']}</option>";
+                    echo "<option value='{$user_row['name']}'>{$user_row['name']}</option>";
                 }
                 ?>
             </optgroup>
@@ -336,7 +337,7 @@ function updateStatus(taskId, status) {
         if ("<?php echo $type; ?>" === 'admin') {
             // Send a notification to admin
             var notificationMessage = "Task #" + taskId +
-                " has been marked as completed by user <?php echo $_SESSION['username']; ?>";
+                " has been marked as completed by user <?php echo $_SESSION['name']; ?>";
             sendNotificationToAdmin(notificationMessage);
         }
     }
@@ -356,7 +357,7 @@ function sendNotification(username, message) {
     };
     xhr.open('POST', 'send_notification.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('username=' + encodeURIComponent(username) + '&message=' + encodeURIComponent(message));
+    xhr.send('name=' + encodeURIComponent(name) + '&message=' + encodeURIComponent(message));
 }
 
 function deleteFile(fileId) {

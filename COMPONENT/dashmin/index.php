@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><?php echo $_SESSION['username']; ?>!</h6>
+                        <h6 class="mb-0"><?php echo $_SESSION['name']; ?>!</h6>
                         <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['type']; ?>)</span>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../img/user-icon.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['username']; ?></span>
+                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="../../home.php" class="dropdown-item">Home</a>

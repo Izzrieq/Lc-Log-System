@@ -26,8 +26,7 @@
 </head>
 
 <body class="bg-neutral-50 mb-5">
-
-    <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo strtoupper($_SESSION['username']); ?>!<br>
+    <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo ($_SESSION['name']) ?>!<br>
         <h5 class="px-7 text-secondary"><?php echo ($_SESSION['type'])?></h5>
     </h2>
 
@@ -58,7 +57,7 @@
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-red-400">
                     <h5 class="card-title font-bold text-base">Not Active Yet</h5>
                     <p class="card-text">In Progress.</p>
-                    <a href="COMPONENT/FUNCTION/construction.php" class="btn btn-primary mt-2">Go Somewhere</a>
+                    <a href="COMPONENT/task-manager/add-task.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>

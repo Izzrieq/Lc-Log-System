@@ -8,7 +8,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-$username = $_SESSION['username'];
+$name = $_SESSION['name'];
 $type = $_SESSION['type'];
 $user_department = $_SESSION['department'];
 
@@ -17,14 +17,14 @@ if(isset($_GET['notification_id'])) {
     $notification_id = $_GET['notification_id'];
     
     // Update notification status to 'read'
-    $update_notification_query = "UPDATE notifications SET status = 'read' WHERE id = '$notification_id'";
+    $update_notification_query = "UPDATE notifications SET status = 'read' WHERE notification_id = '$notification_id'";
     mysqli_query($conn, $update_notification_query);
 }
 
 // Fetch user's assigned tasks if user is not admin
 $tasks = array();
 if ($type !== 'admin') {
-    $tasks_query = "SELECT * FROM tasks WHERE assigned_to = '$username' AND department = '$user_department' ORDER BY date_assigned DESC";
+    $tasks_query = "SELECT * FROM tasks WHERE assigned_to = '$name' AND department = '$user_department' ORDER BY date_assigned DESC";
     $tasks_result = mysqli_query($conn, $tasks_query);
     while ($task_row = mysqli_fetch_assoc($tasks_result)) {
         $tasks[] = $task_row;
@@ -41,12 +41,12 @@ if ($type === 'admin') {
     }
 }
 
-$admin_query = "SELECT username FROM users WHERE type = 'admin' LIMIT 1"; // Modify this query according to your database schema
+$admin_query = "SELECT name FROM users WHERE type = 'admin' LIMIT 1"; // Modify this query according to your database schema
 $admin_result = mysqli_query($conn, $admin_query);
 $admin_row = mysqli_fetch_assoc($admin_result);
-$adminUsername = $admin_row['username'];
+$adminName = $admin_row['name'];
 
-function getUnreadNotificationCountForAdmin($adminUsername) {
+function getUnreadNotificationCountForAdmin($adminName) {
     // Implement your logic to fetch and return the notification count from the database
     // For example, you could run a query to count unread notifications for the admin
     // and return the count.
@@ -105,7 +105,7 @@ function getUnreadNotificationCountForAdmin($adminUsername) {
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><?php echo $_SESSION['username']; ?>!</h6>
+                        <h6 class="mb-0"><?php echo $_SESSION['name']; ?>!</h6>
                         <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['type']; ?>)</span>
                     </div>
                 </div>
@@ -201,7 +201,7 @@ function getUnreadNotificationCountForAdmin($adminUsername) {
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../img/user-icon.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['username']; ?></span>
+                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['name']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="../../home.php" class="dropdown-item">Home</a>
@@ -213,7 +213,7 @@ function getUnreadNotificationCountForAdmin($adminUsername) {
             <!-- Navbar End -->
 
             <div class="container mx-auto p-4">
-                <h1 class="text-2xl font-bold mb-4">Welcome, <?php echo $_SESSION['username']; ?>!</h1>
+                <h1 class="text-2xl font-bold mb-4">Welcome, <?php echo $_SESSION['name']; ?>!</h1>
 
                 <?php if ($type === 'user') { ?>
                 <h2 class="text-xl font-bold mb-2">Your Assigned Tasks:</h2>
@@ -222,7 +222,7 @@ function getUnreadNotificationCountForAdmin($adminUsername) {
                     <div class="border p-4">
                         <!-- Task details -->
                         <span class="block font-semibold">Task Description:</span>
-                        <span><?php echo $task['task_description']; ?></span>
+                        <span><?php echo $task['task_desc']; ?></span>
                         <span class="block font-semibold">Date Assigned:</span>
                         <span><?php echo $task['date_assigned']; ?></span>
                         <span class="block font-semibold">Department:</span>
@@ -253,10 +253,10 @@ function getUnreadNotificationCountForAdmin($adminUsername) {
                     <?php foreach ($tasks as $task) { ?>
                     <div class="border p-4">
                         <!-- Task details -->
-                        <span class="block font-semibold">Username:</span>
+                        <span class="block font-semibold">Name:</span>
                         <span><?php echo $task['assigned_to']; ?></span>
                         <span class="block font-semibold">Task Description:</span>
-                        <span><?php echo $task['task_description']; ?></span>
+                        <span><?php echo $task['task_desc']; ?></span>
                         <span class="block font-semibold">Date Assigned:</span>
                         <span><?php echo $task['date_assigned']; ?></span>
                         <span class="block font-semibold">Department:</span>
@@ -352,7 +352,7 @@ function updateStatus(taskId, status) {
     }
 }
 
-function sendNotification(username, message) {
+function sendNotification(name, message) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -366,7 +366,7 @@ function sendNotification(username, message) {
     };
     xhr.open('POST', 'send_notification.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('username=' + encodeURIComponent(username) + '&message=' + encodeURIComponent(message));
+    xhr.send('Name=' + encodeURIComponent(name) + '&message=' + encodeURIComponent(message));
 }
 
 function deleteFile(fileId) {
