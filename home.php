@@ -169,78 +169,81 @@
             <div id="calendar"></div>
         </div>
         <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var containerEl = document.getElementById('calendar');
-        new FullCalendar.Draggable(containerEl, {
-            itemSelector: '.fc-event',
-            eventData: function (eventEl) {
-                return {
-                    title: eventEl.innerText.trim(),
-                    start: moment().format('YYYY-MM-DD') // Set a default start date
-                };
-            }
-        });
-
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            // Your calendar configuration here
-            initialView: 'dayGridMonth',
-            events: 'COMPONENT/dashmin/get_events.php', // Specify the PHP script to fetch events
-            eventDisplay: 'block', // Show events as blocks
-
-            eventContent: function (info) {
-                if (info.event) {
-                    var eventTitle = info.event.title;
-                    var startTime = eventTitle.substring(eventTitle.lastIndexOf('(') + 1, eventTitle.lastIndexOf(')'));
-
-                    return {
-                        html: '<b>' + info.event.title + '</b><br>' +
-                            'Time: ' + startTime + '<br>' +
-                            'Department: ' + (info.event.extendedProps ? info.event.extendedProps.departmentTitle : 'N/A')
-                    };
-                } else {
-                    return null; // or an appropriate fallback
-                }
-            },
-            editable: true, // Enable editing of events
-            droppable: true, // Enable drag-and-drop for adding events
-
-            drop: function (info) {
-    var confirmation = confirm('Are you sure you want to move this event to ' + info.dateStr + '?');
-    if (confirmation) {
-        var eventID = info.event.extendedProps.event_id; // Use the correct field name
-        var newStartDate = info.dateStr;
-
-        console.log("eventID:", eventID);
-        console.log("newStartDate:", newStartDate);
-
-        $.ajax({
-            type: 'POST',
-            url: 'COMPONENT/dashmin/update_event_date.php',
-            data: {
-                eventID: eventID,
-                newStartDate: newStartDate
-            },
-            success: function (response) {
-                if (response === "Success") {
-                    // Event date updated successfully in the database
-                    // Render the updated calendar
-                    calendar.render();
-                } else {
-                    alert('Error updating event date.');
-                }
-            }
-        });
-    } else {
-        info.revert();
-    }
-}
-        });
-
-        calendar.render();
+          document.addEventListener('DOMContentLoaded', function () {
+    var containerEl = document.getElementById('calendar');
+    new FullCalendar.Draggable(containerEl, {
+        itemSelector: '.fc-event',
+        eventData: function (eventEl) {
+            return {
+                title: eventEl.innerText.trim(),
+                start: moment().format('YYYY-MM-DD') // Set a default start date
+            };
+        }
     });
-</script>
 
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        // Your calendar configuration here
+        initialView: 'dayGridMonth',
+        events: 'COMPONENT/dashmin/get_events.php', // Specify the PHP script to fetch events
+        eventDisplay: 'block', // Show events as blocks
+
+        eventContent: function (info) {
+            if (info.event) {
+                var eventTitle = info.event.title;
+                var startTime = eventTitle.substring(eventTitle.lastIndexOf('(') + 1, eventTitle.lastIndexOf(')'));
+
+                return {
+                    html: '<b>' + info.event.title + '</b><br>' +
+                        'Time: ' + startTime + '<br>' +
+                        'Department: ' + (info.event.extendedProps ? info.event.extendedProps.departmentTitle : 'N/A')
+                };
+            } else {
+                return null; // or an appropriate fallback
+            }
+        },
+        editable: true, // Enable editing of events
+        droppable: true, // Enable drag-and-drop for adding events
+
+        eventReceive: function (info) {
+            console.log('Received event:', info);
+            // Handle external event drop here
+            var confirmation = confirm('Are you sure you want to move this event to ' + info.dateStr + '?');
+            if (confirmation) {
+                // Handle the external event drop as needed
+                // You can access info.draggedEl for the dragged element's details
+                var eventTitle = info.draggedEl.innerText.trim();
+                var newStartDate = info.dateStr;
+
+                // Send the data to your server using an AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: 'COMPONENT/dashmin/update_event_date.php', // Adjust the URL
+                    data: {
+                        title: eventTitle,
+                        start_date: newStartDate,
+                    },
+                    success: function (response) {
+                        if (response === "Success") {
+                            // External event added successfully
+                            // You can render the updated calendar or perform other actions
+                            calendar.render();
+                        } else {
+                            alert('Error adding external event: ' + response);
+                        }
+                    }
+                });
+            } else {
+                // Revert the drop if canceled
+                calendar.getApi().getEventSourceById(info.source.id).remove();
+            }
+        }
+    });
+
+    calendar.render();
+});
+  
+        </script>
 </body>
     <?php include "COMPONENT/footer.php" ?>
 </html>

@@ -23,28 +23,37 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <!-- MDB -->
-    <?php 
- include("../DB/config.php");
+    <?php
+include("../DB/config.php");
 
-    
- session_start();
- if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-     echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
-     exit;
- }
- 
- $searchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : ''; // Use the correct key here
- $start = 0;
- $rows_per_pages = 50;
- 
- $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id ASC LIMIT $start, $rows_per_pages";
- $result = mysqli_query($conn, $sql);
- $lciddata = '';
- 
- while ($row = mysqli_fetch_array($result)) {
-    $lcid = $row['lcid'];
+session_start();
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+    exit;
+}
+
+$searchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : '';
+
+$sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id ASC";
+$result = mysqli_query($conn, $sql);
+
+if ($result === false) {
+    // Handle the query error
+    die("Database query failed: " . mysqli_error($conn));
+}
+
+$lciddata = '';
+
+while ($row = mysqli_fetch_array($result)) {
+    $lcid = mysqli_real_escape_string($conn, $row['lcid']); // Escape the value to prevent SQL injection
+
     $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = '$lcid'";
     $complaintCountResult = mysqli_query($conn, $complaintCountQuery);
+    
+    if ($complaintCountResult === false) {
+        die("Complaint count query failed: " . mysqli_error($conn));
+    }
+    
     $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
     $complaintCount = $complaintCountRow['complaint_count'];
     $lciddata .= "<tr class='bg-white'>
@@ -66,6 +75,41 @@
 
     $lciddata .= "</tr>";
 }
+
+// Return the complete HTML table structure
+echo "<table class='w-full text-center text-grey-500 dark:text-gray-400'>
+        <thead class='text-center uppercase'>
+            <tr class='border-b bg-gray-700'>
+                <th scope='col' class='text-md font-medium text-white px-2 py-2 border-r'>
+                    ID
+                </th>
+                <th scope='col' class='text-md font-medium text-white px-2 py-2 border-r'>
+                    STATE_ID
+                </th>
+                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
+                    BIZ_TYPE
+                </th>
+                <th scope='col' class='text-md font-medium text-white px-8 py-2 border-r'>
+                    LITTLECALIPH_ID
+                </th>
+                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
+                    OPERATOR_NAME
+                </th>
+                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
+                    KINDERGARTEN NUMBER
+                </th>
+                <th scope='col' class='text-md font-medium text-white px-2 py-2 border-r'>
+                    COMPLAINT COUNT
+                </th>
+                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
+                    ACTION
+                </th>
+            </tr>
+        </thead>
+        <tbody class='bg-white text-black'>
+            $lciddata
+        </tbody>
+    </table>";
 ?>
 </head>
 
@@ -108,6 +152,7 @@
     </table>
     <?php
     } else {
+        // No rows found, handle this case
         echo "<h1 class='text-center text-danger mt-5'>No data found</h1>";
     }
     ?>
