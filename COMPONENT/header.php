@@ -111,6 +111,8 @@
             <ul class="d-flex">
                 <li><a href="home.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">HOME</a></li>
                 <li><a href="COMPONENT/FUNCTION/construction.php" class="hover:bg-red-100 text-black py-3 px-3 text-decoration-none">ABOUT</a></li>
+                <li><a href="COMPONENT/FUNCTION/customer-detail.php" class="hover:bg-red-100 text-black py-3 px-3 text-decoration-none">CUSTOMER DETAILS</a></li>
+                <li><a href="COMPONENT/dashmin" class="hover:bg-red-100 text-black py-3 px-3 text-decoration-none">DASHMIN</a></li>
                 <li><a href="COMPONENT/FUNCTION/print-report.php" class="hover:bg-gray-50 text-black py-3 px-3 text-decoration-none">REPORT</a></li>
             </ul>
         </div>
@@ -120,7 +122,7 @@
             </button>
             <div class="user-options">
                 <ul>
-                    <li><a href="COMPONENT/dashmin">Dashmin</a></li>
+                    <li><a href="COMPONENT/">Setting</a></li>
                     <li><a href="COMPONENT/FUNCTION/logout.php">Logout</a></li>
                 </ul>
             </div>

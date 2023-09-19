@@ -26,9 +26,16 @@ if ($result->num_rows == 1) {
     if ($password == $row['password']) { // This is plain text comparison
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $row['user_id'];
-        $_SESSION['name'] = $row['name'];
+        $_SESSION['username'] = $row['username'];
         $_SESSION['department'] = $row['department'];
         $_SESSION['type'] = $row['type'];
+        $_SESSION['fullname'] = $row['fullname'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['nohp'] = $row['nohp'];
+        $_SESSION['ic'] = $row['ic'];
+        $_SESSION['address'] = $row['address'];
+        $_SESSION['marriage_status'] = $row['marriage_status'];
+        $_SESSION['img'] = $row['img'];
 
         if ($row['type'] == 'admin') {
             header("Location: ../../home.php"); // Redirect admin to this page

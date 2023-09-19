@@ -14,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = trim($_POST["user_id"]);
     }
     // Validate name
-    if (empty(trim($_POST["name"]))) {
+    if (empty(trim($_POST["username"]))) {
         $name_err = "Please enter a Name.";
     } else {
-        $name = trim($_POST["username"]);
+        $name = trim($_POST["name"]);
     }
 
     // Validate password
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($insert_stmt = mysqli_prepare($conn, $insert_query)) {
             // Bind variables to the prepared statement
-            mysqli_stmt_bind_param($insert_stmt,'sssss', $user_id, $name, $password, $type, $department);
+            mysqli_stmt_bind_param($insert_stmt,'sssss', $user_id, $username, $password, $type, $department);
 
             // Execute the prepared statement
             if (mysqli_stmt_execute($insert_stmt)) {
@@ -112,9 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div>
                         <label>Name:</label>
-                        <input type="text" name="name" class="block border border-grey-light w-full p-2 rounded mb-2"
-                            value="<?php echo $name; ?>">
-                        <span><?php echo $name_err; ?></span>
+                        <input type="text" name="username" class="block border border-grey-light w-full p-2 rounded mb-2"
+                            value="<?php echo $username; ?>">
+                        <span><?php echo $username_err; ?></span>
                     </div>
                     <div>
                         <label>Password:</label>

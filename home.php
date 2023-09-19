@@ -26,7 +26,7 @@
 </head>
 
 <body class="bg-neutral-50 mb-5">
-    <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo ($_SESSION['name']) ?>!<br>
+    <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo ($_SESSION['username']) ?>!<br>
         <h5 class="px-7 text-secondary"><?php echo ($_SESSION['type'])?></h5>
     </h2>
 
