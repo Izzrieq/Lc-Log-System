@@ -14,7 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Complaint Add</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -96,7 +96,7 @@
                 </div>
                 <div class="flex-auto px-4 lg:px-10 py-8 pt-0">
                     <form id="issueform" class="issue" action="COMPONENT/FUNCTION/add.php" method="POST">
-                        <h6 class="text-blueGray-400 text-xl mt-3 mb-6 font-bold uppercase">
+                        <h6 class="text-blueGray-400 text-xl mt-3 mb-4 font-bold uppercase">
                             Customer Information
                         </h6>
                         <div class="flex flex-wrap">
@@ -155,36 +155,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-wrap">
-                            <div class="w-full lg:w-12/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
-                                        htmlfor="grid-password">
-                                        Details
-                                    </label>
-                                    <textarea type="text" id="details" name="details"
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        rows="4"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap">
-                            <div class="w-full lg:w-12/12 px-4">
-                                <div class="relative w-full mb-3">
-                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
-                                        htmlfor="grid-password">
-                                        Action
-                                    </label>
-                                    <textarea type="text" id="action" name="action"
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        rows="4"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
                         <hr class="mt-6 border-b-1 border-blueGray-300">
 
-                        <h6 class="text-blueGray-400 text-xl mt-3 mb-6 font-bold uppercase">
+                        <h6 class="text-blueGray-400 text-xl mt-3 mb-4 font-bold uppercase">
                             LC Details
                         </h6>
                         <div class="flex flex-wrap">
@@ -201,10 +174,10 @@
                         </div>
                         <div class="w-full lg:w-12/12 px-4">
                             <div class="relative w-full mb-3">
-                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="lcowner">
-                                    Owner Name
+                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="principal">
+                                    Principal
                                 </label>
-                                <input type="text" name="lcowner" id="lcowner"
+                                <input type="text" name="principal" id="principal"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     placeholder="-- select an option --" readonly>
                             </div>
@@ -212,7 +185,7 @@
                         <div class="w-full lg:w-4/12 px-4">
                             <div class="relative w-full mb-3">
                                 <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="ownernohp">
-                                    Owner No Hp
+                                    Telephone No
                                 </label>
                                 <input type="text" name="ownernohp" id="ownernohp"
                                     class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -220,6 +193,35 @@
                             </div>
                         </div>
                         <hr class="mt-6 border-b-1 border-blueGray-300">
+                        <div class="flex flex-wrap">
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Details
+                                    </label>
+                                    <textarea type="text" id="details" name="details"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap">
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-2">
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Action
+                                    </label>
+                                    <textarea type="text" id="action" name="action"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="mt-4 border-b-1 border-blueGray-300">
+
                         <button name="submit"
                             class="bg-pink-500 w-full text-white active:bg-pink-600 font-bold text-lg uppercase px-4 py-2.5 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                             type="submit">

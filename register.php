@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["username"]))) {
         $name_err = "Please enter a Name.";
     } else {
-        $username = trim($_POST["username"]);
+        $name = trim($_POST["name"]);
     }
 
     // Validate password
@@ -37,15 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($password_err) && ($password != $confirm_password)) {
             $confirm_password_err = "Password did not match.";
         }
-    }
-
-    //Validate type
-    if (empty(trim($_POST["type"]))) {
-        $type_err = "Please enter your type.";
-    } elseif ($_POST["type"] !== "admin" && $_POST["type"] !== "user") {
-        $type_err = "Only HOD & CS can access to Admin.";
-    } else {
-        $type = trim($_POST["type"]);
     }
 
     // Validate department
@@ -138,14 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             class="block border border-grey-light w-full p-2 rounded mb-2"
                             value="<?php echo $confirm_password; ?>">
                         <span><?php echo $confirm_password_err; ?></span>
-                    </div>
-                    <div>
-                        <label>Type:</label>
-                        <select name="type" id="type" class="block border border-grey-light w-full p-2 rounded mb-2">
-                            <option value="" hidden>Only HOD & CS can be an Admin </option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                        </select>
                     </div>
                     <div>
                         <label>Department:</label>

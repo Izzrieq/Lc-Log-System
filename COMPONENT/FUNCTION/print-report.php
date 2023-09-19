@@ -1,5 +1,5 @@
 <?php
-    include "../DB/config.php"; 
+include "../DB/config.php"; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,37 @@
             minLength: 2, // Minimum characters before showing suggestions
         });
 
-        // ... Rest of your code ...
+        // Function to show/hide rows based on the selected "Type"
+        function toggleRows(selectedType) {
+            if (selectedType == 1) {
+                // If "Semua Lcid, Semua Bulan" is selected, hide LC ID and Month fields, show Pilihan row
+                $("#lcid_row, #bulan_row").hide();
+                $("#pilihan_row").show();
+            } else if (selectedType == 2) {
+                // If "Mengikut Lcid" is selected, hide Pilihan and Month fields, show LC ID row
+                $("#bulan_row").hide();
+                $("#lcid_row").show();
+                $("#pilihan_row").prop('disabled', false); //Enable the Pilihan select
+            } else if (selectedType == 3) {
+                // If "Mengikut Bulan" is selected, hide Pilihan and LC ID fields, show Month row
+                $("#lcid_row").hide();
+                $("#bulan_row").show();
+                $("#pilihan_row").prop('disabled', false); //Enable the Pilihan select
+            } else if (selectedType == 4) {
+                // If "Mengikut Lcid dan Bulan" is selected, show LC ID and Month fields, hide Pilihan row
+                $("#lcid_row, #bulan_row").show();
+                $("#pilihan_row").prop('disabled', false); //Enable the Pilihan select
+            }
+        }
+
+        // Toggle rows based on the selected "Type" when the page loads
+        toggleRows($("#pilihan").val());
+
+        // Toggle rows based on the selected "Type" when the user changes the selection
+        $("#pilihan").on("change", function () {
+            var selectedType = $(this).val();
+            toggleRows(selectedType);
+        });
     });
 </script>
 
@@ -33,9 +63,6 @@
             <a href="../../home.php">
                 <img class="w-100 h-100" src="../img/LC_COMPANY LOGO_MARCH 2023-01.png" alt="logo">
             </a>
-        </div>
-        <div class="m-0 p-0">
-            <h1 class="mt-3 m-3 text-primary" style="font-size: 2rem; ">BLISS CUSTOMER E-LOG</h1>
         </div>
     </header>
     <center>
@@ -53,7 +80,21 @@
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    <tr>
+                    <tr id="pilihan_row">
+                        <td class="px-3 py-4">
+                            <label for="pilihan" class="block uppercase text-blueGray-600 text-lg font-bold mb-0">BY
+                                <select name="pilihan" id="pilihan"
+                                    class="px-4 py-2 ml-4 text-blueGray-600 bg-white rounded font-medium text-medium text-lg shadow focus:outline-none focus:ring w-fit ease-linear transition-all duration-150">
+                                    <option value="" selected disabled>Choose Your Report</option>
+                                    <option value=1>ALL LC ID/MONTH</option>
+                                    <option value=2>By LC ID</option>
+                                    <option value=3>By MONTH</option>
+                                    <option value=4>By LC ID & MONTH</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr id="lcid_row">
                         <td class="px-3 py-4">
                             <label class="block uppercase text-blueGray-600 text-lg font-bold mb-0" for="lcid">
                                 LC ID
@@ -63,7 +104,7 @@
                             </label>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="bulan_row">
                         <td class="px-3 py-4">
                             <label for="bulan" class="block uppercase text-blueGray-600 text-lg font-bold mb-0">Date
                                 <select name="bulan"
@@ -82,23 +123,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="px-6 py-4">
-                            <label for="pilihan" class="block uppercase text-blueGray-600 text-lg font-bold mb-0">Type
-                                <select name="pilihan"
-                                    class="px-4 py-2 ml-4 text-blueGray-600 bg-white rounded font-medium text-medium text-lg shadow focus:outline-none focus:ring w-fit ease-linear transition-all duration-150">
-                                    <option value=1>Semua Lcid, Semua Bulan</option>
-                                    <option value=2>Mengikut Lcid</option>
-                                    <option value=3>Mengikut Bulan</option>
-                                    <option value=4>Mengikut Lcid dan Bulan</option>
-                                </select>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>
                             <button
                                 class="bg-blue-500 w-full text-white active:bg-pink-600 font-bold text-md uppercase px-4 py-1 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                style="background-image: url(image/printer-icon.png);" type="submit">Papar</button>
+                                style="background-image: url(image/printer-icon.png);" type="submit">SUBMIT</button>
                         </td>
                     </tr>
                 </tbody>
