@@ -1,44 +1,38 @@
 <?php
-// Start a session if not already started
+var_dump($_POST); 
 session_start();
-
-// Check if the user is logged in
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    echo "Error: You must log in first.";
+    echo json_encode(array('status' => 'Unauthorized')); // Handle unauthorized access
     exit;
 }
 
-// Include your database configuration
-include "../DB/config.php"; 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include "../DB/config.php";
 
-// Check if the request method is POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve data from the POST request
-    $eventTitle = $_POST['title'];
-    $newStartDate = $_POST['start_date'];
+    // Get the event ID and new start date from the POST data
+    $eventId = $_POST['event_id'];
 
-    // Prepare the SQL query
-    $queryInsert = "INSERT INTO events (title, start_date) VALUES (?, ?)";
-    $stmt = $conn->prepare($queryInsert);
+    // Remove the time zone offset (Z) and convert to the desired format
+    $newStartDate = date('Y-m-d H:i:s', strtotime($_POST['start_date']));
 
-    // Check if the statement was prepared successfully
-    if ($stmt) {
-        // Bind parameters to the prepared statement
-        $stmt->bind_param('ss', $eventTitle, $newStartDate);
-        
-        // Execute the statement
-        if ($stmt->execute()) {
-            echo "Success"; // Event added successfully
-        } else {
-            echo "Error: " . $stmt->error; // Display any SQL errors
-        }
+    // Validate and sanitize input as needed
 
-        // Close the statement
-        $stmt->close();
+    // Update the event in the database
+    $query = "UPDATE events SET start_date = ? WHERE event_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('si', $newStartDate, $eventId);
+
+    // Debugging statements
+    error_log('Event ID: ' . $eventId);
+    error_log('New Start Date: ' . $newStartDate);
+    error_log('SQL Query: ' . $query . ' with parameters: ' . $newStartDate . ', ' . $eventId);
+
+    if ($stmt->execute()) {
+        echo json_encode(array('status' => 'Success'));
     } else {
-        echo "Error: Unable to prepare the statement.";
+        echo json_encode(array('status' => 'Error', 'message' => $stmt->error));
     }
 } else {
-    echo "Error: Invalid request method.";
+    echo json_encode(array('status' => 'Invalid request')); // Handle invalid request method
 }
 ?>

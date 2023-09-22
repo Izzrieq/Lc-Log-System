@@ -1,58 +1,57 @@
 <?php 
-      include "COMPONENT/DB/config.php"; 
-      include "COMPONENT/header.php";
-  
-      //wajib ada setiap page
-      if (session_status() === PHP_SESSION_NONE) {
-          session_start();
-      }
-      if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-          echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
-          exit;
-      }
-  
-      $user_id = $_SESSION['user_id'];
-      $department = $_SESSION['department'];
-      
-      // Handle form submission
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          $eventName = $_POST["eventName"];
-          $eventDate = $_POST["eventDate"];
-          $eventTime = $_POST["eventTime"];
-  
-          // Set the department based on the user's session
-          $eventDepartment = $department;
-  
-          // Check if an event with the same department and date already exists
-          $queryCheckDuplicate = "SELECT COUNT(*) FROM events WHERE department = ? AND start_date = ?";
-          $stmtCheckDuplicate = $conn->prepare($queryCheckDuplicate);
-          $stmtCheckDuplicate->bind_param('ss', $eventDepartment, $eventDate);
-          $stmtCheckDuplicate->execute();
-          $stmtCheckDuplicate->bind_result($count);
-          $stmtCheckDuplicate->fetch();
-          $stmtCheckDuplicate->close();
-  
-          if ($count > 0) {
-              echo "<script>alert('An event with the same department and date already exists.');  window.location.href = 'home.php';</script>";
-              exit;
-          }
-  
-          // Insert event data into the database
-          $queryInsert = "INSERT INTO events (title, start_date, end_date, start_time, department, user_id)
-                  VALUES (?, ?, ?, ?, ?, ?)";
-          $stmt = $conn->prepare($queryInsert);
-          $stmt->bind_param('ssssss', $eventName, $eventDate, $eventDate, $eventTime, $eventDepartment, $user_id);
-  
-          // Debugging: Output the SQL query
-          echo "SQL Query: " . $queryInsert;
-  
-          if ($stmt->execute()) {
-          echo "<script>alert('Event added successfully.');  window.location.href = 'home.php';</script>";
-          } else {
-              echo "<script>alert('Error adding event: " . $stmt->error . "'); </script>";
-          }
-      }
-    ?>
+    include "COMPONENT/DB/config.php"; 
+    include "COMPONENT/header.php";
+
+    // Make sure there's an active session
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+        exit;
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $userDepartment = $_SESSION['department'];
+    
+    // Handle form submission
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $eventName = $_POST["event_name"];
+        $eventStartDate = $_POST["event_start_date"];
+        $eventEndDate = $_POST["event_end_date"];
+        $eventTime = $_POST["event_time"];
+
+        // Set the department based on the user's session
+        $eventDepartment = $department;
+
+        // Check if an event with the same department and date already exists
+        $queryCheckDuplicate = "SELECT COUNT(*) FROM events WHERE department = ? AND start_date = ?";
+        $stmtCheckDuplicate = $conn->prepare($queryCheckDuplicate);
+        $stmtCheckDuplicate->bind_param('ss', $eventDepartment, $eventStartDate);
+        $stmtCheckDuplicate->execute();
+        $stmtCheckDuplicate->bind_result($count);
+        $stmtCheckDuplicate->fetch();
+        $stmtCheckDuplicate->close();
+
+        if ($count > 0) {
+            echo "<script>alert('An event with the same department and date already exists.');  window.location.href = 'home.php';</script>";
+            exit;
+        }
+
+        // Insert event data into the database
+        $queryInsert = "INSERT INTO events (title, start_date, end_date, start_time, department, user_id)
+                VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($queryInsert);
+        $stmt->bind_param('ssssss', $eventName, $eventStartDate, $eventEndDate, $eventTime, $eventDepartment, $user_id);
+
+        if ($stmt->execute()) {
+            echo "<script>alert('Event added successfully.');  window.location.href = 'home.php';</script>";
+        } else {
+            echo "<script>alert('Error adding event: " . $stmt->error . "'); </script>";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,19 +62,27 @@
     <link rel="icon" type="image/png" href="COMPONENT/img/logolc.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    
-     <!-- jQuery -->
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src='fullcalendar-6.1.8/dist/index.global.js'></script>
-    <script src='fullcalendar-6.1.8/dist/index.global.min.js'></script>
-
-    <!-- FullCalendar JavaScript -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
 
     <!-- tailwindcss -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
+    <!-- JS for jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- JS for full calender -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <!-- bootstrap css and js -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
+
+<style>
+    .event-info {
+    color: white;
+    /* Add any other styling you need for the event info */
+}
+</style>
 
 <body class="bg-neutral-50 mb-5">
     <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo ($_SESSION['username']) ?>!<br>
@@ -134,116 +141,314 @@
         
     </div>
 </div>
-<?php echo ($_SESSION['department'])
-?>
-<div class="mb-8 w-1/3">
-    <h3 class="mb-2 text-xl font-semibold">Add Event</h3>
-    <form id="addEventForm" method="post" class="space-y-4">
-        <div>
-            <label for="eventName" class="block text-sm font-medium text-gray-700">Event Name:</label>
-            <input type="text" id="eventName" name="eventName" required class="mt-1 form-input block w-full sm:text-sm sm:leading-5">
-        </div>
-        <div>
-            <label for="eventDate" class="block text-sm font-medium text-gray-700">Event Date:</label>
-            <input type="date" name="eventDate" id="eventDate" required class="mt-1 form-input block w-full sm:text-sm sm:leading-5">
-        </div>
-        <div>
-            <label for="eventTime" class="block text-sm font-medium text-gray-700">Event Time:</label>
-            <input type="time" name="eventTime" id="eventTime" required class="mt-1 form-input block w-full sm:text-sm sm:leading-5">
-        </div>
-        <!-- Remove the department selection dropdown -->
-        <div>
-            <!-- Set the department based on the user's session -->
-            <input type="hidden" name="eventDepartment" value="<?php echo $department; ?>">
-        </div>
-        <div>
-            <button type="submit"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-primary bg-primary hover:bg-primary-dark active:bg-primary-darker focus:outline-none focus:border-primary focus:ring focus:ring-primary transition ease-in-out duration-150">
-                Add Event
-            </button>
-        </div>
-    </form>
+<div id="calendar" class="p-10 my-10"></div>
+<!-- Start popup dialog box -->
+<div class="modal fade" id="event_entry_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalLabel">Add New Event</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">�</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-sm-12">  
+							<div class="form-group">
+							  <label for="event_name">Event name</label>
+							  <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Enter your event name">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="event_start_date">Event start</label>
+							  <input type="date" name="event_start_date" id="event_start_date" class="form-control onlydatepicker" placeholder="Event start date">
+							 </div>
+						</div>
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="event_end_date">Event end</label>
+							  <input type="date" name="event_end_date" id="event_end_date" class="form-control" placeholder="Event end date">
+							</div>
+						</div>
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="department">department</label>
+                              <select name="department" id="department" class="form-control">
+                                <option value="<?php echo $userDepartment; ?>"><?php echo $userDepartment; ?></option>
+                                <option value="ALL">ALL</option>
+                              </select>
+							</div>
+						</div>
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="user_id">User_id</label>
+							  <input type="text" name="user_id" id="user_id" class="form-control" placeholder="User id" value="<?php echo $user_id; ?>">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="save_event()">Save Event</button>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="bg-white p-4 rounded-lg shadow">
-            <h3 class="mb-2 text-xl font-semibold">Calendar</h3>
-            <div id="calendar"></div>
-        </div>
-        <script>
-          document.addEventListener('DOMContentLoaded', function () {
-    var containerEl = document.getElementById('calendar');
-    new FullCalendar.Draggable(containerEl, {
-        itemSelector: '.fc-event',
-        eventData: function (eventEl) {
-            return {
-                title: eventEl.innerText.trim(),
-                start: moment().format('YYYY-MM-DD') // Set a default start date
-            };
-        }
+<!-- End popup dialog box -->
+
+</body>
+<script>
+    $(document).ready(function() {
+        display_events();
     });
 
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        // Your calendar configuration here
-        initialView: 'dayGridMonth',
-        events: 'COMPONENT/dashmin/get_events.php', // Specify the PHP script to fetch events
-        eventDisplay: 'block', // Show events as blocks
+    function display_events() {
+        console.log("display_events function called");
+        var events = new Array();
+        var calendar = $('#calendar').fullCalendar({
+            defaultView: 'month',
+            timeZone: 'local',
+            editable: true,
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end) {
+                console.log("Date selected:", start, end);
+                // Show the popup dialog box when a date is selected
+                $('#event_start_date').val(moment(start).format('YYYY-MM-DD'));
+                $('#event_end_date').val(moment(end).format('YYYY-MM-DD'));
+                $('#event_entry_modal').modal('show');
+                // calendar.fullCalendar('unselect'); // Unselect the date after showing the modal
+            },
+            eventRender: function(event, element, view) {
+                function getEventColor(department) {
+                    switch (department) {
+                        case "DBD":
+                            return "blue"; 
+                        case "BLISS":
+                            return "green"; 
+                        case "AGRO FARM":
+                            return "yellow";
+                        case "AIM":
+                            return "lightblue"; 
+                        case "COO OFFICE":
+                            return "lightgreen"; 
+                        case "EDU":
+                            return "orange";
+                        case "EMAS":
+                            return "blue"; 
+                        case "EVERGREEN":
+                            return "green"; 
+                        case "FINANCE":
+                            return "yellow";
+                        case "GO WORLD":
+                            return "blue"; 
+                        case "HR":
+                            return "green"; 
+                        case "MERCHANDISE":
+                            return "yellow";
+                        case "OSM":
+                            return "blue"; 
+                        case "PUBLICATION":
+                            return "green"; 
+                        case "SUIT":
+                            return "yellow";
+                        default:
+                            return "red"; 
+                    }
+                }
 
-        eventContent: function (info) {
-            if (info.event) {
-                var eventTitle = info.event.title;
-                var startTime = eventTitle.substring(eventTitle.lastIndexOf('(') + 1, eventTitle.lastIndexOf(')'));
+                var leftContent = "<div class='left-content'>";
+                leftContent += "<span class='event-details'>"+"Department: " + event.department + "<br/>"+"Assigned By: " + event.user_id + "</span>";
+                leftContent += "</div>";
 
-                return {
-                    html: '<b>' + info.event.title + '</b><br>' +
-                        'Time: ' + startTime + '<br>' +
-                        'Department: ' + (info.event.extendedProps ? info.event.extendedProps.departmentTitle : 'N/A')
-                };
-            } else {
-                return null; // or an appropriate fallback
-            }
-        },
-        editable: true, // Enable editing of events
-        droppable: true, // Enable drag-and-drop for adding events
+                var rightContent = "<div class='right-content'>";
+                rightContent += "<img src='COMPONENT/img/delete.png' class='delete-icon' data-event-id='" + event.event_id + "' alt='Delete' height='24px' width='24px' />";
+                rightContent += "</div>";
 
-        eventReceive: function (info) {
-            console.log('Received event:', info);
-            // Handle external event drop here
-            var confirmation = confirm('Are you sure you want to move this event to ' + info.dateStr + '?');
-            if (confirmation) {
-                // Handle the external event drop as needed
-                // You can access info.draggedEl for the dragged element's details
-                var eventTitle = info.draggedEl.innerText.trim();
-                var newStartDate = info.dateStr;
+                element.css('background-color', getEventColor(event.department));
+                element.find('.fc-title').css('color', 'white');
 
-                // Send the data to your server using an AJAX request
-                $.ajax({
-                    type: 'POST',
-                    url: 'COMPONENT/dashmin/update_event_date.php', // Adjust the URL
-                    data: {
-                        title: eventTitle,
-                        start_date: newStartDate,
-                    },
-                    success: function (response) {
-                        if (response === "Success") {
-                            // External event added successfully
-                            // You can render the updated calendar or perform other actions
-                            calendar.render();
-                        } else {
-                            alert('Error adding external event: ' + response);
-                        }
+                // Append left and right content inside the event element
+                element.append(leftContent).append(rightContent);
+
+                // Style the left and right content for positioning
+                element.find('.left-content').css({
+                    color: 'white',
+                    float: 'left', // Left-align left content
+                    'font-size': '10px',
+                    // 'margin': '5px', 
+                });
+
+                element.find('.right-content').css({
+                    float: 'right', // Right-align right content
+                });
+
+                // Clear floats to ensure proper rendering
+                element.append("<div style='clear:both;'></div>");
+
+                // Attach a click event handler to the delete icon
+                element.find('.delete-icon').on('click', function() {
+                    var eventIdToDelete = $(this).data('event-id');
+                    if (confirm("Do you want to delete this event with id = " + event.event_id)) {
+                        delete_event(eventIdToDelete);
                     }
                 });
-            } else {
-                // Revert the drop if canceled
-                calendar.getApi().getEventSourceById(info.source.id).remove();
+            },
+            eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+                // Display confirmation dialog
+                if (confirm("Do you want to update the event date?")) {
+                    update_event(event);
+                } else {
+                    // Revert the event to its original position
+                    revertFunc();
+                }
             }
-        }
-    });
+        });
 
-    calendar.render();
-});
-  
-        </script>
-</body>
+        $.ajax({
+            url: 'COMPONENT/FUNCTION/display_event.php',
+            dataType: 'json',
+            success: function(response) {
+                var result = response.data;
+                $.each(result, function(i, item) {
+                    console.log("Department: " + result[i].department);
+                    // Check if the event's department matches the user's department or is set to "all"
+                    if (result[i].department === '<?php echo $userDepartment; ?>' || result[i].department === 'ALL') {
+                        events.push({
+                            event_id: result[i].event_id,
+                            title: result[i].title,
+                            start: result[i].start,
+                            end: result[i].end,
+                            department: result[i].department,
+                            user_id: result[i].user_id,
+                            color: result[i].color,
+                        });
+                    }
+                });
+                calendar.fullCalendar('addEventSource', events);
+            },
+            error: function(xhr, status) {
+                alert("Error loading events: " + status);
+            }
+        });
+    }
+
+function showAddEventModal() {
+    // Clear any previous input values
+    $('#event_name').val('');
+    $('#event_start_date').val('');
+    $('#event_end_date').val('');
+    populateModalFields(); // Populate department and user_id fields
+    $('#event_entry_modal').modal('show');
+}
+
+	function save_event() {
+        var event_name = $("#event_name").val();
+        var event_start_date = $("#event_start_date").val();
+        var event_end_date = $("#event_end_date").val();
+        var department = $("#department").val();
+        var user_id = $("#user_id").val();
+
+        if (event_name === "" || event_start_date === "" || event_end_date === ""|| department === ""|| user_id === "") {
+            alert("Please enter all required details.");
+            return false;
+        }
+
+        $.ajax({
+            url: "COMPONENT/FUNCTION/save_event.php",
+            type: "POST",
+            dataType: 'json',
+            data: {
+                event_name: event_name,
+                event_start_date: event_start_date,
+                event_end_date: event_end_date,
+                department: department,
+                user_id: user_id,
+                // Add more form field data here if needed
+            },
+            success: function(response) {
+                $('#event_entry_modal').modal('hide');
+                if (response.status === true) {
+                    alert(response.msg);
+                    location.reload();
+                } else {
+                    alert(response.msg);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('ajax error = ' + error);
+                alert("Error: " + error);
+            }
+        });
+
+        return false;
+    }
+
+	function update_event(event) {
+        var event_id = event.event_id;
+        var event_start_date = event.start.format('YYYY-MM-DD');
+
+        $.ajax({
+            url: 'COMPONENT/FUNCTION/update_event.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                event_id: event_id,
+                event_start_date: event_start_date
+            },
+            success: function(response) {
+                if (response.status === true) {
+                    alert(response.msg);
+                } else {
+                    alert(response.msg);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('ajax error = ' + error);
+                alert("Error: " + error);
+            }
+        });
+    }
+
+    function delete_event(event) {
+    // Verify that event.id is correctly set before making the AJAX request
+    var eventIdToDelete = event;
+        if (eventIdToDelete) {
+            console.log("Event ID to delete:", eventIdToDelete);
+
+            // Send an AJAX request to delete the event by its ID
+            $.ajax({
+                url: 'COMPONENT/FUNCTION/delete_event.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    event_id: eventIdToDelete
+                },
+                success: function(response) {
+                    if (response.status === true) {
+                        alert(response.msg);
+                        if (response.refresh === true) {
+                            window.location.reload(); // Refresh the page
+                        }
+                    } else {
+                        alert(response.msg);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('ajax error = ' + error);
+                    alert("Error: " + error);
+                }
+            });
+        } else {
+            console.log("Invalid event ID. Cannot delete.");
+        }
+    }
+</script>
+
     <?php include "COMPONENT/footer.php" ?>
 </html>
