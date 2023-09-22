@@ -1,0 +1,332 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>How to create dynamic event calendar in HTML and PHP</title>
+<!-- *Note: You must have internet connection on your laptop or pc other wise below code is not working -->
+<!-- CSS for full calender -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
+<!-- JS for jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- JS for full calender -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+<!-- bootstrap css and js -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .event-info {
+    color: white;
+    /* Add any other styling you need for the event info */
+}
+
+</style>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h5 align="center">How to create dynamic event calendar in HTML and PHP</h5>
+            <!-- <button type="button" onclick="$('#event_entry_modal').modal('show');">Add Event</button> -->
+			<div id="calendar"></div>
+		</div>
+	</div>
+</div>
+<!-- Start popup dialog box -->
+<div class="modal fade" id="event_entry_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalLabel">Add New Event</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">�</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="img-container">
+					<div class="row">
+						<div class="col-sm-12">  
+							<div class="form-group">
+							  <label for="event_name">Event name</label>
+							  <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Enter your event name">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="event_start_date">Event start</label>
+							  <input type="date" name="event_start_date" id="event_start_date" class="form-control onlydatepicker" placeholder="Event start date">
+							 </div>
+						</div>
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="event_end_date">Event end</label>
+							  <input type="date" name="event_end_date" id="event_end_date" class="form-control" placeholder="Event end date">
+							</div>
+						</div>
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="department">department</label>
+							  <input type="text" name="department" id="department" class="form-control" placeholder="department">
+							</div>
+						</div>
+						<div class="col-sm-6">  
+							<div class="form-group">
+							  <label for="user_id">User_id</label>
+							  <input type="text" name="user_id" id="user_id" class="form-control" placeholder="User id">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="save_event()">Save Event</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End popup dialog box -->
+
+<br>
+</body>
+<script>
+    $(document).ready(function() {
+        display_events();
+    });
+
+    function display_events() {
+        console.log("display_events function called");
+        var events = new Array();
+        var calendar = $('#calendar').fullCalendar({
+            defaultView: 'month',
+            timeZone: 'local',
+            editable: true,
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end) {
+                console.log("Date selected:", start, end);
+                // Show the popup dialog box when a date is selected
+                $('#event_start_date').val(moment(start).format('YYYY-MM-DD'));
+                $('#event_end_date').val(moment(end).format('YYYY-MM-DD'));
+                $('#event_entry_modal').modal('show');
+                // calendar.fullCalendar('unselect'); // Unselect the date after showing the modal
+            },
+            eventRender: function(event, element, view) {
+                function getEventColor(department) {
+                    switch (department) {
+                        case "DBD":
+                            return "blue"; 
+                        case "BLISS":
+                            return "green"; 
+                        case "AGRO FARM":
+                            return "yellow";
+                        case "AIM":
+                            return "lightblue"; 
+                        case "COO OFFICE":
+                            return "lightgreen"; 
+                        case "EDU":
+                            return "orange";
+                        case "EMAS":
+                            return "blue"; 
+                        case "EVERGREEN":
+                            return "green"; 
+                        case "FINANCE":
+                            return "yellow";
+                        case "GO WORLD":
+                            return "blue"; 
+                        case "HR":
+                            return "green"; 
+                        case "MERCHANDISE":
+                            return "yellow";
+                        case "OSM":
+                            return "blue"; 
+                        case "PUBLICATION":
+                            return "green"; 
+                        case "SUIT":
+                            return "yellow";
+                        default:
+                            return "red"; 
+                    }
+                }
+
+                var leftContent = "<div class='left-content'>";
+                leftContent += "<span class='event-details'>"+"Department: " + event.department + "<br/>"+"Assigned By: " + event.user_id + "</span>";
+                leftContent += "</div>";
+
+                var rightContent = "<div class='right-content'>";
+                rightContent += "<img src='../COMPONENT/img/delete.png' class='delete-icon' data-event-id='" + event.event_id + "' alt='Delete' height='24px' width='24px' />";
+                rightContent += "</div>";
+
+                element.css('background-color', getEventColor(event.department));
+                element.find('.fc-title').css('color', 'white');
+
+                // Append left and right content inside the event element
+                element.append(leftContent).append(rightContent);
+
+                // Style the left and right content for positioning
+                element.find('.left-content').css({
+                    color: 'white',
+                    float: 'left', // Left-align left content
+                    'font-size': '10px', 
+                });
+
+                element.find('.right-content').css({
+                    float: 'right', // Right-align right content
+                });
+
+                // Clear floats to ensure proper rendering
+                element.append("<div style='clear:both;'></div>");
+
+                // Attach a click event handler to the delete icon
+                element.find('.delete-icon').on('click', function() {
+                    var eventIdToDelete = $(this).data('event-id');
+                    if (confirm("Do you want to delete this event with id = " + event.event_id)) {
+                        delete_event(eventIdToDelete);
+                    }
+                });
+            },
+            eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
+                // Display confirmation dialog
+                if (confirm("Do you want to update the event date?")) {
+                    update_event(event);
+                } else {
+                    // Revert the event to its original position
+                    revertFunc();
+                }
+            }
+        });
+
+		$.ajax({
+            url: 'display_event.php',
+            dataType: 'json',
+            success: function(response) {
+                var result = response.data;
+                $.each(result, function(i, item) {
+                    events.push({
+                        event_id: result[i].event_id,
+                        title: result[i].title,
+                        start: result[i].start,
+                        end: result[i].end,
+                        department: result[i].department,
+                        user_id: result[i].user_id,
+                        color: result[i].color,
+                    });
+                });
+                calendar.fullCalendar('addEventSource', events);
+            },
+            error: function(xhr, status) {
+                alert("Error loading events: " + status);
+            }
+        });
+	}
+
+	function save_event() {
+        var event_name = $("#event_name").val();
+        var event_start_date = $("#event_start_date").val();
+        var event_end_date = $("#event_end_date").val();
+        var department = $("#department").val();
+        var user_id = $("#user_id").val();
+        // Add more form field values here if needed
+
+        if (event_name === "" || event_start_date === "" || event_end_date === ""|| department === ""|| user_id === "") {
+            alert("Please enter all required details.");
+            return false;
+        }
+
+        $.ajax({
+            url: "save_event.php",
+            type: "POST",
+            dataType: 'json',
+            data: {
+                event_name: event_name,
+                event_start_date: event_start_date,
+                event_end_date: event_end_date,
+                department: department,
+                user_id: user_id,
+                // Add more form field data here if needed
+            },
+            success: function(response) {
+                $('#event_entry_modal').modal('hide');
+                if (response.status === true) {
+                    alert(response.msg);
+                    location.reload();
+                } else {
+                    alert(response.msg);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('ajax error = ' + error);
+                alert("Error: " + error);
+            }
+        });
+
+        return false;
+    }
+
+	function update_event(event) {
+        var event_id = event.event_id;
+        var event_start_date = event.start.format('YYYY-MM-DD');
+
+        $.ajax({
+            url: 'update_event.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                event_id: event_id,
+                event_start_date: event_start_date
+            },
+            success: function(response) {
+                if (response.status === true) {
+                    alert(response.msg);
+                } else {
+                    alert(response.msg);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('ajax error = ' + error);
+                alert("Error: " + error);
+            }
+        });
+    }
+
+    function delete_event(event) {
+    // Verify that event.id is correctly set before making the AJAX request
+    var eventIdToDelete = event;
+
+
+    if (eventIdToDelete) {
+        console.log("Event ID to delete:", eventIdToDelete);
+
+        // Send an AJAX request to delete the event by its ID
+        $.ajax({
+            url: 'delete_event.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                event_id: eventIdToDelete
+            },
+            success: function(response) {
+                if (response.status === true) {
+                    alert(response.msg);
+                    if (response.refresh === true) {
+                        window.location.reload(); // Refresh the page
+                    }
+                } else {
+                    alert(response.msg);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('ajax error = ' + error);
+                alert("Error: " + error);
+            }
+        });
+    } else {
+        console.log("Invalid event ID. Cannot delete.");
+    }
+}
+
+
+
+</script>
+	
+</html> 
