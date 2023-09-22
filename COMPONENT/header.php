@@ -183,7 +183,7 @@ if ($stmt) {
 
         <div class="user-options">
          <ul>
-             <li><a href="COMPONENT/">Setting</a></li>
+             <li><a href="COMPONENT/setting.php">Setting</a></li>
              <li><a href="COMPONENT/FUNCTION/logout.php">Logout</a></li>
          </ul>
     </div>

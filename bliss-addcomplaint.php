@@ -87,13 +87,15 @@
 <body class="bg-neutral-50">
     <section class=" pt-0 pb-2 bg-blueGray-50">
         <div class="w-full lg:w-8/12 px-4 mx-auto mt-4">
-            <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+            <div
+                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                 <div class="rounded-t bg-white mb-0 px-6 py-6">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-2xl font-bold">
                             ISSUE COMPLAIN
                         </h6>
-                        <button class="bg-blue-700 text-white rounded px-2">BACK <i class="fa fa-undo" aria-hidden="true" onclick="history.back()"></i></button>
+                        <button class="bg-blue-700 text-white rounded px-2">BACK <i class="fa fa-undo"
+                                aria-hidden="true" onclick="history.back()"></i></button>
                     </div>
                 </div>
                 <div class="flex-auto px-4 lg:px-10 py-8 pt-0">
@@ -121,6 +123,38 @@
                                     <input type="text" id="cnohp" name="cnohp"
                                         class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         placeholder="011-2223456">
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Caller
+                                    </label>
+                                    <select name="caller" id="caller"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                        <option value="#" disabled selected>Select Caller:</option>
+                                        <option value="Parents">Parents</option>
+                                        <option value="Operator">Operator</option>
+                                        <option value="Public">Public</option>
+                                        <option value="Sales">Sales</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-full lg:w-6/12 px-4">
+                                <div class="relative w-full mb-3">
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2"
+                                        htmlfor="grid-password">
+                                        Channel
+                                    </label>
+                                    <select name="channel" id="channel"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                                        <option value="#" disabled selected>Select Channel: </option>
+                                        <option value="Office">Office</option>
+                                        <option value="WhatsApp">WhatsApp</option>
+                                        <option value="Telegram">Telegram</option>
+                                        <option value="Email">Email</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full lg:w-6/12 px-4">
