@@ -11,6 +11,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 // Assuming you have a session or some way to identify the user, e.g., $_SESSION['user_id']
 $user_id = $_SESSION['user_id']; // Replace with the actual way you identify the user
+$img = $_SESSION['img'];
 
 // Query to retrieve the user's image from the "users" table based on user_id
 $sql = "SELECT img FROM users WHERE user_id = ?";
@@ -178,7 +179,7 @@ if ($stmt) {
         </div>
         <div class="navbar-right">
         <button class="user-icon" data-user-id="<?php echo $user_id; ?>">
-            <img class="rounded-image" src="data:image/jpeg;base64,<?php echo base64_encode($userImage); ?>" alt="User Image" width="75" height="75">
+            <img class="rounded-image" src="COMPONENT/uploads/<?php echo $img; ?>" alt="User Image" width="75" height="75">
         </button>
 
         <div class="user-options">

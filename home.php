@@ -14,6 +14,8 @@
 
     $user_id = $_SESSION['user_id'];
     $userDepartment = $_SESSION['department'];
+    $username = $_SESSION['username'];
+    $type = $_SESSION['type'];
     
     // Handle form submission
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -85,8 +87,8 @@
 </style>
 
 <body class="bg-neutral-50 mb-5">
-    <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo ($_SESSION['username']) ?>!<br>
-        <h5 class="px-7 text-secondary"><?php echo ($_SESSION['type'])?></h5>
+    <h2 class="px-6 mb-0 mt-2 text-primary text-2xl">WELCOME, <?php echo $username ?>!<br>
+        <h5 class="px-7 text-secondary"><?php echo $type?></h5>
     </h2>
 
     <h1 class="text-center text-black text-2xl">Our Services</h1>
@@ -134,7 +136,7 @@
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
                     <h5 class="card-title font-bold text-base">DASHMIN</h5>
                     <p class="card-text">Task Manager.</p>
-                    <a href="bliss-operator.php" class="btn btn-primary mt-2">Go Somewhere</a>
+                    <a href="COMPONENT/dashmin/index.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>

@@ -7,8 +7,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     echo "<script>alert('You must log in first.'); window.location.href = '../../index.php';</script>";
     exit;
 }
-
-$name = $_SESSION['name'];
+$img = $_SESSION['img'];
+$username = $_SESSION['username'];
 $type = $_SESSION['type'];
 $user_department = $_SESSION['department'];
 
@@ -24,7 +24,7 @@ if(isset($_GET['notification_id'])) {
 // Fetch user's assigned tasks if user is not admin
 $tasks = array();
 if ($type !== 'admin') {
-    $tasks_query = "SELECT * FROM tasks WHERE assigned_to = '$name' AND department = '$user_department' ORDER BY date_assigned DESC";
+    $tasks_query = "SELECT * FROM tasks WHERE assigned_to = '$username' AND department = '$user_department' ORDER BY date_assigned DESC";
     $tasks_result = mysqli_query($conn, $tasks_query);
     while ($task_row = mysqli_fetch_assoc($tasks_result)) {
         $tasks[] = $task_row;
@@ -41,10 +41,10 @@ if ($type === 'admin') {
     }
 }
 
-$admin_query = "SELECT name FROM users WHERE type = 'admin' LIMIT 1"; // Modify this query according to your database schema
+$admin_query = "SELECT username FROM users WHERE type = 'admin' LIMIT 1"; // Modify this query according to your database schema
 $admin_result = mysqli_query($conn, $admin_query);
 $admin_row = mysqli_fetch_assoc($admin_result);
-$adminName = $admin_row['name'];
+$adminName = $admin_row['username'];
 
 function getUnreadNotificationCountForAdmin($adminName) {
     // Implement your logic to fetch and return the notification count from the database
@@ -96,16 +96,13 @@ function getUnreadNotificationCountForAdmin($adminName) {
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
                 </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="../img/user-icon.png" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                        </div>
+                <div class="flex items-center ms-4 mb-4">
+                    <div class="relative">
+                        <img class="rounded-full" src="../uploads/<?php echo $img; ?>" alt="User Image" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-full border-2 border-white absolute bottom-0 right-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><?php echo $_SESSION['name']; ?>!</h6>
+                        <h6 class="mb-0"><?php echo $_SESSION['username']; ?>!</h6>
                         <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['type']; ?>)</span>
                     </div>
                 </div>
@@ -125,8 +122,8 @@ function getUnreadNotificationCountForAdmin($adminName) {
 
         <!-- Content Start -->
         <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+             <!-- Navbar Start -->
+             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <!-- ... (your existing navbar content) ... -->
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
@@ -199,9 +196,8 @@ function getUnreadNotificationCountForAdmin($adminName) {
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="../img/user-icon.png" alt=""
-                                style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['name']; ?></span>
+                        <img class="rounded-full" src="../uploads/<?php echo $img; ?>" alt="User Image" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['username']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="../../home.php" class="dropdown-item">Home</a>
@@ -213,7 +209,7 @@ function getUnreadNotificationCountForAdmin($adminName) {
             <!-- Navbar End -->
 
             <div class="container mx-auto p-4">
-                <h1 class="text-2xl font-bold mb-4">Welcome, <?php echo $_SESSION['name']; ?>!</h1>
+                <h1 class="text-2xl font-bold mb-4">Welcome, <?php echo $_SESSION['username']; ?>!</h1>
 
                 <?php if ($type === 'user') { ?>
                 <h2 class="text-xl font-bold mb-2">Your Assigned Tasks:</h2>
@@ -297,8 +293,6 @@ function getUnreadNotificationCountForAdmin($adminName) {
                     <?php } ?>
                 </div>
                 <?php } ?>
-
-                <!-- ... (remaining code) ... -->
 
             </div>
             <!-- JavaScript Libraries -->
