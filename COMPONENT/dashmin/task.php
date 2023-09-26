@@ -8,6 +8,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SESSI
     exit;
 }
 
+$img = $_SESSION['img'];
+
 // Fetch departments for the dropdown
 $departments_query = "SELECT DISTINCT department FROM users";
 $departments_result = mysqli_query($conn, $departments_query);
@@ -25,7 +27,7 @@ if(isset($_GET['notification_id'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $assigned_to = $_POST['assigned_to'];
     $task_desc = $_POST['task_desc'];
-    $assigned_by = $_SESSION['name']; // Capture the username of the admin assigning the task
+    $assigned_by = $_SESSION['username']; // Capture the username of the admin assigning the task
 
     // Check if the assigned user is not the same as the assigner
     if ($assigned_to !== $assigned_by) {
@@ -34,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $date_assigned_utc = $date_assigned->format('Y-m-d H:i:s'); // Get current UTC time
 
         // Check if assigned user and assigner are in the same department
-        $same_department_query = "SELECT department FROM users WHERE name = '$assigned_to'";
+        $same_department_query = "SELECT department FROM users WHERE username = '$assigned_to'";
         $same_department_result = mysqli_query($conn, $same_department_query);
 
         if (mysqli_num_rows($same_department_result) == 1) {
@@ -120,6 +122,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
@@ -129,16 +135,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>DASHMIN</h3>
                 </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="../img/user-icon.png" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
-                        </div>
+                <div class="flex items-center ms-4 mb-4">
+                    <div class="relative">
+                        <img class="rounded-full" src="../uploads/<?php echo $img; ?>" alt="User Image" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-full border-2 border-white absolute bottom-0 right-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><?php echo $_SESSION['name']; ?>!</h6>
+                        <h6 class="mb-0"><?php echo $_SESSION['username']; ?>!</h6>
                         <span><?php echo $_SESSION['department']; ?>(<?php echo $_SESSION['type']; ?>)</span>
                     </div>
                 </div>
@@ -161,7 +164,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="content">
            <!-- Navbar Start -->
            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <!-- ... (your existing navbar content) ... -->
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
@@ -233,9 +235,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="../img/user-icon.png" alt=""
-                                style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['name']; ?></span>
+                        <img class="rounded-full" src="../uploads/<?php echo $img; ?>" alt="User Image" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex"><?php echo $_SESSION['username']; ?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="../../home.php" class="dropdown-item">Home</a>
@@ -254,201 +255,181 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <form method="post">
             <div class="mb-3">
-    <label for="assigned_to" class="form-label">Assign To</label>
-    <select class="form-select" name="assigned_to" id="assigned_to" required>
-        <option value="" selected disabled>Select a user</option>
-        <?php while ($department_row = mysqli_fetch_assoc($departments_result)) { ?>
-            <optgroup label="<?php echo $department_row['department']; ?>">
-                <?php
-                $users_query = "SELECT name FROM users WHERE department = '{$department_row['department']}'";
-                $users_result = mysqli_query($conn, $users_query);
-                while ($user_row = mysqli_fetch_assoc($users_result)) {
-                    echo "<option value='{$user_row['name']}'>{$user_row['name']}</option>";
-                }
-                ?>
-            </optgroup>
-        <?php } ?>
-    </select>
-</div>
-<div class="mb-3">
-    <label for="task_description" class="form-label">Task Description</label>
-    <textarea class="form-control" name="task_description" rows="3" required></textarea>
-</div>
+                <label for="assigned_to" class="form-label">Assign To</label>
+                <select class="form-select" name="assigned_to" id="assigned_to" required>
+                    <option value="" selected disabled>Select a user</option>
+                    <?php while ($department_row = mysqli_fetch_assoc($departments_result)) { ?>
+                        <optgroup label="<?php echo $department_row['department']; ?>">
+                            <?php
+                            $users_query = "SELECT name FROM users WHERE department = '{$department_row['department']}'";
+                            $users_result = mysqli_query($conn, $users_query);
+                            while ($user_row = mysqli_fetch_assoc($users_result)) {
+                                echo "<option value='{$user_row['username']}'>{$user_row['username']}</option>";
+                            }
+                            ?>
+                        </optgroup>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="task_description" class="form-label">Task Description</label>
+                <textarea class="form-control" name="task_description" rows="3" required></textarea>
+            </div>
 <!-- <div class="mb-3">
     <label for="department" class="form-label">Department</label>
     <input type="text" name="department" id="department" placeholder="-- department --" readonly>
 </div> -->
-<button type="submit" class="btn btn-primary">Assign Task</button>
+                <button type="submit" class="btn btn-primary">Assign Task</button>
             </form>
         </div>
     </div>
 
-    <!-- ... (your footer and scripts) ... -->
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <script>
-        const assignedToSelect = document.getElementById('assigned_to');
+<script>
+    const assignedToSelect = document.getElementById('assigned_to');
     
     // Get the input element for the department
     const departmentInput = document.getElementById('department');
-    
+        
     // Add an event listener to the select element
     assignedToSelect.addEventListener('change', function() {
-        // Get the selected option
-        const selectedOption = assignedToSelect.options[assignedToSelect.selectedIndex];
-        
-        // Get the department from the selected option's label
-        const department = selectedOption.parentNode.label;
-        
-        // Update the department input value
-        departmentInput.value = department;
+            // Get the selected option
+            const selectedOption = assignedToSelect.options[assignedToSelect.selectedIndex];
+            
+            // Get the department from the selected option's label
+            const department = selectedOption.parentNode.label;
+            
+            // Update the department input value
+            departmentInput.value = department;
     });
-    
-function updateStatus(taskId, status) {
-    // ... (your existing code)
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Refresh the page after updating status
-                location.reload();
-            } else {
-                alert('Error updating task status');
-            }
-        }
-    };
-    xhr.open('POST', 'update_status.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('task_id=' + taskId + '&status=' + status);
-
-    if (status === 'completed') {
-        if ("<?php echo $type; ?>" === 'admin') {
-            // Send a notification to admin
-            var notificationMessage = "Task #" + taskId +
-                " has been marked as completed by user <?php echo $_SESSION['name']; ?>";
-            sendNotificationToAdmin(notificationMessage);
-        }
-    }
-}
-
-function sendNotification(username, message) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Notification sent successfully
-                // You can optionally handle the response here
-            } else {
-                alert('Error sending notification');
-            }
-        }
-    };
-    xhr.open('POST', 'send_notification.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('name=' + encodeURIComponent(name) + '&message=' + encodeURIComponent(message));
-}
-
-function deleteFile(fileId) {
-    var confirmDelete = confirm('Are you sure you want to delete this file?');
-    if (confirmDelete) {
+    function updateStatus(taskId, status) {
+        // ... (your existing code)
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
-                    // Refresh the page after deleting file
+                    // Refresh the page after updating status
                     location.reload();
                 } else {
-                    alert('Error deleting file');
+                    alert('Error updating task status');
                 }
             }
         };
-        xhr.open('POST', 'delete_file.php', true);
+        xhr.open('POST', 'update_status.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('file_id=' + fileId);
-    }
-}
+        xhr.send('task_id=' + taskId + '&status=' + status);
 
-function deleteTask(taskId) {
-    var confirmDelete = confirm('Are you sure you want to delete this task?');
-    if (confirmDelete) {
+        if (status === 'completed') {
+            if ("<?php echo $type; ?>" === 'admin') {
+                // Send a notification to admin
+                var notificationMessage = "Task #" + taskId +
+                    " has been marked as completed by user <?php echo $_SESSION['name']; ?>";
+                sendNotificationToAdmin(notificationMessage);
+            }
+        }
+    }
+    function sendNotification(username, message) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
-                    // Check the response from the server
-                    if (xhr.responseText === "success") {
-                        // Task deleted successfully
+                    // Notification sent successfully
+                    // You can optionally handle the response here
+                } else {
+                    alert('Error sending notification');
+                }
+            }
+        };
+        xhr.open('POST', 'send_notification.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('name=' + encodeURIComponent(name) + '&message=' + encodeURIComponent(message));
+    }
+    function deleteFile(fileId) {
+        var confirmDelete = confirm('Are you sure you want to delete this file?');
+        if (confirmDelete) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Refresh the page after deleting file
                         location.reload();
                     } else {
-                        // Error deleting task
+                        alert('Error deleting file');
+                    }
+                }
+            };
+            xhr.open('POST', 'delete_file.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('file_id=' + fileId);
+        }
+    }
+    function deleteTask(taskId) {
+        var confirmDelete = confirm('Are you sure you want to delete this task?');
+        if (confirmDelete) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Check the response from the server
+                        if (xhr.responseText === "success") {
+                            // Task deleted successfully
+                            location.reload();
+                        } else {
+                            // Error deleting task
+                            alert('Error deleting task');
+                        }
+                    } else {
                         alert('Error deleting task');
                     }
-                } else {
-                    alert('Error deleting task');
                 }
-            }
-        };
-        xhr.open('POST', 'delete_task.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('task_id=' + taskId);
+            };
+            xhr.open('POST', 'delete_task.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('task_id=' + taskId);
+        }
     }
-}
-function clearNotifications() {
-    var confirmClear = confirm('Are you sure you want to clear all notifications?');
-    if (confirmClear) {
-        // Perform the action to clear notifications
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Parse the response to get the new notification count and message
-                    var response = JSON.parse(xhr.responseText);
-                    var newCount = response.count;
-                    var newMessage = response.message;
+    function clearNotifications() {
+        var confirmClear = confirm('Are you sure you want to clear all notifications?');
+        if (confirmClear) {
+            // Perform the action to clear notifications
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Parse the response to get the new notification count and message
+                        var response = JSON.parse(xhr.responseText);
+                        var newCount = response.count;
+                        var newMessage = response.message;
 
-                    // Update the notification count element
-                    var notificationCountElement = document.getElementById('notificationCount');
-                    notificationCountElement.innerText = newCount;
+                        // Update the notification count element
+                        var notificationCountElement = document.getElementById('notificationCount');
+                        notificationCountElement.innerText = newCount;
 
-                    // Display the new message in the dropdown
-                    var notificationsDropdown = document.getElementById('notificationsDropdown');
-                    notificationsDropdown.innerHTML = newMessage;
+                        // Display the new message in the dropdown
+                        var notificationsDropdown = document.getElementById('notificationsDropdown');
+                        notificationsDropdown.innerHTML = newMessage;
 
-                } else {
-                    alert('Error clearing notifications');
+                    } else {
+                        alert('Error clearing notifications');
+                    }
                 }
-            }
-        };
-        xhr.open('POST', 'clear_notifications_read.php', true); // Change the URL to the script that clears notifications
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send();
+            };
+            xhr.open('POST', 'clear_notifications_read.php', true); // Change the URL to the script that clears notifications
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send();
+        }
     }
-}
     function updateNotificationCount(count) {
-        var notificationCountElement = document.getElementById('notificationCount');
-        notificationCountElement.innerText = count;
+            var notificationCountElement = document.getElementById('notificationCount');
+            notificationCountElement.innerText = count;
     }
-
     function sendNotificationToAdmin(message) {
-        var adminUsername = "<?php echo $adminUsername; ?>"; // Replace with actual admin username
-        sendNotification(adminUsername, message);
+            var adminUsername = "<?php echo $adminUsername; ?>"; // Replace with actual admin username
+            sendNotification(adminUsername, message);
 
-        // Update the notification count
-        var notificationCountElement = document.getElementById('notificationCount');
-        var currentCount = parseInt(notificationCountElement.innerText);
-        notificationCountElement.innerText = currentCount + 1;
+            // Update the notification count
+            var notificationCountElement = document.getElementById('notificationCount');
+            var currentCount = parseInt(notificationCountElement.innerText);
+            notificationCountElement.innerText = currentCount + 1;
     }
     </script>
 </body>

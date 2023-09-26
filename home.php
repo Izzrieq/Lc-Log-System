@@ -116,9 +116,9 @@
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-red-400">
-                    <h5 class="card-title font-bold text-base">Not Active Yet</h5>
-                    <p class="card-text">In Progress.</p>
-                    <a href="COMPONENT/task-manager/add-task.php" class="btn btn-primary mt-2">Go Somewhere</a>
+                    <h5 class="card-title font-bold text-base">TASK MANAGER</h5>
+                    <p class="card-text">Assign Task</p>
+                    <a href="COMPONENT/dashmin/task.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>
@@ -143,7 +143,8 @@
         
     </div>
 </div>
-<div id="calendar" class="p-10 my-10"></div>
+<h3 class="mb-0 ml-5 text-lg">Weekly Event | <a class="text-decoration-none" href="COMPONENT/dashmin/dates.php">Show more...</a></h3>
+<div id="calendar" class="my-5 p-10 mt-0"></div>
 <!-- Start popup dialog box -->
 <div class="modal fade" id="event_entry_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-md" role="document">
@@ -207,13 +208,13 @@
 <script>
     $(document).ready(function() {
         display_events();
-    });
+    })
 
     function display_events() {
         console.log("display_events function called");
         var events = new Array();
         var calendar = $('#calendar').fullCalendar({
-            defaultView: 'month',
+            defaultView: 'customWeek',
             timeZone: 'local',
             editable: true,
             selectable: true,
@@ -225,6 +226,15 @@
                 $('#event_end_date').val(moment(end).format('YYYY-MM-DD'));
                 $('#event_entry_modal').modal('show');
                 // calendar.fullCalendar('unselect'); // Unselect the date after showing the modal
+            },
+            views: {
+                customWeek: {
+                    type: 'basicWeek',
+                    duration: { weeks: 1 }, // Show one week at a time
+                    buttonText: '1 Week', // Optional button text
+                    slotDuration: { days: 1 }, // Hide time slots (one slot per day)
+                    slotLabelFormat: ['ddd'], // Display only day names (e.g., Mon, Tue, etc.)
+                },
             },
             eventRender: function(event, element, view) {
                 function getEventColor(department) {
