@@ -350,14 +350,14 @@
         });
     }
 
-function showAddEventModal() {
-    // Clear any previous input values
-    $('#event_name').val('');
-    $('#event_start_date').val('');
-    $('#event_end_date').val('');
-    populateModalFields(); // Populate department and user_id fields
-    $('#event_entry_modal').modal('show');
-}
+    function showAddEventModal() {
+        // Clear any previous input values
+        $('#event_name').val('');
+        $('#event_start_date').val('');
+        $('#event_end_date').val('');
+        populateModalFields(); // Populate department and user_id fields
+        $('#event_entry_modal').modal('show');
+    }
 
 	function save_event() {
         var event_name = $("#event_name").val();
@@ -428,37 +428,37 @@ function showAddEventModal() {
     }
 
     function delete_event(event) {
-    // Verify that event.id is correctly set before making the AJAX request
-    var eventIdToDelete = event;
-        if (eventIdToDelete) {
-            console.log("Event ID to delete:", eventIdToDelete);
+        // Verify that event.id is correctly set before making the AJAX request
+        var eventIdToDelete = event;
+            if (eventIdToDelete) {
+                console.log("Event ID to delete:", eventIdToDelete);
 
-            // Send an AJAX request to delete the event by its ID
-            $.ajax({
-                url: 'COMPONENT/FUNCTION/delete_event.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    event_id: eventIdToDelete
-                },
-                success: function(response) {
-                    if (response.status === true) {
-                        alert(response.msg);
-                        if (response.refresh === true) {
-                            window.location.reload(); // Refresh the page
+                // Send an AJAX request to delete the event by its ID
+                $.ajax({
+                    url: 'COMPONENT/FUNCTION/delete_event.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        event_id: eventIdToDelete
+                    },
+                    success: function(response) {
+                        if (response.status === true) {
+                            alert(response.msg);
+                            if (response.refresh === true) {
+                                window.location.reload(); // Refresh the page
+                            }
+                        } else {
+                            alert(response.msg);
                         }
-                    } else {
-                        alert(response.msg);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('ajax error = ' + error);
+                        alert("Error: " + error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.log('ajax error = ' + error);
-                    alert("Error: " + error);
-                }
-            });
-        } else {
-            console.log("Invalid event ID. Cannot delete.");
-        }
+                });
+            } else {
+                console.log("Invalid event ID. Cannot delete.");
+            }
     }
 </script>
 
