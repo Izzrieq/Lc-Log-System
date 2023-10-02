@@ -64,9 +64,9 @@
                         success: function (data) {
                             // Populate the input fields with data
                             if (data.ownerNames.length > 0) {
-                                $("#lcowner").val(data.ownerNames[0]);
+                                $("#principal").val(data.ownerNames[0]);
                             } else {
-                                $("#lcowner").val("");
+                                $("#principal").val("");
                             }
 
                             if (data.ownerNohp.length > 0) {
@@ -79,8 +79,34 @@
                 }
             }
         });
+        $("#cname").autocomplete({
+            source: "get_customer_suggestions.php", // URL to fetch suggestions
+            minLength: 2, // Minimum characters before showing suggestions
+            select: function (event, ui) {
+                // When an option is selected from the autocomplete suggestions
+                // Populate the input fields with data
+                var selectedCustomer = ui.item.value;
 
-        // ... Rest of your code ...
+                if (selectedCustomer !== "") {
+                    $.ajax({
+                        url: "get_customer_data.php",
+                        method: "GET",
+                        data: {
+                            first_name: selectedCustomer
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            // Populate the input fields with data
+                            if (data.customerNohp.length > 0) {
+                                $("#cnohp").val(data.customerNohp[0]);
+                            } else {
+                                $("#cnohp").val("");
+                            }
+                        }
+                    });
+                }
+            }
+        });
     });
 </script>
 
@@ -100,6 +126,42 @@
                 </div>
                 <div class="flex-auto px-4 lg:px-10 py-8 pt-0">
                     <form id="issueform" class="issue" action="COMPONENT/FUNCTION/add.php" method="POST">
+                        <h6 class="text-blueGray-400 text-xl mt-3 mb-4 font-bold uppercase">
+                            LC Details
+                        </h6>
+                        <div class="flex flex-wrap">
+                            <div class="w-full lg:w-12/12 px-4">
+                                <div class="relative w-full mb-2">
+                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-0" for="lcid">
+                                        LC ID
+                                    </label>
+                                    <input type="text" name="lcid" id="lcid"
+                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                        placeholder="Enter LC ID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-12/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="principal">
+                                    Principal
+                                </label>
+                                <input type="text" name="principal" id="principal"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    placeholder="-- select an option --" readonly>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-4/12 px-4">
+                            <div class="relative w-full mb-3">
+                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="ownernohp">
+                                    Telephone No
+                                </label>
+                                <input type="text" name="ownernohp" id="ownernohp"
+                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                    placeholder="-- select an option --" readonly>
+                            </div>
+                        </div>
+                        <hr class="mt-6 border-b-1 border-blueGray-300">
                         <h6 class="text-blueGray-400 text-xl mt-3 mb-4 font-bold uppercase">
                             Customer Information
                         </h6>
@@ -189,43 +251,6 @@
                                         <option value="kindy">kindy</option>
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                        <hr class="mt-6 border-b-1 border-blueGray-300">
-
-                        <h6 class="text-blueGray-400 text-xl mt-3 mb-4 font-bold uppercase">
-                            LC Details
-                        </h6>
-                        <div class="flex flex-wrap">
-                            <div class="w-full lg:w-12/12 px-4">
-                                <div class="relative w-full mb-2">
-                                    <label class="block uppercase text-blueGray-600 text-lg font-bold mb-0" for="lcid">
-                                        LC ID
-                                    </label>
-                                    <input type="text" name="lcid" id="lcid"
-                                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        placeholder="Enter LC ID">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-12/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="principal">
-                                    Principal
-                                </label>
-                                <input type="text" name="principal" id="principal"
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    placeholder="-- select an option --" readonly>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div class="relative w-full mb-3">
-                                <label class="block uppercase text-blueGray-600 text-lg font-bold mb-2" for="ownernohp">
-                                    Telephone No
-                                </label>
-                                <input type="text" name="ownernohp" id="ownernohp"
-                                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                    placeholder="-- select an option --" readonly>
                             </div>
                         </div>
                         <hr class="mt-6 border-b-1 border-blueGray-300">

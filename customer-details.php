@@ -111,9 +111,9 @@ $result = mysqli_query($conn, $sql);
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
         <a class="text-white no-underline" href='tlcp-add.php'>ADD TLCP</a>
     </button> -->
-    <div class="input-group mb-3 mt-2">
-        <div class="form-outline ml-3">
-            <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search"
+    <div class="input-group mb-3 mt-2 w-full">
+        <div class="form-outline ml-3 w-1/2">
+            <input class="w-1/3 rounded-md" type="text" id="combined_search" name="combined_search"
                 placeholder="Search First Name or No Hp" />
         </div>
     </div>
@@ -184,7 +184,7 @@ $result = mysqli_query($conn, $sql);
                                     <div class="flex items-center justify-between text-xs mt-2">
                                         <button class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
                                             <a class="text-white text-decoration-none"
-                                                href='tlcp-info.php?id=<?php echo $r['id'];?>'>INFO</a>
+                                                href='customer-info.php?parent_id=<?php echo $r['parent_id'];?>'>INFO</a>
                                         </button>
                                         <button class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
                                             <a class="text-white text-decoration-none"
