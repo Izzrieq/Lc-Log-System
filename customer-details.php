@@ -29,7 +29,7 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 // Calculate the offset for the query
 $start = ($currentPage - 1) * $rowsPerPage;
 
-$sql = "SELECT * FROM emergency_contact WHERE firstname LIKE '%$combinedSearchQuery%' OR mobile_no LIKE '%$combinedSearchQuery%' ORDER BY id ASC LIMIT $start, $rowsPerPage";
+$sql = "SELECT * FROM emergency_contact WHERE first_name LIKE '%$combinedSearchQuery%' OR mobile_no LIKE '%$combinedSearchQuery%' ORDER BY id ASC LIMIT $start, $rowsPerPage";
 $result = mysqli_query($conn, $sql);
 
  ?>
@@ -39,7 +39,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLCP DATA</title>
+    <title>CUSTOMER DATA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles/style.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -104,7 +104,7 @@ $result = mysqli_query($conn, $sql);
     </style>
 </head>
 
-<body class="bg-neutral-50 mb-10 ">
+<body class="bg-neutral-50 mb-10">
 
     <center class="font-bold text-2xl mt-3">LIST CUSTOMER</center>
     <!-- <button
@@ -117,46 +117,42 @@ $result = mysqli_query($conn, $sql);
                 placeholder="Search First Name or No Hp" />
         </div>
     </div>
-    <div class="overflow-hidden m-0 p-0 ">
-        <div class="flex flex-col m-0 p-0 ">
-            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-0 inline-block min-w-full sm:px-8 lg:px-8">
-                    <table class="content min-w-full border text-center bg-white" id="table_customer">
-                        <thead>
-                            <tr class="border-b bg-gray-700">
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    ID
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    FIRST NAME
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    LAST NAME
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
-                                    RELATION
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    MOBILE NO.HP
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    EMAIL
-                                </th>
-                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
-                                    LC
-                                </th>
-                                <?php if ($_SESSION['type'] === 'admin') { ?>
-                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    ACTION
-                                </th>
-                                <?php } ?>
-                            </tr>
+    <div class="overflow-hidden">
+        <div class="flex flex-col">
+            <div class="py-0 inline-block min-w-full sm:px-4 lg:px-4">
+                <table class="content min-w-full border text-center bg-white" id="table_customer">
+                    <thead>
+                        <tr class="border-b bg-gray-700">
+                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                ID
+                            </th>
+                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                FIRST NAME
+                            </th>
+                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                LAST NAME
+                            </th>
+                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                RELATION
+                            </th>
+                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                MOBILE NO.HP
+                            </th>
+                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                EMAIL
+                            </th>
+                            <?php if ($_SESSION['type'] === 'admin') { ?>
+                            <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
+                                ACTION
+                            </th>
+                            <?php } ?>
+                        </tr>
 
-                        </thead>
-                        <tbody id="showcustomerdata">
-                            <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <?php
+                    </thead>
+                    <tbody id="showcustomerdata">
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <?php
 
                 $combinedSearchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : '';
 
@@ -171,44 +167,43 @@ $result = mysqli_query($conn, $sql);
                 $customerdata = '';
                 while ($r = mysqli_fetch_array($result)){
                 ?>
-                            <tr class="text-black">
-                                <td class="border-r border-b"><?php echo $r['id']; ?></td>
-                                <td class="border-r border-b"><?php echo $r['first_name']; ?></td>
-                                <td class="border-r border-b"><?php echo $r['last_name']; ?></td>
-                                <td class="border-r border-b px-2"><?php echo $r['relation']; ?></td>
-                                <td class="border-r border-b px-8"><?php echo $r['mobile_no']; ?></td>
-                                <td class="border-r border-b px-0"><?php echo $r['email']; ?></td>
-                                <td class="border-r border-b px-0"><?php echo $r['lc']; ?></td>
-                                <?php if ($_SESSION['type'] === 'admin') { ?>
-                                <td class="border-r border-b p-0">
-                                    <div class="flex items-center justify-between text-xs mt-2">
-                                        <button class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
-                                            <a class="text-white text-decoration-none"
-                                                href='customer-info.php?parent_id=<?php echo $r['parent_id'];?>'>INFO</a>
-                                        </button>
-                                        <button class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
-                                            <a class="text-white text-decoration-none"
-                                                href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
-                                        </button>
-                                        <button class="rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1">
-                                            <a class="text-white text-decoration-none"
-                                                href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
-                                        </button>
-                                    </div>
-                                </td>
-                                <?php } ?>
+                        <tr class="text-black">
+                            <td class="border-r border-b"><?php echo $r['id']; ?></td>
+                            <td class="border-r border-b"><?php echo $r['first_name']; ?></td>
+                            <td class="border-r border-b"><?php echo $r['last_name']; ?></td>
+                            <td class="border-r border-b"><?php echo $r['relation']; ?></td>
+                            <td class="border-r border-b"><?php echo $r['mobile_no']; ?></td>
+                            <td class="border-r border-b px-0"><?php echo $r['email']; ?></td>
+                            <?php if ($_SESSION['type'] === 'admin') { ?>
+                            <td class="border-r border-b p-0">
+                                <div class="flex items-center justify-between mt-2">
+                                    <button class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
+                                        <a class="text-white text-decoration-none"
+                                            href='customer-info.php?parent_id=<?php echo $r['parent_id'];?>'>INFO</a>
+                                    </button>
+                                    <button class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
+                                        <a class="text-white text-decoration-none"
+                                            href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
+                                    </button>
+                                    <button class="rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1">
+                                        <a class="text-white text-decoration-none"
+                                            href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
+                                    </button>
+                                </div>
+                            </td>
+                            <?php } ?>
 
-                            </tr>
-                        </tbody>
-                        <?php 
+                        </tr>
+                    </tbody>
+                    <?php 
                 }
                 ?>
 
-                    </table>
-                    <div
-                        class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 no-underline">
-                        <!-- Pagination links -->
-                        <?php
+                </table>
+                <div
+                    class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 no-underline">
+                    <!-- Pagination links -->
+                    <?php
         $sqlCount = "SELECT COUNT(*) AS total FROM emergency_contact WHERE first_name LIKE '%$combinedSearchQuery%' OR mobile_no LIKE '%$combinedSearchQuery%'";
         $resultCount = mysqli_query($conn, $sqlCount);
         $rowCount = mysqli_fetch_assoc($resultCount)['total'];
@@ -244,28 +239,28 @@ $result = mysqli_query($conn, $sql);
             echo "</div>";
         }
         ?>
-                    </div>
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                $('#combined_search').on("keyup", function () {
-                    var combinedSearch = $(this).val();
-                    $.ajax({
-                        method: 'POST',
-                        url: 'COMPONENT/FUNCTION/searchcustomer.php',
-                        data: {
-                            combined_search: combinedSearch
-                        },
-                        success: function (response) {
-                            $("#table_tlcp").html(response);
-                        }
-                    });
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#combined_search').on("keyup", function () {
+                var combinedSearch = $(this).val();
+                $.ajax({
+                    method: 'POST',
+                    url: 'COMPONENT/FUNCTION/searchcustomer.php',
+                    data: {
+                        combined_search: combinedSearch
+                    },
+                    success: function (response) {
+                        $("#table_tlcp").html(response);
+                    }
                 });
             });
-        </script>
-        <?php
+        });
+    </script>
+    <?php
     include "COMPONENT/footer.php";
 ?>
 </body>
