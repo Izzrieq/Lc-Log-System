@@ -1,19 +1,13 @@
 <?php
 include_once "COMPONENT/DB/config.php";
 include "COMPONENT/header.php";
-
 if (session_status() === PHP_SESSION_NONE) {
-          session_start();
-      }
-    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-        echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
-        exit;
-    }
-
-$result = mysqli_query($conn, "SELECT * FROM lcdetails ORDER BY id DESC");
- 
-// Pagination
-$combinedSearchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : '';
+    session_start();
+}
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+    exit;
+}
 
 // Pagination variables
 $start = 0;
@@ -29,10 +23,32 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 // Calculate the offset for the query
 $start = ($currentPage - 1) * $rowsPerPage;
 
-$sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%' ORDER BY id ASC LIMIT $start, $rowsPerPage";
-$result = mysqli_query($conn, $sql);
+// Prepare the main SQL query with placeholders
+$sql = "SELECT * FROM lcdetails WHERE lcid LIKE ? OR stateid LIKE ? ORDER BY id ASC LIMIT ?, ?";
+$stmt = mysqli_prepare($conn, $sql);
 
- ?>
+// Check for errors in preparing the statement
+if ($stmt === false) {
+    die("Prepared statement error: " . mysqli_error($conn));
+}
+
+// Bind values to placeholders for the main query
+$combinedSearchQuery = isset($_POST['combined_search']) ? "%" . $_POST['combined_search'] . "%" : "%"; // Default to all records if search query is not provided
+mysqli_stmt_bind_param($stmt, "ssii", $combinedSearchQuery, $combinedSearchQuery, $start, $rowsPerPage);
+
+// Execute the prepared statement for the main query
+if (mysqli_stmt_execute($stmt)) {
+    // Fetch the results
+    $mainResult = mysqli_stmt_get_result($stmt); 
+
+} else {
+    die("Error executing main prepared statement: " . mysqli_error($conn));
+}
+
+// Close the main statement
+mysqli_stmt_close($stmt);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +63,6 @@ $result = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
 
     <style>
         @media (max-width:320px) {}
@@ -154,28 +169,42 @@ $result = mysqli_query($conn, $sql);
 
                         </thead>
                         <tbody id="showlciddata">
-                            <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <?php
-
-                $combinedSearchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : '';
-
-                //starting pages
-                $start = 0;
-
-                //total display
-                $rows_per_pages = 50;
-                
-                $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%' ORDER BY id ASC LIMIT $start, $rows_per_pages";
-                $result = mysqli_query($conn, $sql);
-                $lciddata = '';
-                while ($r = mysqli_fetch_array($result)){
-                    $lcid = $r['lcid'];
-                    $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = '$lcid'";
-                    $complaintCountResult = mysqli_query($conn, $complaintCountQuery);
-                    $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
-                    $complaintCount = $complaintCountRow['complaint_count'];
-                ?>
+                            <?php
+                            $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%' ORDER BY id ASC LIMIT $start, $rowsPerPage";
+                            $result = mysqli_query($conn, $sql);
+                            
+                            if ($result === false) {
+                                die("Error executing main SQL query: " . mysqli_error($conn));
+                            }
+                            
+                            while ($r = mysqli_fetch_array($result)) {
+                                $lcid = $r['lcid'];
+                            
+                                // Use prepared statement for the inner query
+                                $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = ?";
+                                $stmt = mysqli_prepare($conn, $complaintCountQuery);
+                            
+                                if ($stmt === false) {
+                                    die("Error preparing inner SQL statement: " . mysqli_error($conn));
+                                }
+                            
+                                // Bind the parameter
+                                mysqli_stmt_bind_param($stmt, "s", $lcid);
+                            
+                                // Execute the prepared statement
+                                $executeResult = mysqli_stmt_execute($stmt);
+                            
+                                if ($executeResult === false) {
+                                    die("Error executing inner SQL statement: " . mysqli_error($conn));
+                                }
+                            
+                                // Get the result
+                                $complaintCountResult = mysqli_stmt_get_result($stmt);
+                                $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
+                                $complaintCount = $complaintCountRow['complaint_count'];
+                                
+                                
+                            ?>
                             <tr class="text-black">
                                 <td class="border-r border-b"><?php echo $r['id']; ?></td>
                                 <td class="border-r border-b"><?php echo $r['stateid']; ?></td>
@@ -202,57 +231,73 @@ $result = mysqli_query($conn, $sql);
                                     </div>
                                 </td>
                                 <?php } ?>
-
                             </tr>
+                            <?php
+                            mysqli_stmt_close($stmt);
+                        } // End of the while loop ?>
                         </tbody>
-                        <?php 
-                }
-                ?>
-
                     </table>
                     <div
                         class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 no-underline">
                         <!-- Pagination links -->
                         <?php
-        $sqlCount = "SELECT COUNT(*) AS total FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%'";
-        $resultCount = mysqli_query($conn, $sqlCount);
-        $rowCount = mysqli_fetch_assoc($resultCount)['total'];
+                            $sqlCount = "SELECT COUNT(*) AS total FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%'";
+                            $resultCount = mysqli_query($conn, $sqlCount);
+                            $rowCount = mysqli_fetch_assoc($resultCount)['total'];
+                            $startId = ($currentPage - 1) * $rowsPerPage + 1;
+                            $endId = min($currentPage * $rowsPerPage, $rowCount);
 
-        $totalPages = ceil($rowCount / $rowsPerPage);
+                            $totalPages = ceil($rowCount / $rowsPerPage);
 
-        if ($totalPages > 1) {
-            echo "<div class='flex flex-1 justify-between sm:hidden'>";
-            if ($currentPage > 1) {
-                $prevPage = $currentPage - 1;
-                echo "<a href='tlcp-data.php?page=$prevPage' class='relative inline-flex items-center rounded-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>Previous</a>";
-            }
-            if ($currentPage < $totalPages) {
-                $nextPage = $currentPage + 1;
-                echo "<a href='tlcp-data.php?page=$nextPage' class='relative ml-3 inline-flex items-center rounded-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>Next</a>";
-            }
-            echo "</div>";
+                            if ($totalPages > 1) {
+                                echo "<div class='flex flex-1 justify-between sm:hidden'>";
+                                if ($currentPage > 1) {
+                                    $prevPage = $currentPage - 1;
+                                    echo "<a href='tlcp-data.php?page=$prevPage' class='relative inline-flex items-center rounded-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>Previous</a>";
+                                }
+                                if ($currentPage < $totalPages) {
+                                    $nextPage = $currentPage + 1;
+                                    echo "<a href='tlcp-data.php?page=$nextPage' class='relative ml-3 inline-flex items-center rounded-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>Next</a>";
+                                }
+                                echo "</div>";
 
-            echo "<div class='hidden sm:flex sm:flex-1 sm:items-center sm:justify-between'>";
-            echo "<div>";
-            echo "<p class='text-sm text-gray-700'>Showing <span class='font-medium'>$start</span> to <span class='font-medium'>$rowCount</span> of <span class='font-medium'>$rowCount</span> results</p>";
-            echo "</div>";
-            echo "<div>";
-            echo "<nav class='isolate inline-flex -space-x-px rounded-md shadow-sm no-underline' aria-label='Pagination'>";
-            
-            for ($i = 1; $i <= $totalPages; $i++) {
-                $activeClass = $i === $currentPage ? 'bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : 'text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0';
-                echo "<a href='list-task.php?page=$i' class='relative inline-flex items-center px-4 py-2 text-sm font-semibold $activeClass'>$i</a>";
-            }
-            
-            echo "</nav>";
-            echo "</div>";
-            echo "</div>";
-        }
-        ?>
+                                echo "<div class='hidden sm:flex sm:flex-1 sm:items-center sm:justify-between'>";
+                                echo "<div>";
+                                echo "<p class='text-sm text-gray-700'>Showing <span class='font-medium'>$startId</span> to <span class='font-medium'>$endId</span> of <span class='font-medium'>$rowCount</span> results</p>";
+                                echo "</div>";
+                                echo "<div>";
+                                echo "<nav class='isolate inline-flex -space-x-px rounded-md shadow-sm no-underline' aria-label='Pagination'>";
+                               // Previous Page
+                                if ($currentPage > 1) {
+                                    echo "<a href='tlcp-data.php?page=" . ($currentPage - 1) . "' class='relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 bg-blue-50 hover:bg-gray-50 focus:outline-offset-0'>&laquo; Previous</a>";
+                                }
+
+                                // Previous Page Number (if current page is greater than 2)
+                                if ($currentPage > 2) {
+                                    echo "<a href='tlcp-data.php?page=" . ($currentPage - 1) . "' class='relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 bg-blue-50 hover:bg-gray-50 focus:outline-offset-0'>" . ($currentPage - 1) . "</a>";
+                                }
+
+                                // Current Page Number
+                                echo "<span class='relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 bg-blue-300 hover:bg-gray-50 focus:outline-offset-0'>$currentPage</span>";
+
+                                // Next Page Number (if current page is less than total pages minus 1)
+                                if ($currentPage < ($totalPages - 1)) {
+                                    echo "<a href='tlcp-data.php?page=" . ($currentPage + 1) . "' class='relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 bg-blue-50 hover:bg-gray-50 focus:outline-offset-0'>" . ($currentPage + 1) . "</a>";
+                                }
+
+                                // Next Page
+                                if ($currentPage < $totalPages) {
+                                    echo "<a href='tlcp-data.php?page=" . ($currentPage + 1) . "' class='relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 bg-blue-50 hover:bg-gray-50 focus:outline-offset-0'>Next &raquo;</a>";
+                                }
+                                echo "</nav>";
+                                echo "</div>";
+                                echo "</div>";
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <script>
             $(document).ready(function () {
                 $('#combined_search').on("keyup", function () {
@@ -263,8 +308,10 @@ $result = mysqli_query($conn, $sql);
                         data: {
                             combined_search: combinedSearch
                         },
+                        dataType: 'json', // Expect JSON response
                         success: function (response) {
-                            $("#table_tlcp").html(response);
+                            // Replace the table content with the new data
+                            $("#table_tlcp tbody").html(response.lciddata);
                         }
                     });
                 });
