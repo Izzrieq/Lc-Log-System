@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLCP DATA</title>
-
-    <!-- Include the Tailwind CSS script -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Other CSS links -->
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- ... (other CSS links) ... -->
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
-    <!-- MDB -->
-    <?php
+<?php
 include("../DB/config.php");
 
 session_start();
@@ -34,7 +9,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 $searchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : '';
 
-$sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id ASC";
+// Pagination variables
+$start = 0;
+$rowsPerPage = 50;
+
+$sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY id ASC LIMIT $start, $rowsPerPage";
 $result = mysqli_query($conn, $sql);
 
 if ($result === false) {
@@ -76,86 +55,6 @@ while ($row = mysqli_fetch_array($result)) {
     $lciddata .= "</tr>";
 }
 
-// Return the complete HTML table structure
-echo "<table class='w-full text-center text-grey-500 dark:text-gray-400'>
-        <thead class='text-center uppercase'>
-            <tr class='border-b bg-gray-700'>
-                <th scope='col' class='text-md font-medium text-white px-2 py-2 border-r'>
-                    ID
-                </th>
-                <th scope='col' class='text-md font-medium text-white px-2 py-2 border-r'>
-                    STATE_ID
-                </th>
-                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
-                    BIZ_TYPE
-                </th>
-                <th scope='col' class='text-md font-medium text-white px-8 py-2 border-r'>
-                    LITTLECALIPH_ID
-                </th>
-                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
-                    OPERATOR_NAME
-                </th>
-                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
-                    KINDERGARTEN NUMBER
-                </th>
-                <th scope='col' class='text-md font-medium text-white px-2 py-2 border-r'>
-                    COMPLAINT COUNT
-                </th>
-                <th scope='col' class='text-md font-medium text-white px-4 py-2 border-r'>
-                    ACTION
-                </th>
-            </tr>
-        </thead>
-        <tbody class='bg-white text-black'>
-            $lciddata
-        </tbody>
-    </table>";
+// Output the search results as JSON
+echo json_encode(array("lciddata" => $lciddata));
 ?>
-</head>
-
-<body>
-<?php
-    if (mysqli_num_rows($result) > 0) {
-    ?>
-    <table class="w-full text-center text-grey-500 dark:text-gray-400">
-        <thead class="text-center uppercase">
-            <tr class="border-b bg-gray-700">
-                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                    ID
-                </th>
-                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                    STATE_ID
-                </th>
-                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                    BIZ_TYPE
-                </th>
-                <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
-                    LITTLECALIPH_ID
-                </th>
-                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                    OPERATOR_NAME
-                </th>
-                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                    KINDERGARTEN NUMBER
-                </th>
-                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                    COMPLAINT COUNT
-                </th>
-                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                    ACTION
-                </th>
-            </tr>
-        </thead>
-        <tbody class="bg-white text-black">
-            <?php echo $lciddata; ?>
-        </tbody>
-    </table>
-    <?php
-    } else {
-        // No rows found, handle this case
-        echo "<h1 class='text-center text-danger mt-5'>No data found</h1>";
-    }
-    ?>
-</body>
-
-</html>
