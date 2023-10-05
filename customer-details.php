@@ -160,7 +160,11 @@ if ($result === false) {
                                 echo "<td class='border-r border-b'>" . $r['first_name'] . "</td>";
                                 echo "<td class='border-r border-b'>" . $r['last_name'] . "</td>";
                                 echo "<td class='border-r border-b px-2'>" . $r['relation'] . "</td>";
-                                echo "<td class='border-r border-b px-8'>" . $r['mobile_no'] . "</td>";
+                                echo "<td class='border-r border-b px-8'>" . $r['mobile_no'] ;
+                                echo "<a href='tel:" . $r['mobile_no'] . "' class='rounded-md bg-green-500 hover:bg-green-700 font-bold text-white p-2 m-1'>";
+                                echo "Call";
+                                echo "</a>";
+                                echo "</td>";
                                 echo "<td class='border-r border-b px-0'>" . $r['email'] . "</td>";
                                 if ($_SESSION['type'] === 'admin') {
                                     echo "<td class='border-r border-b p-0'>";

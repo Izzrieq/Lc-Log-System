@@ -1,11 +1,15 @@
 <?php
 include("COMPONENT/DB/config.php");
 include "COMPONENT/header.php";
-session_start();
-    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-        echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
-        exit;
-    }
+ // Make sure there's an active session
+ if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+    exit;
+}
 
 
 $id = $_GET['id'];
@@ -134,7 +138,7 @@ while ($r = mysqli_fetch_array($data)) {
                                         </label>
                                         <input name="lcowner" type="text"
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3 leading-tight focus:outline-none  focus:border-gray-500'
-                                            value="<?php echo htmlspecialchars($lcowner); ?>" disabled />
+                                            value="<?php echo $lcowner; ?>" disabled />
                                     </div>
                                 </div>
                                 <div class='w-full md:w-2/5 px-3 mb-6'>

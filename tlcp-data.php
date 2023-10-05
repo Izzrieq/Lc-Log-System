@@ -65,7 +65,6 @@ mysqli_stmt_close($stmt);
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <style>
-        @media (max-width:320px) {}
 
         @media (max-width:1024px) {
 

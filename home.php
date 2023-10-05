@@ -140,6 +140,20 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
+                    <h5 class="card-title font-bold text-base">CALLER</h5>
+                    <p class="card-text">IN PROGRESS</p>
+                    <input class="btn btn-info text-white mt-2 w-full" type="text" id="caller-id" name="caller-id"/>
+                    <div id="suggestions" style="display: none;">
+                        <ul id="suggestion-list">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         
     </div>
 </div>
@@ -206,6 +220,84 @@
 
 </body>
 <script>
+
+// JavaScript to handle user input and fetch suggestions
+document.getElementById('caller-id').addEventListener('keyup', function () {
+    const userInput = this.value.trim(); // Get the user's input and trim whitespace
+    const suggestionList = document.getElementById('suggestion-list');
+
+    // Clear previous suggestions
+    suggestionList.innerHTML = '';
+    console.log('Input event triggered');
+
+    if (userInput.length >= 2) {
+        // Only fetch suggestions when the user has typed at least 2 characters
+        fetchSuggestions(userInput);
+    } else {
+        // Hide the suggestion box if the input is empty or less than 2 characters
+        document.getElementById('suggestions').style.display = 'none';
+    }
+});
+
+// Event listener to handle suggestion item click
+document.getElementById('suggestion-list').addEventListener('click', function (event) {
+    const clickedSuggestion = event.target.textContent;
+    document.getElementById('caller-id').value = clickedSuggestion;
+    // Hide the suggestion box after selecting a suggestion
+    document.getElementById('suggestions').style.display = 'none';
+});
+
+function fetchSuggestions(userInput) {
+    console.log('User input:', userInput);
+    // Perform an AJAX request to fetch suggestions
+    $.ajax({
+    url: 'COMPONENT/FUNCTION/suggestion-endpoint.php',
+    type: 'POST',
+    dataType: 'json',
+    data: { userInput: userInput },
+    success: function (data, textStatus, xhr) {
+    try {
+        // Attempt to parse the JSON response
+        const parsedData = JSON.parse(xhr.responseText);
+        console.log('Parsed Data:', parsedData);
+
+        // Check if the response is valid JSON
+        if (parsedData && Array.isArray(parsedData.suggestions)) {
+            // Handle parsedData here
+            console.log('Suggestions:', parsedData.suggestions);
+            const suggestionList = document.getElementById('suggestion-list');
+            const suggestions = parsedData.suggestions;
+
+            if (suggestions.length > 0) {
+                suggestions.forEach(function (suggestion) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = suggestion;
+                    suggestionList.appendChild(listItem);
+                });
+
+                document.getElementById('suggestions').style.display = 'block';
+            } else {
+                document.getElementById('suggestions').style.display = 'none';
+            }
+                } else {
+                    // Handle the case where the response is not in the expected format
+                    console.error('Received invalid JSON response:', xhr.responseText);
+                    // Show an appropriate message to the user or handle the error
+                }
+            } catch (e) {
+                console.error('JSON Parsing Error:', e);
+                // Handle the parsing error or show an appropriate message to the user
+            }
+        },
+
+        error: function (xhr, status, error) {
+            console.error('AJAX error:', error);
+            console.log('Response Text:', xhr.responseText);
+            // Handle the error or show an appropriate message to the user
+        }
+    });
+}
+
     $(document).ready(function() {
         display_events();
     })
