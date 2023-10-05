@@ -56,3 +56,4 @@ if (mysqli_num_rows($result) > 0) {
 header('Content-Type: application/json; charset=UTF-8');
 echo json_encode(array("lciddata" => $lciddata));
 ?>
+

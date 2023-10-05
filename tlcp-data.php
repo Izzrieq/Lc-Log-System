@@ -219,7 +219,7 @@ mysqli_stmt_close($stmt);
                                 <td class="border-r border-b"><?php echo $complaintCount; ?></td>
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
                                 <td class="border-r border-b p-0">
-                                    <div class="flex items-center justify-between text-xs mt-2">
+                                    <div class="flex items-center justify-between mt-2">
                                         <button class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
                                             <a class="text-white text-decoration-none"
                                                 href='tlcp-info.php?branch_id=<?php echo $r['branch_id'];?>'>INFO</a>

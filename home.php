@@ -118,7 +118,7 @@
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-red-400">
                     <h5 class="card-title font-bold text-base">TASK MANAGER</h5>
                     <p class="card-text">Assign Task</p>
-                    <a href="COMPONENT/dashmin/task.php" class="btn btn-primary mt-2">Go Somewhere</a>
+                    <a href="COMPONENT/dashmin_v2/task.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>
@@ -136,7 +136,7 @@
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
                     <h5 class="card-title font-bold text-base">DASHMIN</h5>
                     <p class="card-text">Task Manager.</p>
-                    <a href="COMPONENT/dashmin/index.php" class="btn btn-primary mt-2">Go Somewhere</a>
+                    <a href="COMPONENT/dashmin_v2/index.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
         
     </div>
 </div>
-<h3 class="mb-0 ml-5 text-lg">Weekly Event | <a class="text-decoration-none" href="COMPONENT/dashmin/dates.php">Show more...</a></h3>
+<h3 class="mb-0 ml-5 text-lg">Weekly Event | <a class="text-decoration-none" href="COMPONENT/dashmin v2/dates.php">Show more...</a></h3>
 <div id="calendar" class="my-5 p-10 mt-0"></div>
 <!-- Start popup dialog box -->
 <div class="modal fade" id="event_entry_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
