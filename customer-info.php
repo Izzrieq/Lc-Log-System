@@ -35,7 +35,7 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLCP Page</title>
+    <title>CUSTOMER INFO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -44,8 +44,8 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
 
 </head>
 <style>
-    @media print{
-        button{
+    @media print {
+        button {
             display: none;
         }
     }
@@ -58,14 +58,16 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                 <div class="inputs w-full max-w-xl p-6">
                     <div class='flex items-center justify-between mt-2'>
                         <div class="personal w-full pt-2">
-                            <h2 class="text-2xl text-gray-900 text-lg">CUSTOMER INFO</h2>
+                            <h2 class="text-2xl text-gray-900 text-xl font-bold">CUSTOMER INFO</h2>
                             <hr class="mt-1 border-b-1 border-blueGray-300">
-                            <h6 class="text-blueGray-400 text-xs mt-3 mb-4 uppercase">
-                            Student Information
+                            <h6 class="text-blueGray-400 text-sm font-bold mt-3 mb-4 uppercase">
+                                Student Information
                             </h6>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>STUDENT ID
+                                    <label
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>STUDENT
+                                        ID
                                     </label>
                                     <input name="student_id" type="student_id"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
@@ -73,7 +75,8 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH DATE
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH
+                                        DATE
                                     </label>
                                     <input name="name" type="name"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
@@ -110,14 +113,15 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                     value="<?php echo $name; ?>" disabled>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
-                                <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH PLACE</label>
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH
+                                    PLACE</label>
                                 <input name="birth_place" type="birth_place"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
                                     value="<?php echo $birth_place; ?>" disabled>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>IC</label>
+                                <label
+                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>IC</label>
                                 <input name="ic" type="ic"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
                                     value="<?php echo $ic; ?>" disabled>
@@ -125,7 +129,8 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                             <div class="flex items-center justify-between mt-2">
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>FAVOURITE FOOD
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>FAVOURITE
+                                        FOOD
                                     </label>
                                     <input name="birth_cert_no" type="birth_cert_no"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
@@ -133,7 +138,8 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH CERTIFICATION
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH
+                                        CERTIFICATION
                                     </label>
                                     <input name="fav_food" type='fav_food'
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
@@ -157,7 +163,8 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>PREVIOUS SCHOOL
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>PREVIOUS
+                                        SCHOOL
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
@@ -212,7 +219,7 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                 </div>
             </div>
         </div>
-                    <?php
+        <?php
             $parent_id = $_GET['parent_id'];
             $data = mysqli_query($conn, "SELECT * FROM emergency_contact WHERE parent_id='$parent_id'");
             while ($r = mysqli_fetch_array($data)){
@@ -240,143 +247,154 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
             <div class="bg-gray-200 min-h-screen pt-0 my-0">
                 <div class="container mx-auto border-2">
                     <div class="inputs w-full y-full max-w-xl p-6">
-                        <div class='flex items-center justify-between mt-2'>           
+                        <div class='flex items-center justify-between mt-2'>
                             <div class="personal w-full md:w-full pt-2">
-                                <h6 class="text-blueGray-400 text-xs mt-5 mb-4 uppercase">
+                                <h6 class="text-blueGray-400 text-sm font-bold mt-0 mb-4 uppercase">
                                     Parent Information
-                                </h6>  
-                            <div class="flex items-center justify-between mt-4">
-                                <div class='w-auto md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>FIRST NAME</label>
-                                    <input
-                                        class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="first_name" value="<?php echo $first_name; ?>" disabled/>
+                                </h6>
+                                <div class="flex items-center justify-between mt-4">
+                                    <div class='w-auto md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>FIRST
+                                            NAME</label>
+                                        <input
+                                            class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='text' name="first_name" value="<?php echo $first_name; ?>" disabled />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>LAST
+                                            NAME</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
+                                            type='text' name="last_name" value="<?php echo $last_name; ?>" disabled />
+                                    </div>
                                 </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>LAST NAME</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                        type='text' name="last_name" value="<?php echo $last_name; ?>" disabled/>
+                                <div class="flex items-center justify-between mt-1">
+                                    <div class='w-auto md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>RELATION</label>
+                                        <input
+                                            class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='relation' name="relation" value="<?php echo $relation; ?>" disabled />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>MOBILE
+                                            NO</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
+                                            type='mobile_no' name="mobile_no" value="<?php echo $mobile_no; ?>"
+                                            disabled />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex items-center justify-between mt-1">
-                                <div class='w-auto md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>RELATION</label>
-                                    <input
-                                        class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='relation' name="relation" value="<?php echo $relation; ?>" disabled/>
+                                <div class="flex items-center justify-between mt-1">
+                                    <div class='w-auto md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>SPOUSE
+                                            FIRST NAME</label>
+                                        <input
+                                            class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='text' name="spousefirst_name" value="<?php echo $spousefirst_name; ?>"
+                                            disabled />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>SPOUSE
+                                            LAST NAME</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
+                                            type='text' name="spouselast_name" value="<?php echo $spouselast_name; ?>"
+                                            disabled />
+                                    </div>
                                 </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>MOBILE NO</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                        type='mobile_no' name="mobile_no" value="<?php echo $mobile_no; ?>" disabled/>
+                                <div class="flex items-center justify-between mt-1">
+                                    <div class='w-auto md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>RELATION</label>
+                                        <input
+                                            class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='relation' name="spouserelation" value="<?php echo $spouserelation; ?>"
+                                            disabled />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>MOBILE
+                                            NO</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
+                                            type='mobile_no' name="spousemobile_no"
+                                            value="<?php echo $spousemobile_no; ?>" disabled />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex items-center justify-between mt-1">
-                                <div class='w-auto md:w-1/2 px-3 mb-6'>
+                                <div class='w-full md:w-full px-3 mb-6 mt-0'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>SPOUSE FIRST NAME</label>
-                                    <input
-                                        class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="spousefirst_name" value="<?php echo $spousefirst_name; ?>" disabled/>
-                                </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>SPOUSE LAST NAME</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                        type='text' name="spouselast_name" value="<?php echo $spouselast_name; ?>" disabled/>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between mt-1">
-                                <div class='w-auto md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>RELATION</label>
-                                    <input
-                                        class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='relation' name="spouserelation" value="<?php echo $spouserelation; ?>" disabled/>
-                                </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>MOBILE NO</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                        type='mobile_no' name="spousemobile_no" value="<?php echo $spousemobile_no; ?>" disabled/>
-                                </div>
-                            </div>
-                            <div class='w-full md:w-full px-3 mb-6 mt-0'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ADDRESS
-                                </label>
-                                <input
-                                    class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='text' name="address" value="<?php echo $address; ?>" disabled />
-                            </div>
-                            <hr class="mt-1 border-b-1 border-blueGray-300">
-                            <h6 class="text-blueGray-400 text-xs mt-3 mb-4 uppercase">
-                            Emergency Contact
-                            </h6>
-                            <div class="flex items-center justify-between mt-0">
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>HOME NO
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ADDRESS
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="home_no" value="<?php echo $home_no; ?>" disabled />
+                                        type='text' name="address" value="<?php echo $address; ?>" disabled />
                                 </div>
-                                <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>OFFICE NO</label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
-                                        type='text' name="office_no" value="<?php echo $office_no; ?>" disabled />
+                                <hr class="mt-1 border-b-1 border-blueGray-300">
+                                <h6 class="text-blueGray-400 text-sm font-bold mt-3 mb-3 uppercase">
+                                    Emergency Contact
+                                </h6>
+                                <div class="flex items-center justify-between mt-0">
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>HOME
+                                            NO
+                                        </label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='text' name="home_no" value="<?php echo $home_no; ?>" disabled />
+                                    </div>
+                                    <div class='w-full md:w-1/2 px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>OFFICE
+                                            NO</label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
+                                            type='text' name="office_no" value="<?php echo $office_no; ?>" disabled />
+                                    </div>
+                                </div>
+                                <hr class="mt-1 border-b-1 border-blueGray-300">
+                                <div class="flex items-center justify-between mt-0">
+                                    <div class='w-full md:w-full px-3 mb-6'>
+                                        <label
+                                            class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>EMAIL
+                                        </label>
+                                        <input
+                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
+                                            type='email' name="email" value="<?php echo $email; ?>" disabled />
+                                    </div>
                                 </div>
                             </div>
-                            <hr class="mt-1 border-b-1 border-blueGray-300">
-                            <h6 class="text-blueGray-400 text-xs mt-3 mb-4 uppercase">
-                            Email
-                            </h6>
-                            <div class="flex items-center justify-between mt-0">
-                                <div class='w-full md:w-full px-3 mb-6'>
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>EMAIL
-                                    </label>
-                                    <input
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='email' name="email" value="<?php echo $email; ?>" disabled />
-                                </div>
-                            </div>
+
                         </div>
-
+                        </form>
                     </div>
-                    </form>
                 </div>
-            </div>
-            <script>
-                function printWithLandscape() {
-                    var css = '@page { size: landscape; }',
-                        head = document.head || document.getElementsByTagName('head')[0],
-                        style = document.createElement('style');
+                <script>
+                    function printWithLandscape() {
+                        var css = '@page { size: landscape; }',
+                            head = document.head || document.getElementsByTagName('head')[0],
+                            style = document.createElement('style');
 
-                    style.type = 'text/css';
-                    style.media = 'print';
+                        style.type = 'text/css';
+                        style.media = 'print';
 
-                    if (style.styleSheet) {
-                        style.styleSheet.cssText = css;
-                    } else {
-                        style.appendChild(document.createTextNode(css));
+                        if (style.styleSheet) {
+                            style.styleSheet.cssText = css;
+                        } else {
+                            style.appendChild(document.createTextNode(css));
+                        }
+
+                        head.appendChild(style);
+
+                        window.print();
                     }
-
-                    head.appendChild(style);
-
-                    window.print();
-                }
-            </script>
+                </script>
 </body>
 
 </html>

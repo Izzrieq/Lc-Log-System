@@ -126,26 +126,26 @@ if ($result === false) {
                     <table class="content min-w-full border text-center bg-white" id="table_customer">
                         <thead>
                             <tr class="border-b bg-gray-700">
-                                <th scope="col" class="text-md font-medium text-white px-0 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     ID
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-0 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     FIRST NAME
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-0 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     LAST NAME
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-0 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     RELATION
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-0 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     MOBILE NO.HP
                                 </th>
-                                <th scope="col" class="text-md font-medium text-white px-0 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
                                     EMAIL
                                 </th>
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
-                                <th scope="col" class="text-md font-medium text-white px-0 py-2 border-r">
+                                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
                                     ACTION
                                 </th>
                                 <?php } ?>
@@ -160,11 +160,11 @@ if ($result === false) {
                                 echo "<td class='border-r border-b'>" . $r['first_name'] . "</td>";
                                 echo "<td class='border-r border-b'>" . $r['last_name'] . "</td>";
                                 echo "<td class='border-r border-b px-2'>" . $r['relation'] . "</td>";
-                                echo "<td class='border-r border-b px-8'>" . $r['mobile_no'] . "</td>";
+                                echo "<td class='border-r border-b'>" . $r['mobile_no'] . "</td>";
                                 echo "<td class='border-r border-b px-0'>" . $r['email'] . "</td>";
                                 if ($_SESSION['type'] === 'admin') {
                                     echo "<td class='border-r border-b p-0'>";
-                                    echo "<div class='flex items-center justify-between text-xs mt-2'>";
+                                    echo "<div class='flex items-center justify-between mt-2'>";
                                     echo "<button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1'>";
                                     echo "<a class='text-white text-decoration-none' href='customer-info.php?parent_id=" . $r['parent_id'] . "'>INFO</a>";
                                     echo "</button>";
