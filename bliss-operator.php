@@ -102,33 +102,36 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 //total display
                 $rows_per_pages = 5;
 
-                $result = mysqli_query($conn,"SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages"); 
-                while ($r = mysqli_fetch_array($result)){
-                ?>
-                                <tr>
-                                    <td class="border-r text-l"><?php echo $r['id']; ?></td>
-                                    <td class="border-r text-l"><?php echo $r['date']; ?></td>
-                                    <td class="border-r text-l"><?php echo $r['cname']; ?></td>
-                                    <td class="border-r text-l"><?php echo $r['cnohp']; ?></td>
-                                    <td class="border-r text-l"><?php echo $r['category']; ?></td>
-                                    <td class="border-r text-l"><?php echo $r['type']; ?></td>
-                                    <?php if ($_SESSION['type'] === 'admin') { ?>
-                                    <td class="d-flex justify-content-center">
-                                        <a href='bliss-infocomplaint.php?id=<?php echo $r['id'];?>'><button
-                                                class="rounded-md bg-gray-400 text-white p-2 m-2">Info</button></a>
-                                        <a href='bliss-updatecomplaint-form.php?id=<?php echo $r['id'];?>'><button
-                                                class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
-                                        <a href='bliss-deletecomplaint.php?id=<?php echo $r['id'];?>'
-                                            onclick="return confirm('Are you sure you want to delete?')"><button
-                                                class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
-                                        <a href='bliss-actioncomplaint.php?id=<?php echo $r['id'];?>'><button
-                                                class="rounded-md bg-green-700 text-white p-2 m-2">Email</button></a>
-                                    </td>
-                                    <?php } ?>
-                                </tr>
-                            </tbody>
-                            <?php
+                $result = mysqli_query($conn, "SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages");
+                while ($r = mysqli_fetch_array($result)) {
+                    ?>
+                    <tr>
+                        <td class="border-r text-l"><?php echo $r['id']; ?></td>
+                        <td class="border-r text-l"><?php echo $r['date']; ?></td>
+                        <td class="border-r text-l"><?php echo $r['cname']; ?></td>
+                        <td class="border-r text-l"><?php
+                         echo $r['cnohp']; 
+                         echo "<a href='tel:" . $r['cnohp'] . "' class='rounded-md bg-green-500 hover:bg-green-700 font-bold text-white p-2 m-1'>";
+                         echo "Call";
+                        echo "</a>";
+                         ?></td>
+                        <td class="border-r text-l"><?php echo $r['category']; ?></td>
+                        <td class="border-r text-l"><?php echo $r['type']; ?></td>
+                        <?php if ($_SESSION['type'] === 'admin') { ?>
+                            <td class="d-flex justify-content-center">
+                                <a href='bliss-infocomplaint.php?id=<?php echo $r['id']; ?>'><button
+                                            class="rounded-md bg-gray-400 text-white p-2 m-2">Info</button></a>
+                                <a href='bliss-updatecomplaint-form.php?id=<?php echo $r['id']; ?>'><button
+                                            class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
+                                <a href='bliss-deletecomplaint.php?id=<?php echo $r['id']; ?>'
+                                onclick="return confirm('Are you sure you want to delete?')"><button
+                                            class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                    <?php
                 }
+
                 ?>
                         </table>
                     </div>

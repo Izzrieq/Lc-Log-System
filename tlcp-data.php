@@ -24,7 +24,7 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 $start = ($currentPage - 1) * $rowsPerPage;
 
 // Prepare the main SQL query with placeholders
-$sql = "SELECT * FROM lcdetails WHERE lcid LIKE ? OR stateid LIKE ? ORDER BY id ASC LIMIT ?, ?";
+$sql = "SELECT * FROM branch WHERE code LIKE ? OR name LIKE ? ORDER BY branch_id ASC LIMIT ?, ?";
 $stmt = mysqli_prepare($conn, $sql);
 
 // Check for errors in preparing the statement
@@ -65,7 +65,6 @@ mysqli_stmt_close($stmt);
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <style>
-        @media (max-width:320px) {}
 
         @media (max-width:1024px) {
 
@@ -140,25 +139,25 @@ mysqli_stmt_close($stmt);
                         <thead>
                             <tr class="border-b bg-gray-700">
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    ID
+                                    BRANCH ID
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    STATE
+                                    CODE
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    BIZ
+                                    NAME
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">
-                                    LITTLECALIPH_ID
+                                    EMAIL
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                    OPERATOR_NAME
+                                    ADDRESS
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
-                                    KINDY NUMBER
+                                    ACTIVE
                                 </th>
                                 <th scope="col" class="text-md font-medium text-white px-1 py-2 border-r">
-                                    COMPLAINT COUNT
+                                    COMPLAINT
                                 </th>
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
                                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
@@ -170,17 +169,17 @@ mysqli_stmt_close($stmt);
                         </thead>
                         <tbody id="showlciddata">
                             <?php
-                            $sql = "SELECT * FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%' ORDER BY id ASC LIMIT $start, $rowsPerPage";
+                            $sql = "SELECT * FROM branch WHERE code LIKE '%$combinedSearchQuery%' OR name LIKE '%$combinedSearchQuery%' ORDER BY branch_id ASC LIMIT $start, $rowsPerPage";
                             $result = mysqli_query($conn, $sql);
                             
                             if ($result === false) {
                                 die("Error executing main SQL query: " . mysqli_error($conn));
                             }
                             
-                            while ($r = mysqli_fetch_array($result)) {
-                                $lcid = $r['lcid'];
+                             while ($r = mysqli_fetch_array($result)) {
+                                 $branch_id = $r['branch_id'];
                             
-                                // Use prepared statement for the inner query
+                            //     // Use prepared statement for the inner query
                                 $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = ?";
                                 $stmt = mysqli_prepare($conn, $complaintCountQuery);
                             
@@ -189,7 +188,7 @@ mysqli_stmt_close($stmt);
                                 }
                             
                                 // Bind the parameter
-                                mysqli_stmt_bind_param($stmt, "s", $lcid);
+                                mysqli_stmt_bind_param($stmt, "s", $branch_id);
                             
                                 // Execute the prepared statement
                                 $executeResult = mysqli_stmt_execute($stmt);
@@ -198,35 +197,41 @@ mysqli_stmt_close($stmt);
                                     die("Error executing inner SQL statement: " . mysqli_error($conn));
                                 }
                             
-                                // Get the result
-                                $complaintCountResult = mysqli_stmt_get_result($stmt);
-                                $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
-                                $complaintCount = $complaintCountRow['complaint_count'];
+                            //     // Get the result
+                                 $complaintCountResult = mysqli_stmt_get_result($stmt);
+                                 $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
+                                 $complaintCount = $complaintCountRow['complaint_count'];
                                 
                                 
                             ?>
                             <tr class="text-black">
-                                <td class="border-r border-b"><?php echo $r['id']; ?></td>
-                                <td class="border-r border-b"><?php echo $r['stateid']; ?></td>
-                                <td class="border-r border-b"><?php echo $r['bizstype']; ?></td>
-                                <td class="border-r border-b px-2"><?php echo $r['lcid']; ?></td>
-                                <td class="border-r border-b px-8"><?php echo $r['operatorname']; ?></td>
-                                <td class="border-r border-b px-0"><?php echo $r['kindernohp']; ?></td>
+                                <td class="border-r border-b"><?php echo $r['branch_id']; ?></td>
+                                <td class="border-r border-b"><?php echo $r['code']; ?></td>
+                                <td class="border-r border-b"><?php echo $r['name']; ?></td>
+                                <td class="border-r border-b px-2"><?php echo $r['email_regis']; ?></td>
+                                <td class="border-r border-b px-8"><?php echo $r['address']; ?></td>
+                                <td class="border-r border-b px-0"><?php 
+                                if ($r['is_active'] == '1'){
+                                    echo "ACTIVE";
+                                }else{
+                                    echo "UNAVAILABLE";
+                                }
+                                ?></td>
                                 <td class="border-r border-b"><?php echo $complaintCount; ?></td>
                                 <?php if ($_SESSION['type'] === 'admin') { ?>
                                 <td class="border-r border-b p-0">
                                     <div class="flex items-center justify-between mt-2">
                                         <button class="rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1">
                                             <a class="text-white text-decoration-none"
-                                                href='tlcp-info.php?id=<?php echo $r['id'];?>'>INFO</a>
+                                                href='tlcp-info.php?branch_id=<?php echo $r['branch_id'];?>'>INFO</a>
                                         </button>
                                         <button class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
                                             <a class="text-white text-decoration-none"
-                                                href='tlcp-update-form.php?id=<?php echo $r['id'];?>'>UPDATE</a>
+                                                href='tlcp-update-form.php?branch_id=<?php echo $r['branch_id'];?>'>UPDATE</a>
                                         </button>
                                         <button class="rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1">
                                             <a class="text-white text-decoration-none"
-                                                href='tlcp-delete.php?id=<?php echo $r['id'];?>'>DELETE</a>
+                                                href='tlcp-delete.php?branch_id=<?php echo $r['branch_id'];?>'>DELETE</a>
                                         </button>
                                     </div>
                                 </td>
@@ -241,7 +246,7 @@ mysqli_stmt_close($stmt);
                         class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6 no-underline">
                         <!-- Pagination links -->
                         <?php
-                            $sqlCount = "SELECT COUNT(*) AS total FROM lcdetails WHERE lcid LIKE '%$combinedSearchQuery%' OR stateid LIKE '%$combinedSearchQuery%'";
+                            $sqlCount = "SELECT COUNT(*) AS total FROM branch WHERE code LIKE '%$combinedSearchQuery%' OR name LIKE '%$combinedSearchQuery%'";
                             $resultCount = mysqli_query($conn, $sqlCount);
                             $rowCount = mysqli_fetch_assoc($resultCount)['total'];
                             $startId = ($currentPage - 1) * $rowsPerPage + 1;

@@ -5,7 +5,7 @@ if(isset($_GET["lcid"])){
     $lcid = $_GET["lcid"];
     
     // Construct your SQL query
-    $sql = "SELECT operatorname, ownernohp FROM lcdetails WHERE lcid = '$lcid'";
+    $sql = "SELECT ownername, ownernohp FROM lcdetails WHERE lcid = '$lcid'";
     
     // Execute the query
     $result = mysqli_query($conn, $sql);
@@ -14,7 +14,7 @@ if(isset($_GET["lcid"])){
         // Fetch data and build response array
         $response = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $response['ownerNames'][] = $row['operatorname'];
+            $response['ownerNames'][] = $row['ownername'];
             $response['ownerNohp'][] = $row['ownernohp'];
         }
         
