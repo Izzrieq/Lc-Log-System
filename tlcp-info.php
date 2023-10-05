@@ -9,23 +9,62 @@ include "COMPONENT/header.php";
 
 
 
-$id = $_GET['id'];
-$data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
- while ($r = mysqli_fetch_array($data)){
-    $id = $r['id'];
-    $stateid = $r['stateid'];
-    $bizstype = $r['bizstype'];
-    $lcid= $r['lcid'];
-    $opsname = $r['operatorname'];
-    $ownername = $r['ownername'];
-    $status = $r['status'];
-    $yearsigned = $r['yearsigned'];
-    $datesigned = $r['datesigned'];
-    $dateoperated = $r['dateoperated'];
-    $tlcppackage = $r['tlcppackage'];
-    $annuallicense = $r['annuallicense'];
-    $eduemail = $r['eduemail'];
- }
+$branch_id = $_GET['branch_id'];
+
+$operator_first_name = '';
+
+$data1 = mysqli_query($conn, "SELECT * FROM branch WHERE branch_id='$branch_id'");
+while ($r = mysqli_fetch_array($data1)) {
+    $branch_id = $r['branch_id'];
+    $code = $r['code'];
+    $name = $r['name'];
+    $email_regis = $r['email_regis'];
+    $address = $r['address'];
+    $date_register = $r['date_register'];
+    $is_active = $r['is_active'];
+    $bill_due = $r['bill_due'];
+}
+
+// Fetch data from the 'user_teacher' table
+$data2 = mysqli_query($conn, "SELECT * FROM user_teacher WHERE branch_id='$branch_id'");
+while ($t = mysqli_fetch_array($data2)) {
+    $first_name = $t['first_name'];
+    $last_name = $t['last_name'];
+    $email = $t['email'];
+    $ic = $t['ic'];
+    $mobile_no = $t['mobile_no'];
+    $role_id = $t['role_id'];
+    $status_teacher = $t['status'];
+    $edu = $t['edu'];
+    $state_id = $t['state_id'];
+    // Fetch the state name from the 'states' table based on state_id
+    $state_query = mysqli_query($conn, "SELECT name FROM states WHERE id='$state_id'");
+    $state_data = mysqli_fetch_array($state_query);
+    $state_name = $state_data['name'];
+
+    $city_id = $t['city_id'];
+    $cities_query = mysqli_query($conn, "SELECT name FROM cities WHERE id='$city_id'");
+    $cities_data = mysqli_fetch_array($cities_query);
+    $cities_name = $cities_data['name'];
+
+}
+
+// Fetch data from the 'user_operator' table
+// $data3 = mysqli_query($conn, "SELECT * FROM user_operator WHERE branch_id='$branch_id'");
+// while ($o = mysqli_fetch_array($data3)) {
+//     $operator_first_name = $o['first_name'];
+//     $last_name = $o['last_name'];
+//     $ic = $o['ic'];
+//     $email = $o['email'];
+//     $mobile_no = $o['mobile'];
+//     $edu = $o['edu'];
+//     $employer = $o['employer'];
+//     $role_id = $o['type'];
+//     $occupation = $o['occupation'];
+//     $office_address = $o['office_address'];
+
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,124 +97,128 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                 <div class="inputs w-full max-w-xl p-6">
                     <div class='flex items-center justify-between mt-2'>
                         <div class="personal w-full pt-2">
-                            <h2 class="text-2xl text-gray-900 text-lg">TLCP INFO</h2>
+                            <h2 class="text-2xl text-gray-900 text-lg">TLCP INFO: <?php echo $code; ?></h2>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
-                                    <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ID
+                                    <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BRANCH ID
                                     </label>
-                                    <input name="id" type="id"
+                                    <input name="branch_id" type="branch_id"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value=<?php echo $id; ?> disabled />
+                                        value=<?php echo $branch_id; ?> disabled />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>State
-                                        ID
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>DATE REGISTER
                                     </label>
-                                    <input name="stateid" type="stateid"
+                                    <input name="date_register" type="date_register"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value=<?php echo $stateid; ?> disabled />
+                                        value=<?php echo $date_register; ?> disabled />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Biz
-                                        Type
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>STATUS
                                     </label>
-                                    <input name="bizstype" type='bizstype'
+                                    <input name="is_active" type='is_active'
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value=<?php echo $bizstype; ?> disabled>
+                                        value=<?php
+                                        if($is_active == '1'){
+                                            echo "ACTIVE";
+                                        }else{
+                                            echo "UNAVAILABLE";
+                                        }
+                                        ?> disabled>
                                 </div>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Little
-                                    Caliphs ID
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ADDRESS
                                 </label>
-                                <input name="lcid" type="text"
-                                    class="appearance-none block w-1/2 bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4"
-                                    value="<?php echo htmlspecialchars($lcid); ?>" disabled>
+                                    <textarea name="address"
+                                    class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white' disabled><?php echo $address; ?></textarea>
 
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
-                                    Name</label>
-                                <input name="operatorname" type="operatorname"
+                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BILL DUE</label>
+                                <input name="bill_due" type="bill_due"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value="<?php echo $opsname; ?>" disabled>
+                                    value="<?php echo $bill_due; ?>" disabled>
                             </div>
+                            <hr class="mt-6 border-b-1 border-blueGray-300">
+                        <h6 class="text-blueGray-400 text-l mt-3 mb-4 font-bold uppercase">
+                            Principal Information
+                        </h6>
                             <div class='w-full md:w-full px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Owner
-                                    Name</label>
-                                <input name="ownername" type="ownername"
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>FIRST NAME</label>
+                                <input name="first_name" type="first_name"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value="<?php echo $ownername; ?>" disabled>
+                                    value="<?php echo $first_name; ?>" disabled>
                             </div>
                             <div class="flex items-center justify-between mt-2">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Status
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>IC
                                     </label>
-                                    <input name="status" type="status"
+                                    <input name="ic" type="ic"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value="<?php echo $status; ?>" disabled>
+                                        value="<?php echo $ic; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-2/5 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Year
-                                        Signed
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>MOBILE NO
                                     </label>
-                                    <input name="yearsigned" type='yearsigned'
+                                    <input name="mobile_no" type='mobile_no'
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value="<?php echo $yearsigned; ?>" disabled>
+                                        value="<?php echo $mobile_no; ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-2">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Date
-                                        Signed
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ROLE
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="datesigned" value="<?php echo $datesigned; ?>" disabled>
+                                        type='text' name="role_id" value="<?php echo $role_id; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Date
-                                        Operated
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>STATUS
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="stateid" value="<?php echo $dateoperated; ?>" disabled>
+                                        type='text' name="status" value="<?php 
+                                        if($status_teacher == 'a'){
+                                            echo "ACTIVE";
+                                        }else{
+                                            echo "UNAVAILABLE";
+                                        }
+                                        ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>TLCP
-                                        Package
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>EDU
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="bizstype" value="<?php echo $tlcppackage; ?>" disabled>
+                                        type='text' name="edu" value="<?php echo $edu; ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-0">
                                 <div class='w-full md:w-2/5 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Annual
-                                        License
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>STATE
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="annuallicense" value="<?php echo $annuallicense; ?>" disabled>
+                                        type='text' name="state_id" value="<?php echo $state_name; ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-full px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Edu
-                                        Email
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>CITY
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="eduemail" value="<?php echo $eduemail; ?>" disabled>
+                                        type='text' name="city_id" value="<?php echo $cities_name; ?>" disabled>
                                 </div>
                             </div>
                             </form>
@@ -185,120 +228,100 @@ $data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
                 </div>
             </div>
         </div>
-
-        <?php
-$id = $_GET['id'];
-$data = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id='$id'");
- while ($r = mysqli_fetch_array($data)){
- $kindername = $r['kindername'];
- $kindernohp = $r['kindernohp'];
- $noblock = $r['noblock'];
- $street = $r['street'];
- $postcode = $r['postcode'];
- $city = $r['city'];
- $state = $r['state'];
- $type = $r['type'];
- $ownernohp = $r['ownernohp'];
- $opsaddress= $r['operatoraddress'];
-
- }
-?>
         <div class="container-box pb-20" style="display: flex;">
             <div class="bg-gray-200 min-h-screen pt-0 my-0">
                 <div class="container mx-auto border-2">
                     <div class="inputs w-full y-full max-w-xl p-6">
                         <!-- <div class='flex items-center justify-between mt-2'> -->
                         <div class="personal w-full md:w-full pt-2">
+                        <h6 class="text-blueGray-400 text-l mt-3 mb-4 font-bold uppercase">
+                            OPERATOR Information
+                        </h6>
+                        <hr class="mt-6 border-b-1 border-blueGray-300">    
                             <div class='w-full md:w-full px-3'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Edu
-                                    Email
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>OPERATOR NAME
                                 </label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                    type='text' name="eduemail" value="<?php echo $eduemail ?>" disabled/>
+                                    type='text' name="first_name" value="" disabled/>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6 pt-4'>
                                 <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Kindergarten
-                                    Name</label>
+                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>LAST NAME</label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='kindername' name="kindername" value="<?php echo $kindername; ?>" disabled/>
+                                    type='last_name' name="last_name" value="" disabled/>
                             </div>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-auto md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Kindergarten
-                                        Number</label>
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>YEAR SIGNED</label>
                                     <input
                                         class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='kindernohp' name="kindernohp" value="<?php echo $kindernohp; ?>" disabled/>
+                                        type='yearsigned' name="yearsigned" value="" disabled/>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>No.Block/House</label>
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>EMAIL</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                        type='noblock' name="noblock" value="<?php echo $noblock; ?>" disabled/>
+                                        type='eduemail' name="eduemail" value="" disabled/>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-0">
                                 <div class='w-full md:w-full px-3 mb-4'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Street</label>
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>OFFICE ADDRESS</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                        type='street' name="street" value="<?php echo $street; ?>" disabled/>
+                                        type='operator_address' name="operator_address" value="" disabled/>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-0">
-                                <div class='w-full md:w-1/3 px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Post
-                                        Code</label>
+                                <div class='w-full md:w-1/2 px-3 mb-6'>
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>TYPE</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='postcode' name="postcode" value="<?php echo $postcode; ?>" disabled />
+                                        type='type' name="type" value="" disabled />
                                 </div>
-                                <div class='w-full md:w-full px-3 mb-6'>
+                                <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>City
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>OWNER NOHP
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='city' name="city" value="<?php echo $city; ?>" disabled />
+                                        type='ownernohp' name="ownernohp" value="" disabled />
                                 </div>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
-                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>State
+                                <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>STATUS
                                 </label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='state' name="state" value="<?php echo $state; ?>" disabled />
+                                    type='status' name="status" value="" disabled />
                             </div>
                             <div class="flex items-center justify-between mt-2">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Type
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>TLCP PACKAGE
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='type' name="type" value="<?php echo $type; ?>" disabled />
+                                        type='tlcppackage' name="tlcppackage" value="" disabled />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operater
-                                        Number</label>
+                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ANNUAL LICENSE</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
-                                        type='ownernohp' name="ownernohp" value="<?php echo $ownernohp; ?>" disabled />
+                                        type='annuallicense' name="annuallicense" value="" disabled />
                                 </div>
                             </div>
                             <div class='w-auto md:w-full px-3 mb-6'>
                                 <label
-                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Operator
-                                    Address</label>
+                                    class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>KINDER ADDRESS</label>
                                 <textarea name="operatoraddress"
-                                    class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white' disabled><?php echo $opsaddress; ?></textarea>
+                                    class='bg-white rounded-md border leading-normal resize-none w-full h-50 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white' disabled></textarea>
                             </div>
                             <div class="flex justify-end">
                               <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"

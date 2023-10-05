@@ -127,8 +127,7 @@ mysqli_stmt_close($stmt);
     </button>
     <div class="input-group mb-3 mt-2">
         <div class="form-outline ml-3">
-            <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search"
-                placeholder="Search LCID or State ID" />
+            <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search" placeholder="Search LCID or State ID" />
         </div>
     </div>
     <div class="overflow-hidden m-0 p-0 ">
@@ -305,22 +304,32 @@ mysqli_stmt_close($stmt);
             </div>
         <script>
             $(document).ready(function () {
-                $('#combined_search').on("keyup", function () {
-                    var combinedSearch = $(this).val();
-                    $.ajax({
-                        method: 'POST',
-                        url: 'COMPONENT/FUNCTION/searchtlcp.php',
-                        data: {
-                            combined_search: combinedSearch
-                        },
-                        dataType: 'json', // Expect JSON response
-                        success: function (response) {
-                            // Replace the table content with the new data
-                            $("#table_tlcp tbody").html(response.lciddata);
-                        }
-                    });
-                });
-            });
+                $('#combined_search').on("input", function () {
+    var combinedSearch = $(this).val();
+    console.log("Search query: " + combinedSearch); // Debugging statement
+    $.ajax({
+        method: 'POST',
+        url: 'COMPONENT/FUNCTION/searchtlcp.php',
+        data: {
+            combined_search: combinedSearch
+        },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response); // Debugging statement
+            if (response && response.lciddata) {
+                $("#table_tlcp tbody").html(response.lciddata);
+            } else {
+                console.error('Invalid or missing data in the response.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('AJAX request failed:', status, error);
+        }
+    });
+});
+
+});
+
         </script>
         <?php
     include "COMPONENT/footer.php";

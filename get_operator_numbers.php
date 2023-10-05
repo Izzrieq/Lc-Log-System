@@ -1,15 +1,15 @@
 <?php
 include('COMPONENT/DB/config.php');
 
-if (isset($_GET['ownername'])) {
-    $ownername = $_GET['ownername'];
+if (isset($_GET['first_name'])) {
+    $first_name = $_GET['first_name'];
     
-    $sql = "SELECT DISTINCT operatornohp FROM lcdetails WHERE ownername = '$ownername'";
+    $sql = "SELECT DISTINCT mobile_no FROM user_teacher WHERE first_name = '$first_name'";
     $result = mysqli_query($conn, $sql);
     
     $options = "";
     while ($row = mysqli_fetch_array($result)) {
-        $options .= "<option value='".$row['operatornohp']."'>".$row['operatornohp']."</option>";
+        $options .= "<option value='".$row['mobile_no']."'>".$row['mobile_no']."</option>";
     }
     
     echo $options;

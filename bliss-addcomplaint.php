@@ -58,7 +58,7 @@
                         url: "get_lc_data.php",
                         method: "GET",
                         data: {
-                            lcid: selectedLcid
+                            branch_id: selectedLcid
                         },
                         dataType: "json",
                         success: function (data) {
