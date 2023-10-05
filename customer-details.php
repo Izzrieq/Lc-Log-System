@@ -43,7 +43,7 @@ if ($result === false) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLCP DATA</title>
+    <title>CUSTOMER DATA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles/style.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -107,7 +107,7 @@ if ($result === false) {
     </style>
 </head>
 
-<body class="bg-neutral-50 mb-10 ">
+<body class="bg-neutral-50 mb-10">
 
     <center class="font-bold text-2xl mt-3">LIST CUSTOMER</center>
     <!-- <button

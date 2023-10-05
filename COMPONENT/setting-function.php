@@ -77,7 +77,7 @@ if (isset($_POST['update'])) {
             $_SESSION['update_complete'] = true;
 
             $_SESSION['username'] = $username;
-            $_SESSION['type'] = $new_type_value;
+            // $_SESSION['type'] = $new_type_value;
 
             echo "<script>alert('Your profile information has been successfully updated.');</script>";
             echo "<script>window.location.href = '../home.php';</script>"; // Redirect to home.php
