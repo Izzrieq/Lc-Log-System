@@ -1,5 +1,5 @@
 <?php
-include('COMPONENT/DB/config.php');
+include('../COMPONENT/DB/config.php');
 
 if (isset($_GET['branch_id'])) {
     $branch_id = $_GET['branch_id'];

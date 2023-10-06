@@ -1,5 +1,5 @@
 <?php
-include("../DB/config.php");
+include_once "../DB/config.php";
 
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
@@ -26,16 +26,40 @@ $lciddata = '';
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
-        $code = mysqli_real_escape_string($conn, $row['code']); // Escape the value to prevent SQL injection
+        $branch_id = $row['branch_id'];
+        
+        // Use a subquery to count complaints for each branch
+        $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = (SELECT code FROM branch WHERE branch_id = ?)";
+        $stmt = mysqli_prepare($conn, $complaintCountQuery);
+    
+        if ($stmt === false) {
+            die("Error preparing inner SQL statement: " . mysqli_error($conn));
+        }
+    
+        // Bind the parameter
+        mysqli_stmt_bind_param($stmt, "i", $branch_id);
+    
+        // Execute the prepared statement
+        $executeResult = mysqli_stmt_execute($stmt);
+    
+        if ($executeResult === false) {
+            die("Error executing inner SQL statement: " . mysqli_error($conn));
+        }
+    
+        // Get the result
+        $complaintCountResult = mysqli_stmt_get_result($stmt);
+        $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
+        $complaintCount = $complaintCountRow['complaint_count'];
 
+        // Output the table row with data
         $lciddata .= "<tr class='bg-white'>
             <td class='border-r border-b'>" . $row['branch_id'] . "</td>
             <td class='border-r border-b'>" . $row['code'] . "</td>
             <td class='border-r border-b'>" . $row['name'] . "</td>
             <td class='border-r border-b px-2'>" . $row['email_regis'] . "</td>
             <td class='border-r border-b px-8'>" . $row['address'] . "</td>
-            <td class='border-r border-b px-8'>" . $row['is_active'] . "</td>
-            <td class='border-r border-b px-8'>" . $row['is_active'] . "</td>";
+            <td class='border-r border-b px-8'>" . ($row['is_active'] == '1' ? "ACTIVE" : "UNAVAILABLE") . "</td>
+            <td class='border-r border-b px-8'>" . $complaintCount . "</td>";
 
         if ($_SESSION['type'] === 'admin') {
             $lciddata .= "<td class='border-r border-b p-2 flex items-center justify-between mt-2'>
