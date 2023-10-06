@@ -13,6 +13,7 @@ $result= mysqli_query($conn,"SELECT * FROM users WHERE user_id = '$user_id'");
 while ($r = mysqli_fetch_array($result)) {
     $user_id = $r['user_id'];
     $username = $r['username'];
+    $password = $r['password'];
     $department = $r['department'];
     $fullname = $r['fullname'];
     $email = $r['email'];
@@ -57,9 +58,6 @@ while ($r = mysqli_fetch_array($result)) {
 </script>
 
 <body class="bg-gray-200">
-    <button class="rounded-md bg-blue-700 text-white px-3 py-2" type="back" onclick="history.back()">BACK <i
-            class="fa fa-undo" aria-hidden="true"></i>
-    </button>
     <h1 style="text-align: center;" class="text-xl text-grey-700 font-bold p-2">Changes Account Profile</h1>
     <form action="setting-function.php" method="POST" enctype="multipart/form-data">
         <div class="container-box" style="display: flex; justify-content:center;">
@@ -113,7 +111,6 @@ while ($r = mysqli_fetch_array($result)) {
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3 leading-tight focus:outline-none focus:border-gray-500'
                                         value="<?php echo $fullname; ?>" />
                                 </div>
-
                                 <div class='w-full md:w-full px-3 mb-3'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Department
@@ -171,35 +168,19 @@ while ($r = mysqli_fetch_array($result)) {
                                         </label>
                                         <select name="marriage_status"
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3 leading-tight focus:outline-none focus:border-gray-500'>
-                                            <option value="<?php echo $marriage_status; ?>" disabled></option>
+                                            <option value="" disabled selected><?php echo $marriage_status; ?></option>
                                             <option value="Single">Single</option>
                                             <option value="Married">Married</option>
                                         </select>
                                     </div>
-                                    <button type="submit" name="update"
-                                        class="rounded-md bg-green-700 text-white p-2 mt-2">SAVE CHANGES
-                                    </button>
                                 </div>
-                                <div class='w-full md:w-full px-3 mb-2'>
-                                    <?php if ($_SESSION['marriage_status'] === 'Married') { ?>
-                                    <label scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                        Partner
-                                    </label>
-                                    <input name="partner" type="text"
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3 leading-tight focus:outline-none focus:border-gray-500'
-                                        value="<?php echo $partner; ?>" />
-                                    <label
-                                        class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>Role
-                                    </label>
-                                    <select name="role"
-                                        class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3 leading-tight focus:outline-none focus:border-gray-500'>
-                                        <option value="" disabled selected>Husband / Wife</option>
-                                        <option value="Husband">Husband</option>
-                                        <option value="Wife">Wife</option>
-                                    </select>
-                                    <?php } ?>
-                                </div>
-                            </div>
+                                <button class="rounded-md bg-blue-700 text-white px-3 py-2"><a href="../home.php">BACK</a><i
+                                    class="fa fa-undo" aria-hidden="true"></i>
+                                </button>
+                                <button type="submit" name="update"
+                                    class="rounded-md bg-green-700 text-white p-2 mt-2">SAVE CHANGES
+                                </button>
+                            </div>      
                         </div>
                     </div>
                 </div>

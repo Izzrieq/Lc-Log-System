@@ -4,6 +4,7 @@ include_once("DB/config.php");
 if (isset($_POST['update'])) {
     $user_id = $_POST['user_id'];
     $username = $_POST['username'];
+    $password = $_POST['password'];
     $department = $_POST['department'];
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
@@ -61,7 +62,7 @@ if (isset($_POST['update'])) {
     // Check if the update has already been performed in this request
     if (!isset($_SESSION['update_complete'])) {
         // Update the user's profile in the database
-        $update_query = "UPDATE users SET username='$username', department='$department', fullname='$fullname', email='$email', nohp='$nohp', ic='$ic', address='$address', marriage_status='$marriage_status'";
+        $update_query = "UPDATE users SET username='$username', password='$password', department='$department', fullname='$fullname', email='$email', nohp='$nohp', ic='$ic', address='$address', marriage_status='$marriage_status'";
 
         // Only include the 'img' field update if a new image was uploaded
         if (isset($img)) {
@@ -79,8 +80,8 @@ if (isset($_POST['update'])) {
             $_SESSION['username'] = $username;
             // $_SESSION['type'] = $new_type_value;
 
-            echo "<script>alert('Your profile information has been successfully updated.');</script>";
-            echo "<script>window.location.href = '../home.php';</script>"; // Redirect to home.php
+            echo "<script>alert('Your profile information has been successfully updated. Please Login Back');</script>";
+            echo "<script>window.location.href = 'FUNCTION/logout.php';</script>"; // Redirect to home.php
         } else {
             echo "<script>alert('Failed to update profile information: " . mysqli_error($conn) . "');</script>";
         }
