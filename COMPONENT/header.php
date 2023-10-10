@@ -82,7 +82,7 @@ if ($stmt) {
 }
 .rounded-image {
         border-radius: 50%; /* This creates a circular border */
-        width: 60px; /* Adjust the width and height as needed */
+        width: 55px; /* Adjust the width and height as needed */
         height: 50px;
     }
 
@@ -179,7 +179,7 @@ if ($stmt) {
         </div>
         <div class="navbar-right">
         <button class="user-icon" data-user-id="<?php echo $user_id; ?>">
-            <img class="rounded-image" src="COMPONENT/uploads/<?php echo $img; ?>" alt="User Image" width="60" height="50">
+            <img class="rounded-image" src="COMPONENT/uploads/<?php echo $img; ?>" alt="User Image" width="55" height="50">
         </button>
 
         <div class="user-options">
