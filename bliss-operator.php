@@ -120,9 +120,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                         <?php if ($_SESSION['type'] === 'admin') { ?>
                             <td class="d-flex justify-content-center">
                                 <a href='bliss-infocomplaint.php?id=<?php echo $r['id']; ?>'><button
-                                            class="rounded-md bg-gray-400 text-white p-2 m-2">Info</button></a>
-                                <a href='bliss-updatecomplaint-form.php?id=<?php echo $r['id']; ?>'><button
-                                            class="rounded-md bg-blue-700 text-white p-2 m-2">Update</button></a>
+                                            class="rounded-md bg-blue-600 text-white p-2 m-2">Info</button></a>
                                 <a href='bliss-deletecomplaint.php?id=<?php echo $r['id']; ?>'
                                 onclick="return confirm('Are you sure you want to delete?')"><button
                                             class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>

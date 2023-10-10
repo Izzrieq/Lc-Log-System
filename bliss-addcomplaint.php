@@ -46,42 +46,51 @@
     $(document).ready(function () {
         // Initialize the jQuery UI Autocomplete on LC ID input
         $("#lcid").autocomplete({
-            source: "get_lc_suggestions.php", // URL to fetch suggestions
-            minLength: 2, // Minimum characters before showing suggestions
-            select: function (event, ui) {
-                // When an option is selected from the autocomplete suggestions
-                // Populate the input fields with data
-                var selectedLcid = ui.item.value;
+    source: "Ajax/get_lc_suggestions.php", // URL to fetch suggestions
+    minLength: 2, // Minimum characters before showing suggestions
+    select: function (event, ui) {
+        console.log("Selected item: " + ui.item.value);
+        // When an option is selected from the autocomplete suggestions
+        // Populate the input fields with data
+        var selectedLcid = ui.item.value;
 
-                if (selectedLcid !== "") {
-                    $.ajax({
-                        url: "get_lc_data.php",
-                        method: "GET",
-                        data: {
-                            lcid: selectedLcid
-                        },
-                        dataType: "json",
-                        success: function (data) {
-                            // Populate the input fields with data
-                            if (data.ownerNames.length > 0) {
-                                $("#principal").val(data.ownerNames[0]);
-                            } else {
-                                $("#principal").val("");
-                            }
+        if (selectedLcid !== "") {
+            $.ajax({
+                url: "Ajax/get_lc_data.php",
+                method: "GET",
+                data: {
+                    code: selectedLcid
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log("Selected branch code: " + selectedLcid);
+                    // Check if data.principal is defined and has a length property
+                    if (data.principal && data.principal.length > 0) {
+                        $("#principal").val(data.principal[0]);
+                    } else {
+                        $("#principal").val("");
+                    }
 
-                            if (data.ownerNohp.length > 0) {
-                                $("#ownernohp").val(data.ownerNohp[0]);
-                            } else {
-                                $("#ownernohp").val("");
-                            }
-                        }
-                    });
+                    // Check if data.ownerNohp is defined and has a length property
+                    if (data.ownerNohp && data.ownerNohp.length > 0) {
+                        $("#ownernohp").val(data.ownerNohp[0]);
+                    } else {
+                        $("#ownernohp").val("");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error: " + textStatus + " - " + errorThrown);
                 }
-            }
-        });
+            });
+        }
+    }
+});
+
+
+
         $("#cname").autocomplete({
-            source: "get_customer_suggestions.php", // URL to fetch suggestions
-            minLength: 2, // Minimum characters before showing suggestions
+            source: "Ajax/get_customer_suggestions.php", // URL to fetch suggestions
+            minLength: 5, // Minimum characters before showing suggestions
             select: function (event, ui) {
                 // When an option is selected from the autocomplete suggestions
                 // Populate the input fields with data
@@ -89,7 +98,7 @@
 
                 if (selectedCustomer !== "") {
                     $.ajax({
-                        url: "get_customer_data.php",
+                        url: "Ajax/get_customer_data.php",
                         method: "GET",
                         data: {
                             first_name: selectedCustomer
@@ -120,8 +129,8 @@
                         <h6 class="text-blueGray-700 text-2xl font-bold">
                             ISSUE COMPLAIN
                         </h6>
-                        <button class="bg-blue-700 text-white rounded px-2">BACK <i class="fa fa-undo"
-                                aria-hidden="true" onclick="history.back()"></i></button>
+                        <button class="bg-blue-700 text-white rounded px-2" onclick="history.back()">BACK <i class="fa fa-undo"
+                                aria-hidden="true"></i></button>
                     </div>
                 </div>
                 <div class="flex-auto px-4 lg:px-10 py-8 pt-0">

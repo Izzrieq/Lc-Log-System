@@ -1,5 +1,5 @@
 <?php
-include("COMPONENT/DB/config.php");
+include("../COMPONENT/DB/config.php");
 
 if(isset($_GET["first_name"])){
     $first_name = $_GET["first_name"];

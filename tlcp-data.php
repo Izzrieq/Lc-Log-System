@@ -24,7 +24,12 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 $start = ($currentPage - 1) * $rowsPerPage;
 
 // Prepare the main SQL query with placeholders
-$sql = "SELECT * FROM branch WHERE code LIKE ? OR name LIKE ? ORDER BY branch_id ASC LIMIT ?, ?";
+$sql = "SELECT branch.branch_id, branch.code, branch.name, branch.email_regis, branch.address, branch.is_active, 
+               (SELECT COUNT(*) FROM complaintbliss WHERE CAST(complaintbliss.lcid AS CHAR) = CAST(branch.code AS CHAR)) AS complaintCount
+        FROM branch
+        WHERE branch.code LIKE ? OR branch.name LIKE ?
+        LIMIT ?, ?";
+
 $stmt = mysqli_prepare($conn, $sql);
 
 // Check for errors in preparing the statement
@@ -40,7 +45,6 @@ mysqli_stmt_bind_param($stmt, "ssii", $combinedSearchQuery, $combinedSearchQuery
 if (mysqli_stmt_execute($stmt)) {
     // Fetch the results
     $mainResult = mysqli_stmt_get_result($stmt); 
-
 } else {
     die("Error executing main prepared statement: " . mysqli_error($conn));
 }
@@ -48,6 +52,7 @@ if (mysqli_stmt_execute($stmt)) {
 // Close the main statement
 mysqli_stmt_close($stmt);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -127,8 +132,7 @@ mysqli_stmt_close($stmt);
     </button>
     <div class="input-group mb-3 mt-2">
         <div class="form-outline ml-3">
-            <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search"
-                placeholder="Search LCID or State ID" />
+            <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search" placeholder="Search LCID or State ID" />
         </div>
     </div>
     <div class="overflow-hidden m-0 p-0 ">
@@ -175,12 +179,11 @@ mysqli_stmt_close($stmt);
                             if ($result === false) {
                                 die("Error executing main SQL query: " . mysqli_error($conn));
                             }
+                            while ($r = mysqli_fetch_array($result)) {
+                                $branch_id = $r['branch_id'];
                             
-                             while ($r = mysqli_fetch_array($result)) {
-                                 $branch_id = $r['branch_id'];
-                            
-                            //     // Use prepared statement for the inner query
-                                $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = ?";
+                                // Use a subquery to count complaints for each branch
+                                $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = (SELECT code FROM branch WHERE branch_id = ?)";
                                 $stmt = mysqli_prepare($conn, $complaintCountQuery);
                             
                                 if ($stmt === false) {
@@ -188,7 +191,7 @@ mysqli_stmt_close($stmt);
                                 }
                             
                                 // Bind the parameter
-                                mysqli_stmt_bind_param($stmt, "s", $branch_id);
+                                mysqli_stmt_bind_param($stmt, "i", $branch_id);
                             
                                 // Execute the prepared statement
                                 $executeResult = mysqli_stmt_execute($stmt);
@@ -197,12 +200,23 @@ mysqli_stmt_close($stmt);
                                     die("Error executing inner SQL statement: " . mysqli_error($conn));
                                 }
                             
-                            //     // Get the result
-                                 $complaintCountResult = mysqli_stmt_get_result($stmt);
-                                 $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
-                                 $complaintCount = $complaintCountRow['complaint_count'];
-                                
-                                
+                                // Get the result
+                                $complaintCountResult = mysqli_stmt_get_result($stmt);
+                            
+                                if ($complaintCountResult === false) {
+                                    die("Error fetching complaint count result: " . mysqli_error($conn));
+                                }
+                            
+                                $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
+                            
+                                if ($complaintCountRow !== null && isset($complaintCountRow['complaint_count'])) {
+                                    $complaintCount = $complaintCountRow['complaint_count'];
+                                } else {
+                                    $complaintCount = 0; // Set the count to 0 if no complaints are found
+                                }
+                            
+                                // Debug output
+                               // echo "Branch ID: " . $branch_id . ", Complaint Count: " . $complaintCount . "<br>";
                             ?>
                             <tr class="text-black">
                                 <td class="border-r border-b"><?php echo $r['branch_id']; ?></td>
@@ -305,22 +319,32 @@ mysqli_stmt_close($stmt);
             </div>
         <script>
             $(document).ready(function () {
-                $('#combined_search').on("keyup", function () {
-                    var combinedSearch = $(this).val();
-                    $.ajax({
-                        method: 'POST',
-                        url: 'COMPONENT/FUNCTION/searchtlcp.php',
-                        data: {
-                            combined_search: combinedSearch
-                        },
-                        dataType: 'json', // Expect JSON response
-                        success: function (response) {
-                            // Replace the table content with the new data
-                            $("#table_tlcp tbody").html(response.lciddata);
-                        }
-                    });
-                });
-            });
+                $('#combined_search').on("input", function () {
+    var combinedSearch = $(this).val();
+    console.log("Search query: " + combinedSearch); // Debugging statement
+    $.ajax({
+        method: 'POST',
+        url: 'COMPONENT/FUNCTION/searchtlcp.php',
+        data: {
+            combined_search: combinedSearch
+        },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response); // Debugging statement
+            if (response && response.lciddata) {
+                $("#table_tlcp tbody").html(response.lciddata);
+            } else {
+                console.error('Invalid or missing data in the response.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('AJAX request failed:', status, error);
+        }
+    });
+});
+
+});
+
         </script>
         <?php
     include "COMPONENT/footer.php";
