@@ -23,28 +23,32 @@ if ($result === false) {
 
 $customerdata = '';
 
-while ($row = mysqli_fetch_array($result)) {
-    $first_name = mysqli_real_escape_string($conn, $row['first_name']); // Escape the value to prevent SQL injection
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_array($result)) {
+        $first_name = mysqli_real_escape_string($conn, $row['first_name']); // Escape the value to prevent SQL injection
 
-    $customerdata .= "<tr class='bg-white'>
-        <td class='border-r border-b'>" . $row['id'] . "</td>
-        <td class='border-r border-b'>" . $row['first_name'] . "</td>
-        <td class='border-r border-b'>" . $row['last_name'] . "</td>
-        <td class='border-r border-b px-2'>" . $row['relation'] . "</td>
-        <td class='border-r border-b px-8'>" . $row['mobile_no'] . "</td>
-        <td class='border-r border-b px-0'>" . $row['email'] . "</td>";
+        $customerdata .= "<tr class='bg-white'>
+            <td class='border-r border-b''>" . $row['id'] . "</td>
+            <td class='border-r border-b'>" . $row['first_name'] . "</td>
+            <td class='border-r border-b'>" . $row['last_name'] . "</td>
+            <td class='border-r border-b'>" . $row['relation'] . "</td>
+            <td class='border-r border-b'>" . $row['mobile_no'] . "</td>
+            <td class='border-r border-b'>" . $row['email'] . "</td>";
 
-    if ($_SESSION['type'] === 'admin') {
-        $customerdata .= "<td class='border-r border-b p-2 flex items-center justify-between mt-2'>
-            <a href='tlcp-info.php?id=" . $row['id'] . "'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
-            <a href='tlcp-update-form.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>UPDATE</button></a>
-            <a href='tlcp-delete.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
-        </td>";
+        if ($_SESSION['type'] === 'admin') {
+            $customerdata .= "<td class='border-r border-b p-2 flex items-center justify-between mt-2'>
+                <a href='tlcp-info.php?id=" . $row['id'] . "'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
+                <a href='tlcp-update-form.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>UPDATE</button></a>
+                <a href='tlcp-delete.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
+            </td>";
+        }
+
+        $customerdata .= "</tr>";
     }
-
-    $customerdata .= "</tr>";
+} else {
+    // No data found, display "NO DATA FOUND" with a red background
+    $customerdata = "<tr class='bg-red-500 text-white'><td colspan='8' class='p-2 text-center'>NO DATA FOUND</td></tr>";
 }
-
 // Output the search results as JSON
 echo json_encode(array("customerdata" => $customerdata));
 ?>

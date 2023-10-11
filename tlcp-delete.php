@@ -1,8 +1,8 @@
 <?php
 include "COMPONENT/header.php";
 
- $id = $_GET['id'];
- $sql = "delete from lcdetails where id= '$id'";
+ $branch_id = $_GET['branch_id'];
+ $sql = "delete from branch AND branchdetails where branch_id= '$branch_id'";
  $result = mysqli_query($conn, $sql);
  if ($result)
      echo "<script>alert('Deleted')</script>";

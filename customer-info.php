@@ -369,8 +369,16 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             type='email' name="email" value="<?php echo $email; ?>" disabled />
                                     </div>
                                 </div>
+                                <div class="flex justify-end mb-5">
+                              <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
+                                    type="back" onclick="history.back()">BACK <i class="fa fa-undo" aria-hidden="true"></i></button>
+                                    <button class="rounded-md bg-green-700 text-white px-3 py-2 m-2"
+                                    type="submit">UPDATE <i class="fa fa-update" aria-hidden="true"></i></button>
+                                <button
+                                    class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 px-3 py-2 m-2"
+                                    onclick="printWithLandscape()">PRINT</button>
                             </div>
-
+                            </div>
                         </div>
                         </form>
                     </div>

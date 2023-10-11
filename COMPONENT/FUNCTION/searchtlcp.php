@@ -64,7 +64,6 @@ if (mysqli_num_rows($result) > 0) {
         if ($_SESSION['type'] === 'admin') {
             $lciddata .= "<td class='border-r border-b p-2 flex items-center justify-between mt-2'>
                 <a href='tlcp-info.php?branch_id=" . $row['branch_id'] . "'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
-                <a href='tlcp-update-form.php?branch_id=" . $row['branch_id'] . "'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>UPDATE</button></a>
                 <a href='tlcp-delete.php?branch_id=" . $row['branch_id'] . "'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
             </td>";
         }
