@@ -25,23 +25,26 @@ while ($r = mysqli_fetch_array($data1)) {
     $bill_due = $r['bill_due'];
 }
 
-// $first_name = '';
-// $last_name = '';
-// $email = '';
-// $ic = '';
-// $mobile_no = '';
-// $role_id = '';
-// $status_teacher = '';
-// $edu = '';
-// $state_id = '';
-
-// $state_name = '';
-
-// $cities_name = '';
+$first_name = 'N/A';
+$last_name = 'N/A';
+$email = 'N/A';
+$ic = 'N/A';
+$mobile_no = 'N/A';
+$role_id = 'N/A';
+$status_teacher = 'N/A';
+$edu = 'N/A';
+$state_id = 'N/A';
+$state_name = 'N/A';
+$cities_name = 'N/A';
 
 // Fetch data from the 'user_teacher' table
 $data2 = mysqli_query($conn, "SELECT * FROM user_teacher WHERE branch_id='$branch_id'");
-while ($t = mysqli_fetch_array($data2)) {
+if (!$data2) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+if (mysqli_num_rows($data2) > 0) {
+    $t = mysqli_fetch_array($data2);
     $first_name = $t['first_name'];
     $last_name = $t['last_name'];
     $email = $t['email'];
@@ -51,34 +54,43 @@ while ($t = mysqli_fetch_array($data2)) {
     $status_teacher = $t['status'];
     $edu = $t['edu'];
     $state_id = $t['state_id'];
+
     // Fetch the state name from the 'states' table based on state_id
     $state_query = mysqli_query($conn, "SELECT name FROM states WHERE id='$state_id'");
-    $state_data = mysqli_fetch_array($state_query);
-    $state_name = $state_data['name'];
+    if ($state_query) {
+        $state_data = mysqli_fetch_array($state_query);
+        if ($state_data) {
+            $state_name = $state_data['name'];
+        }
+    }
 
     $city_id = $t['city_id'];
     $cities_query = mysqli_query($conn, "SELECT name FROM cities WHERE id='$city_id'");
-    $cities_data = mysqli_fetch_array($cities_query);
-    $cities_name = $cities_data['name'];
-
+    if ($cities_query) {
+        $cities_data = mysqli_fetch_array($cities_query);
+        if ($cities_data) {
+            $cities_name = $cities_data['name'];
+        }
+    }
 }
 
-// $stateid = '';
-// $bizstype = ''; 
-// $lcid = ''; 
-   $operatorname = '';
-// $ownername = ''; 
-// $yearsigned = '';
-// $datesigned = ''; 
-// $dateoperated = '';
-// $tlcppackage = '';
-// $annuallicense = ''; 
-// $eduemail = '';
-// $kindername = ''; 
-// $kindernohp = ''; 
-// $type = ''; 
-// $ownernohp = '';
-//Fetch data from the 'user_operator' table
+$stateid = 'N/A';
+$bizstype = 'N/A';
+$lcid = 'N/A';
+$operatorname = 'N/A';
+$ownername = 'N/A';
+$yearsigned = 'N/A';
+$datesigned = 'N/A';
+$dateoperated = 'N/A';
+$tlcppackage = 'N/A';
+$annuallicense = 'N/A';
+$eduemail = 'N/A';
+$kindername = 'N/A';
+$kindernohp = 'N/A';
+$type = 'N/A';
+$ownernohp = 'N/A';
+
+// Fetch data from the 'branchdetails' table
 $data3 = mysqli_query($conn, "SELECT * FROM branchdetails WHERE branch_id='$branch_id'");
 if (!$data3) {
     die("Query failed: " . mysqli_error($conn));
@@ -86,10 +98,6 @@ if (!$data3) {
 
 if (mysqli_num_rows($data3) > 0) {
     $o = mysqli_fetch_array($data3);
-    $operatorname = $o['operatorname'];
-// Debugging
-// /var_dump($operatorname); // Print the value of $operatorname for debugging purposes
-
     $stateid = $o['stateid'];
     $bizstype = $o['bizstype'];
     $lcid = $o['lcid'];
@@ -105,9 +113,6 @@ if (mysqli_num_rows($data3) > 0) {
     $kindernohp = $o['kindernohp'];
     $type = $o['type'];
     $ownernohp = $o['ownernohp'];
-    // Continue fetching other variables here
-} else {
-    echo "No data found for branch_id: $branch_id";
 }
 
 

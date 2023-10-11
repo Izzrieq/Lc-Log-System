@@ -209,6 +209,7 @@
                                         <option value="Operator">Operator</option>
                                         <option value="Public">Public</option>
                                         <option value="Sales">Sales</option>
+                                        <option value="others">Others</option>
                                     </select>
                                 </div>
                             </div>
@@ -225,6 +226,7 @@
                                         <option value="WhatsApp">WhatsApp</option>
                                         <option value="Telegram">Telegram</option>
                                         <option value="Email">Email</option>
+                                        <option value="others">Others</option>
                                     </select>
                                 </div>
                             </div>
@@ -241,6 +243,7 @@
                                         <option value="suggestion">Suggestion</option>
                                         <option value="general">General</option>
                                         <option value="enquiry">Enquiry</option>
+                                        <option value="others">Others</option>
                                     </select>
                                 </div>
                             </div>
@@ -258,6 +261,10 @@
                                         <option value="registration">Registration</option>
                                         <option value="payment">Payment</option>
                                         <option value="kindy">kindy</option>
+                                        <option value="email">Email</option>
+                                        <option value="job vacancy">Job Vacancy</option>
+                                        <option value="others">Others</option>
+
                                     </select>
                                 </div>
                             </div>
