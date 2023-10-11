@@ -100,7 +100,7 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 $start = 0;
 
                 //total display
-                $rows_per_pages = 5;
+                $rows_per_pages = 50;
 
                 $result = mysqli_query($conn, "SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages");
                 while ($r = mysqli_fetch_array($result)) {

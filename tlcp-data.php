@@ -239,10 +239,6 @@ mysqli_stmt_close($stmt);
                                             <a class="text-white text-decoration-none"
                                                 href='tlcp-info.php?branch_id=<?php echo $r['branch_id'];?>'>INFO</a>
                                         </button>
-                                        <button class="rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1">
-                                            <a class="text-white text-decoration-none"
-                                                href='tlcp-update-form.php?branch_id=<?php echo $r['branch_id'];?>'>UPDATE</a>
-                                        </button>
                                         <button class="rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1">
                                             <a class="text-white text-decoration-none"
                                                 href='tlcp-delete.php?branch_id=<?php echo $r['branch_id'];?>'>DELETE</a>

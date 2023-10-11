@@ -203,7 +203,6 @@
 	</div>
 </div>
 <!-- End popup dialog box -->
-
 </body>
 <script>
     $(document).ready(function() {
@@ -214,7 +213,7 @@
         console.log("display_events function called");
         var events = new Array();
         var calendar = $('#calendar').fullCalendar({
-            height:300,
+            height:250,
             defaultView: 'customWeek',
             timeZone: 'local',
             editable: true,

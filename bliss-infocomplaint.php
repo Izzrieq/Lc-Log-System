@@ -1,6 +1,9 @@
 <?php
 include("COMPONENT/DB/config.php");
+$isPrinting = isset($_GET['print']) && $_GET['print'] === 'true';
+if (!$isPrinting) {
 include "COMPONENT/header.php";
+}
 
 // Make sure there's an active session
 if (session_status() === PHP_SESSION_NONE) {
@@ -183,13 +186,17 @@ while ($r = mysqli_fetch_array($data)) {
                                            class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
                                            value="<?php echo $ownernohp; ?>" />
                                 </div>
-                                <div class="flex justify-end">
-                                    <button type="submit" id="updateButton" name="update_complaint" class="rounded-md bg-green-700 text-white px-3 py-2 m-2">Update<i class="fa fa-update" aria-hidden="true"></i></button>
-                                    <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2" type="button" onclick="goBack()">BACK <i class="fa fa-undo" aria-hidden="true"></i></button>
-                                    <button class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 p-2 m-2" onclick="goPrint()">Print</button>
-                                </div>
                             </div>
-                        </form>
+                            </form> 
+                            <div class="flex justify-center">
+                                    <button class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                        type="back" onclick="goBack()">BACK <i class="fa fa-undo" aria-hidden="true"></i></button>
+                                    <button class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
+                                        type="submit" onclick="submitForm()">UPDATE <i class="fa fa-update" aria-hidden="true"></i></button>
+                                    <button
+                                        class="text-gray-700 hover:text-white border border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-500 dark:text-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-900"
+                                        onclick="goPrint()">PRINT</button>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -202,16 +209,17 @@ while ($r = mysqli_fetch_array($data)) {
     }
 
     function goPrint() {
-        // Disable the update button before printing
-        document.getElementById('updateButton').disabled = true;
-
         // Print the document
         window.print();
+    }
+    function submitForm() {
+        // Get the form element by its ID
+        const form = document.querySelector('form'); // Replace 'form' with the actual ID of your form element
 
-        // Re-enable the update button after printing (you can use the afterprint event)
-        window.addEventListener('afterprint', function() {
-            document.getElementById('updateButton').disabled = false;
-        });
+        // Submit the form
+        if (form) {
+            form.submit();
+        }
     }
 </script>
 
