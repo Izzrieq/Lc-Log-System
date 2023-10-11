@@ -65,63 +65,92 @@ function getUnreadNotificationCountForAdmin($adminName) {
     <title>Work Progress and Tasks</title>
 
     <!-- tailwind -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <!-- Icon Template -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS for jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
+
+    <!-- JS for full calender -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
 </head>
 <style>
-   .dropdown-container {
-      position: relative;
-   }
+    .dropdown-container {
+        position: relative;
+    }
 
-   .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      /* Position the dropdown below the navbar */
-      right: 0rem;
-      display: none;
-      min-width: 12rem;
-      padding: 0.5rem 0;
-      margin: 0.125rem 0 0;
-      font-size: 0.875rem;
-      color: #1a202c;
-      text-align: left;
-      list-style-type: none;
-      background-color: #ffffff;
-      background-clip: padding-box;
-      border: 1px solid rgba(0, 0, 0, 0.125);
-      border-radius: 0.375rem;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
-   }
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        /* Position the dropdown below the navbar */
+        right: 0rem;
+        display: none;
+        min-width: 12rem;
+        padding: 0.5rem 0;
+        margin: 0.125rem 0 0;
+        font-size: 0.875rem;
+        color: #1a202c;
+        text-align: left;
+        list-style-type: none;
+        background-color: #ffffff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.375rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+    }
 
-   @media (max-width:425px) {
-      .border-2 {
-         margin-bottom: 1rem;
-      }
-   }
+    #logo-sidebar {
+        width: 20%;
+    }
+
+    .container {
+        margin-left: 72px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 800px;
+    }
+
+    @media (max-width:425px) {
+        .border-2 {
+            margin-bottom: 1rem;
+        }
+
+        .grid-cols-4 {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .border {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .border p {
+            word-break: break-all;
+        }
+
+        .container .p-4 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    }
 </style>
 
 <body>
@@ -149,7 +178,7 @@ function getUnreadNotificationCountForAdmin($adminName) {
                     </a>
                 </div>
                 <div class="flex items-center">
-                <div class="nav-item dropdown">
+                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <?php
                                 $user_id = $_SESSION['user_id'];
@@ -169,11 +198,13 @@ function getUnreadNotificationCountForAdmin($adminName) {
                             }
                         ?>
                             <?php if ($unread_notification_count > 0) : ?>
-                            <span id="notificationCount" class="badge bg-danger"><?php echo $unread_notification_count; ?></span>
+                            <span id="notificationCount"
+                                class="badge bg-danger"><?php echo $unread_notification_count; ?></span>
                             <?php endif; ?>
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notification</span>
-                            <!-- Display unread notification count -->
+                            <span class="flex items-center">
+                                <i class="material-icons pr-1">email</i>
+                                <span class="d-none d-lg-inline-flex">Notification</span>
+                                <!-- Display unread notification count -->
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -208,7 +239,8 @@ function getUnreadNotificationCountForAdmin($adminName) {
                                 echo '<p class="dropdown-item text-center mb-0">No new notifications</p>';
                             }
                                     ?>
-                           <a href="#" class="dropdown-item text-center" onclick="clearNotifications()">Clear Notifications</a>
+                            <a href="#" class="dropdown-item text-center" onclick="clearNotifications()">Clear
+                                Notifications</a>
                         </div>
                     </div>
                     <div class="flex items-center ml-3 dropdown-container">
@@ -338,7 +370,7 @@ function getUnreadNotificationCountForAdmin($adminName) {
         </div>
     </aside>
     <!-- Content Start -->
-    <div class="container p-4 mt-12 ml-64">
+    <div class="container p-4 mt-12 ">
         <h1 class="text-2xl font-bold mb-4">Welcome, <?php echo $_SESSION['username']; ?>!</h1>
 
         <?php if ($type === 'user') { ?>
@@ -429,142 +461,466 @@ function getUnreadNotificationCountForAdmin($adminName) {
     </div>
 </body>
 <script>
-    <?php
+    < ? php
     if ($type === 'admin') {
-        ?>
-        // Initialize notification count for admins
-        var notificationCount = <?php echo getUnreadNotificationCountForAdmin($adminUsername); ?> ;
-        var notificationCountElement = document.getElementById('notificationCount');
-        notificationCountElement.innerText = notificationCount; <?php
-    } ?>
-    
-function updateStatus(taskId, status) {
-    // ... (your existing code)
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Refresh the page after updating status
-                location.reload();
-            } else {
-                alert('Error updating task status');
-            }
-        }
+        ?
+        >
+    //
+    Initialize
+    notification
+    count
+    for
+    admins
+    var
+    notificationCount
+    =
+    < ? php echo getUnreadNotificationCountForAdmin($adminUsername); ? >
+    ;
+    var
+    notificationCountElement
+    =
+    document.getElementById('notificationCount');
+    notificationCountElement.innerText
+    =
+    notificationCount;
+    < ? php
+    } ? >
+    function
+    updateStatus(taskId,
+    status)
+    {
+    //
+    ...
+    (your
+    existing
+    code)
+    var
+    xhr
+    =
+    new
+    XMLHttpRequest();
+    xhr.onreadystatechange
+    =
+    function
+    ()
+    {
+    if
+    (xhr.readyState
+    ===
+    XMLHttpRequest.DONE)
+    {
+    if
+    (xhr.status
+    ===
+    200)
+    {
+    //
+    Refresh
+    the
+    page
+    after
+    updating
+    status
+    location.reload();
+    }
+    else
+    {
+    alert('Error
+    updating
+    task
+    status ');
+    }
+    }
     };
-    xhr.open('POST', 'update_status.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('task_id=' + taskId + '&status=' + status);
-
-    if (status === 'completed') {
-        if ("<?php echo $type; ?>" === 'admin') {
-            // Send a notification to admin
-            var notificationMessage = "Task #" + taskId +
-                " has been marked as completed by user <?php echo $_SESSION['username']; ?>";
-            sendNotificationToAdmin(notificationMessage);
-        }
+    xhr.open('POST',
+    'update_status.php',
+    true);
+    xhr.setRequestHeader('Content-Type',
+    'application/x-www-form-urlencoded');
+    xhr.send('task_id='
+    +
+    taskId
+    +
+    '&status='
+    +
+    status);
+    if
+    (status
+    ===
+    'completed')
+    {
+    if
+    ("<?php echo $type; ?>"
+    ===
+    'admin')
+    {
+    //
+    Send
+    a
+    notification
+    to
+    admin
+    var
+    notificationMessage
+    =
+    "Task
+    #
+    "
+    +
+    taskId
+    +
+    "
+    has
+    been
+    marked
+    as
+    completed
+    by
+    user
+    < ? php echo $_SESSION['username']; ? > ";
+    sendNotificationToAdmin(notificationMessage);
     }
-}
-
-function sendNotification(name, message) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Notification sent successfully
-                // You can optionally handle the response here
-            } else {
-                alert('Error sending notification');
-            }
-        }
+    }
+    }
+    function
+    sendNotification(name,
+    message)
+    {
+    var
+    xhr
+    =
+    new
+    XMLHttpRequest();
+    xhr.onreadystatechange
+    =
+    function
+    ()
+    {
+    if
+    (xhr.readyState
+    ===
+    XMLHttpRequest.DONE)
+    {
+    if
+    (xhr.status
+    ===
+    200)
+    {
+    //
+    Notification
+    sent
+    successfully
+    //
+    You
+    can
+    optionally
+    handle
+    the
+    response
+    here
+    }
+    else
+    {
+    alert('Error
+    sending
+    notification ');
+    }
+    }
     };
-    xhr.open('POST', 'send_notification.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('Name=' + encodeURIComponent(name) + '&message=' + encodeURIComponent(message));
-}
-
-function deleteFile(fileId) {
-    var confirmDelete = confirm('Are you sure you want to delete this file?');
-    if (confirmDelete) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Refresh the page after deleting file
-                    location.reload();
-                } else {
-                    alert('Error deleting file');
-                }
-            }
-        };
-        xhr.open('POST', 'delete_file.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('file_id=' + fileId);
+    xhr.open('POST',
+    'send_notification.php',
+    true);
+    xhr.setRequestHeader('Content-Type',
+    'application/x-www-form-urlencoded');
+    xhr.send('Name='
+    +
+    encodeURIComponent(name)
+    +
+    '&message='
+    +
+    encodeURIComponent(message));
     }
-}
-
-function deleteTask(taskId) {
-    var confirmDelete = confirm('Are you sure you want to delete this task?');
-    if (confirmDelete) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Check the response from the server
-                    if (xhr.responseText === "success") {
-                        // Task deleted successfully
-                        location.reload();
-                    } else {
-                        // Error deleting task
-                        alert('Error deleting task');
-                    }
-                } else {
-                    alert('Error deleting task');
-                }
-            }
-        };
-        xhr.open('POST', 'delete_task.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('task_id=' + taskId);
+    function
+    deleteFile(fileId)
+    {
+    var
+    confirmDelete
+    =
+    confirm('Are
+    you
+    sure
+    you
+    want
+    to
+    delete
+    this
+    file ? ');
+    if
+    (confirmDelete)
+    {
+    var
+    xhr
+    =
+    new
+    XMLHttpRequest();
+    xhr.onreadystatechange
+    =
+    function
+    ()
+    {
+    if
+    (xhr.readyState
+    ===
+    XMLHttpRequest.DONE)
+    {
+    if
+    (xhr.status
+    ===
+    200)
+    {
+    //
+    Refresh
+    the
+    page
+    after
+    deleting
+    file
+    location.reload();
     }
-}
-function clearNotifications() {
-    var notificationCount = document.getElementById("notificationCount"); // Ensure this line is correct
-
-    // Clear the notification count
-    if (notificationCount) {
-        notificationCount.innerHTML = '';
+    else
+    {
+    alert('Error
+    deleting
+    file ');
     }
-
-    // Perform AJAX request to clear notifications on the server
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Reload the page or update the notifications dropdown as needed
-                // For example: window.location.reload();
-            } else {
-                console.error('Error clearing notifications:', xhr.statusText);
-            }
-        }
+    }
     };
-    xhr.open('GET', 'clear_notifications.php', true);
+    xhr.open('POST',
+    'delete_file.php',
+    true);
+    xhr.setRequestHeader('Content-Type',
+    'application/x-www-form-urlencoded');
+    xhr.send('file_id='
+    +
+    fileId);
+    }
+    }
+    function
+    deleteTask(taskId)
+    {
+    var
+    confirmDelete
+    =
+    confirm('Are
+    you
+    sure
+    you
+    want
+    to
+    delete
+    this
+    task ? ');
+    if
+    (confirmDelete)
+    {
+    var
+    xhr
+    =
+    new
+    XMLHttpRequest();
+    xhr.onreadystatechange
+    =
+    function
+    ()
+    {
+    if
+    (xhr.readyState
+    ===
+    XMLHttpRequest.DONE)
+    {
+    if
+    (xhr.status
+    ===
+    200)
+    {
+    //
+    Check
+    the
+    response
+    from
+    the
+    server
+    if
+    (xhr.responseText
+    ===
+    "success")
+    {
+    //
+    Task
+    deleted
+    successfully
+    location.reload();
+    }
+    else
+    {
+    //
+    Error
+    deleting
+    task
+    alert('Error
+    deleting
+    task ');
+    }
+    }
+    else
+    {
+    alert('Error
+    deleting
+    task ');
+    }
+    }
+    };
+    xhr.open('POST',
+    'delete_task.php',
+    true);
+    xhr.setRequestHeader('Content-Type',
+    'application/x-www-form-urlencoded');
+    xhr.send('task_id='
+    +
+    taskId);
+    }
+    }
+    function
+    clearNotifications()
+    {
+    var
+    notificationCount
+    =
+    document.getElementById("notificationCount");
+    //
+    Ensure
+    this
+    line
+    is
+    correct
+    //
+    Clear
+    the
+    notification
+    count
+    if
+    (notificationCount)
+    {
+    notificationCount.innerHTML
+    =
+    '';
+    }
+    //
+    Perform
+    AJAX
+    request
+    to
+    clear
+    notifications
+    on
+    the
+    server
+    var
+    xhr
+    =
+    new
+    XMLHttpRequest();
+    xhr.onreadystatechange
+    =
+    function
+    ()
+    {
+    if
+    (xhr.readyState
+    ===
+    XMLHttpRequest.DONE)
+    {
+    if
+    (xhr.status
+    ===
+    200)
+    {
+    //
+    Reload
+    the
+    page
+    or
+    update
+    the
+    notifications
+    dropdown
+    as
+    needed
+    //
+    For
+    example:
+    window.location.reload();
+    }
+    else
+    {
+    console.error('Error
+    clearing
+    notifications: ',
+    xhr.statusText);
+    }
+    }
+    };
+    xhr.open('GET',
+    'clear_notifications.php',
+    true);
     xhr.send();
-}
-    function updateNotificationCount(count) {
-        var notificationCountElement = document.getElementById('notificationCount');
-        notificationCountElement.innerText = count;
+    }
+    function
+    updateNotificationCount(count)
+    {
+    var
+    notificationCountElement
+    =
+    document.getElementById('notificationCount');
+    notificationCountElement.innerText
+    =
+    count;
+    }
+    function
+    sendNotificationToAdmin(message)
+    {
+    var
+    adminUsername
+    =
+    "<?php echo $adminUsername; ?>";
+    //
+    Replace
+    with
+    actual
+    admin
+    username
+    sendNotification(adminUsername,
+    message);
+    //
+    Update
+    the
+    notification
+    count
+    var
+    notificationCountElement
+    =
+    document.getElementById('notificationCount');
+    var
+    currentCount
+    =
+    parseInt(notificationCountElement.innerText);
+    notificationCountElement.innerText
+    =
+    currentCount
+    +
+    1;
     }
 
-    function sendNotificationToAdmin(message) {
-        var adminUsername = "<?php echo $adminUsername; ?>"; // Replace with actual admin username
-        sendNotification(adminUsername, message);
-
-        // Update the notification count
-        var notificationCountElement = document.getElementById('notificationCount');
-        var currentCount = parseInt(notificationCountElement.innerText);
-        notificationCountElement.innerText = currentCount + 1;
-    }
-   
 </script>
 
 </html>

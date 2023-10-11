@@ -63,8 +63,7 @@ while ($row = mysqli_fetch_array($result)) {
     }
 
         $lciddata .= "</tr>";
-    }
-} else {
+    } else {
     // No data found, display "NO DATA FOUND" with a red background
     $lciddata = "<tr class='bg-red-500 text-white'><td colspan='8' class='p-2 text-center'>NO DATA FOUND</td></tr>";
 }
@@ -72,5 +71,6 @@ while ($row = mysqli_fetch_array($result)) {
 // Output the search results as JSON
 header('Content-Type: application/json; charset=UTF-8');
 echo json_encode(array("lciddata" => $lciddata));
+
 ?>
 
