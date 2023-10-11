@@ -11,6 +11,12 @@ include "../DB/config.php";
 </head>
 <style>
     @media print {
+        .print-hide {
+            display: none;
+        }
+        tr:nth-child(21n) {
+                page-break-before: always;
+            }
   @page {
     size: landscape;
   }
@@ -36,8 +42,8 @@ include "../DB/config.php";
                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">Type</th>
                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">Details</th>
                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">Lcid</th>
-                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">Lc Owner</th>
-                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">Owner Nohp</th>
+                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">Lc Principal</th>
+                <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">Principal Nohp</th>
             </tr>
 
             <?php
@@ -78,28 +84,47 @@ switch ($pilihan) {
     if (!$data) {
         die("Query error: " . mysqli_error($conn));
     }      
-	while ($r = mysqli_fetch_array($data)) {	
+    $count = 0;
+	while ($r = mysqli_fetch_array($data)) {
+        if ($count % 20 == 0) {	
     ?>
 
             <tr>
-                <td class="border-r text-l"><?php echo $bil; ?></td>
-                <td class="border-r text-l"><?php echo $r['date']; ?></td>
-                <td class="border-r text-l"><?php echo $r['cname']; ?></td>
-                <td class="border-r text-l"><?php echo $r['cnohp']; ?></td>
-                <td class="border-r text-l"><?php echo $r['category']; ?></td>
-                <td class="border-r text-l"><?php echo $r['type']; ?></td>
-                <td class="border-r text-l"><?php echo $r['details']; ?></td>
-                <td class="border-r text-l"><?php echo $r['lcid']; ?></td>
-                <td class="border-r text-l"><?php echo $r['lcowner']; ?></td>
-                <td class="border-r text-l"><?php echo $r['ownernohp']; ?></td>
+                <td class="border text-center"><?php echo $bil; ?></td>
+                <td class="border text-center"><?php echo $r['date']; ?></td>
+                <td class="border text-center"><?php echo $r['cname']; ?></td>
+                <td class="border text-center"><?php echo $r['cnohp']; ?></td>
+                <td class="border text-center"><?php echo $r['category']; ?></td>
+                <td class="border text-center"><?php echo $r['type']; ?></td>
+                <td class="border text-center"><?php echo $r['details']; ?></td>
+                <td class="border text-center"><?php echo $r['lcid']; ?></td>
+                <td class="border text-center"><?php echo $r['principal']; ?></td>
+                <td class="border text-center"><?php echo $r['ownernohp']; ?></td>
                     <?php 
+            }
         $bil = $bil + 1; 
-        }  // while    
+        }  // while  
+        $count++;  
     ?>
                 </td>
             </tr>
-        </table><button onclick="window.print()" class="py-2 m-2 bg-black text-white w-1/6">Print</button>
-    </center>
+        </table>
+        <div class="fixed bottom-0 left-0 right-0 mx-auto flex justify-center print-hide">
+            <button
+                onclick="history.back()"
+                class="bg-blue-600 w-32 h-16 drop-shadow-lg flex justify-center items-center text-white text-l hover:bg-blue-700 hover:drop-shadow-2xl"
+            >
+                Back
+            </button>
+            <button
+                onclick="window.print()"
+                class="bg-blue-600 w-32 h-16 drop-shadow-lg flex justify-center items-center text-white text-l hover:bg-blue-700 hover:drop-shadow-2xl ml-2"
+            >
+                Print
+            </button>
+        </div>
+
+
 </body>
 
 </html>

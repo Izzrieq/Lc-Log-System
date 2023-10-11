@@ -129,7 +129,7 @@
                         <h6 class="text-blueGray-700 text-2xl font-bold">
                             ISSUE COMPLAIN
                         </h6>
-                        <button class="bg-blue-700 text-white rounded px-2" onclick="history.back()">BACK <i class="fa fa-undo"
+                        <button class="bg-blue-700 text-white rounded px-2"><a class="text-white no-underline" href="bliss-operator.php">Back</a> <i class="fa fa-undo"
                                 aria-hidden="true"></i></button>
                     </div>
                 </div>

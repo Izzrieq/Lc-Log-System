@@ -21,12 +21,12 @@
     VALUES ('$id', '$date', '$cname', '$cnohp', '$caller', '$channel', '$category', '$type', '$details', '$lcid', '$principal', '$ownernohp', '$action')";
     $result = mysqli_query($conn, $sql); 
     if ($result) {
-        echo "<script>alert('Add Complaint Success')</script>";
-        // Redirect to bliss-addcomplaint.php
-        header("Location: ../../bliss-addcomplaint.php");
+        echo "<script>alert('Add Complaint Success');</script>"; 
+        header("Location: ../../bliss-operator.php");
         exit; // Ensure the script stops executing
     } else {
         echo "<script>alert('Add Complaint Not Success')</script>";
     }
     
 }
+?>

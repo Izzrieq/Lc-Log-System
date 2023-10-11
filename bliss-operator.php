@@ -102,18 +102,22 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                 //total display
                 $rows_per_pages = 50;
 
-                $result = mysqli_query($conn, "SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages");
+                $bil = 1;
+
+                $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC LIMIT $start, $rows_per_pages");
                 while ($r = mysqli_fetch_array($result)) {
                     ?>
                     <tr>
-                        <td class="border-r text-l"><?php echo $r['id']; ?></td>
+                        <td class="border-r text-l"><?php echo $bil; ?></td>
                         <td class="border-r text-l"><?php echo $r['date']; ?></td>
                         <td class="border-r text-l"><?php echo $r['cname']; ?></td>
-                        <td class="border-r text-l"><?php
-                         echo $r['cnohp']; 
-                         echo "<a href='tel:" . $r['cnohp'] . "' class='rounded-md bg-green-500 hover:bg-green-700 font-bold text-white p-2 m-1'>";
-                         echo "Call";
-                        echo "</a>";
+                        <td class="border-r text-l"><?php if ($r['cnohp']=="" || $r['cnohp']=="-"){
+                                                    echo "N/A";
+                                                    }else{
+                                                    echo $r['cnohp']; 
+                                                    echo "<a href='tel:" . $r['cnohp'] . "' class='rounded-md bg-green-500 hover:bg-green-700 font-bold text-white p-2 m-1'>";
+                                                    echo "Call";
+                                                    echo "</a>";}
                          ?></td>
                         <td class="border-r text-l"><?php echo $r['category']; ?></td>
                         <td class="border-r text-l"><?php echo $r['type']; ?></td>
@@ -125,7 +129,8 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                 onclick="return confirm('Are you sure you want to delete?')"><button
                                             class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
                             </td>
-                        <?php } ?>
+                        <?php }
+                        $bil ++; ?>
                     </tr>
                     <?php
                 }
