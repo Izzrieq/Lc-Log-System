@@ -71,7 +71,12 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                     </label>
                                     <input name="student_id" type="student_id"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value=<?php echo $student_id; ?> disabled />
+                                        value=<?php 
+                                        if ($student_id == ""){
+                                            echo "N/A";
+                                        }else{
+                                            echo $student_id;
+                                        } ?> disabled />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -80,7 +85,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                     </label>
                                     <input name="name" type="name"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value=<?php echo $birth_date; ?> disabled />
+                                        value=<?php 
+                                        if ($birth_date == ""){
+                                            echo "N/A";
+                                        }else{
+                                            echo $birth_date;
+                                        } 
+                                        ?> disabled />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -110,21 +121,36 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                 </label>
                                 <input name="birth_date" type="text"
                                     class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4"
-                                    value="<?php echo $name; ?>" disabled>
+                                    value="<?php
+                                    if ($name == ""){
+                                        echo "N/A";
+                                    }else{
+                                        echo $name;
+                                    }  ?>" disabled>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
                                 <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH
                                     PLACE</label>
                                 <input name="birth_place" type="birth_place"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value="<?php echo $birth_place; ?>" disabled>
+                                    value="<?php
+                                         if ($birth_place == ""){
+                                            echo "N/A";
+                                        }else{
+                                            echo $birth_place;
+                                        }  ?>" disabled>
                             </div>
-                            <div class='w-full md:w-full px-3 mb-6'>
+                            <div class='w-full md:w-full px-3 mb-6' style="page-break-before: always">
                                 <label
                                     class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>IC</label>
                                 <input name="ic" type="ic"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value="<?php echo $ic; ?>" disabled>
+                                    value="<?php
+                                    if ($ic == ""){
+                                        echo "N/A";
+                                    }else{
+                                        echo $ic;
+                                    }  ?>" disabled>
                             </div>
                             <div class="flex items-center justify-between mt-2">
                                 <div class='w-full md:w-full px-3 mb-6'>
@@ -132,18 +158,30 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>FAVOURITE
                                         FOOD
                                     </label>
-                                    <input name="birth_cert_no" type="birth_cert_no"
+                                    <input name="fav_food" type="fav_food"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value="<?php echo $fav_food; ?>" disabled>
+                                        value="<?php 
+                                        if ($fav_food == ""){
+                                            echo "N/A";
+                                        }else{
+                                            echo $fav_food;
+                                        } 
+                                        ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BIRTH
                                         CERTIFICATION
                                     </label>
-                                    <input name="fav_food" type='fav_food'
+                                    <input name="birth_cert_no" type='birth_cert_no'
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value="<?php echo $birth_cert_no; ?>" disabled>
+                                        value="<?php
+                                        if ($birth_cert_no == ""){
+                                            echo "N/A";
+                                        }else{
+                                            echo $birth_cert_no;
+                                        } 
+                                        ?>" disabled>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-2">
@@ -168,7 +206,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="prev_school" value="<?php echo $prev_school; ?>" disabled>
+                                        type='text' name="prev_school" value="<?php
+                                        if ($prev_school == ""|| $prev_school == "None"){
+                                            echo "N/A";
+                                        }else{
+                                            echo $prev_school;
+                                        } 
+                                        ?>" disabled>
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
@@ -199,7 +243,7 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                         if($religion == '1'){
                                             echo 'ISLAM';
                                         }else{
-                                            echo 'MUALAF';
+                                            echo 'Others';
                                         }
                                         ?>" disabled>
                                 </div>
@@ -209,7 +253,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="illness" value="<?php echo $illness; ?>" disabled>
+                                        type='text' name="illness" value="<?php 
+                                        if ($illness == "" || $illness == "None"){
+                                            echo "N/A";
+                                        }else{
+                                            echo "$illness";
+                                        } 
+                                        ?>" disabled>
                                 </div>
                             </div>
                             </form>
@@ -259,7 +309,12 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             NAME</label>
                                         <input
                                             class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                            type='text' name="first_name" value="<?php echo $first_name; ?>" disabled />
+                                            type='text' name="first_name" value="<?php
+                                             if ($first_name == ""){
+                                            echo "N/A";
+                                            }else{
+                                            echo $first_name;
+                                            }  ?>" disabled />
                                     </div>
                                     <div class='w-full md:w-1/2 px-3 mb-6'>
                                         <label
@@ -267,7 +322,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             NAME</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                            type='text' name="last_name" value="<?php echo $last_name; ?>" disabled />
+                                            type='text' name="last_name" value="<?php 
+                                            if ($last_name == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo $last_name;
+                                                } 
+                                            ?>" disabled />
                                     </div>
                                 </div>
                                 <div class="flex items-center justify-between mt-1">
@@ -276,7 +337,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>RELATION</label>
                                         <input
                                             class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                            type='relation' name="relation" value="<?php echo $relation; ?>" disabled />
+                                            type='relation' name="relation" value="<?php 
+                                            if ($relation == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo $relation;
+                                                } 
+                                            ?>" disabled />
                                     </div>
                                     <div class='w-full md:w-1/2 px-3 mb-6'>
                                         <label
@@ -284,7 +351,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             NO</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                            type='mobile_no' name="mobile_no" value="<?php echo $mobile_no; ?>"
+                                            type='mobile_no' name="mobile_no" value="<?php 
+                                            if ($mobile_no == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo  $mobile_no;
+                                                } 
+                                            ?>"
                                             disabled />
                                     </div>
                                 </div>
@@ -295,7 +368,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             FIRST NAME</label>
                                         <input
                                             class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                            type='text' name="spousefirst_name" value="<?php echo $spousefirst_name; ?>"
+                                            type='text' name="spousefirst_name" value="<?php 
+                                            if ($spousefirst_name == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo $spousefirst_name;
+                                                } 
+                                            ?>"
                                             disabled />
                                     </div>
                                     <div class='w-full md:w-1/2 px-3 mb-6'>
@@ -304,17 +383,29 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             LAST NAME</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
-                                            type='text' name="spouselast_name" value="<?php echo $spouselast_name; ?>"
+                                            type='text' name="spouselast_name" value="<?php 
+                                            if ($spouselast_name == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo $spouselast_name;
+                                                } 
+                                            ?>"
                                             disabled />
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between mt-1">
+                                <div class="flex items-center justify-between mt-1" style="page-break-before: always">
                                     <div class='w-auto md:w-1/2 px-3 mb-6'>
                                         <label
                                             class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>RELATION</label>
                                         <input
                                             class='appearance-none block w-auto bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                            type='relation' name="spouserelation" value="<?php echo $spouserelation; ?>"
+                                            type='relation' name="spouserelation" value="<?php 
+                                            if ($spouserelation == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo $spouserelation;
+                                                } 
+                                            ?>"
                                             disabled />
                                     </div>
                                     <div class='w-full md:w-1/2 px-3 mb-6'>
@@ -324,7 +415,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-2'
                                             type='mobile_no' name="spousemobile_no"
-                                            value="<?php echo $spousemobile_no; ?>" disabled />
+                                            value="<?php
+                                            if ($spousemobile_no == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo $spousemobile_no;
+                                                } 
+                                            ?>" disabled />
                                     </div>
                                 </div>
                                 <div class='w-full md:w-full px-3 mb-6 mt-0'>
@@ -333,7 +430,12 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='text' name="address" value="<?php echo $address; ?>" disabled />
+                                        type='text' name="address" value="<?php 
+                                        if ($address == ""){
+                                            echo "N/A";
+                                            }else{
+                                            echo $address;
+                                            }  ?>" disabled />
                                 </div>
                                 <hr class="mt-1 border-b-1 border-blueGray-300">
                                 <h6 class="text-blueGray-400 text-sm font-bold mt-3 mb-3 uppercase">
@@ -347,7 +449,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                         </label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                            type='text' name="home_no" value="<?php echo $home_no; ?>" disabled />
+                                            type='text' name="home_no" value="<?php 
+                                            if ($home_no == "" || $home_no == "None"){
+                                                echo "N/A";
+                                                }else{
+                                                echo $home_no;
+                                                } 
+                                            ?>" disabled />
                                     </div>
                                     <div class='w-full md:w-1/2 px-3 mb-6'>
                                         <label
@@ -355,7 +463,13 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                             NO</label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
-                                            type='text' name="office_no" value="<?php echo $office_no; ?>" disabled />
+                                            type='text' name="office_no" value="<?php 
+                                            if ($office_no == "" || $office_no == "None"){
+                                                echo "N/A";
+                                                }else{
+                                                echo $office_no;
+                                                } 
+                                            ?>" disabled />
                                     </div>
                                 </div>
                                 <hr class="mt-1 border-b-1 border-blueGray-300">
@@ -366,43 +480,47 @@ $data = mysqli_query($conn, "SELECT * FROM student WHERE parent_id='$parent_id'"
                                         </label>
                                         <input
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                            type='email' name="email" value="<?php echo $email; ?>" disabled />
+                                            type='email' name="email" value="<?php 
+                                            if ($email == ""){
+                                                echo "N/A";
+                                                }else{
+                                                echo $email;
+                                                } 
+                                            ?>" disabled />
                                     </div>
                                 </div>
                                 <div class="flex justify-end mb-5">
                               <button class="rounded-md bg-blue-700 text-white px-3 py-2 m-2"
                                     type="back" onclick="history.back()">BACK <i class="fa fa-undo" aria-hidden="true"></i></button>
-                                    <button class="rounded-md bg-green-700 text-white px-3 py-2 m-2"
-                                    type="submit">UPDATE <i class="fa fa-update" aria-hidden="true"></i></button>
                                 <button
                                     class="rounded-md border-2 border-gray-500 bg-gray-200 text-gray-900 px-3 py-2 m-2"
                                     onclick="printWithLandscape()">PRINT</button>
                             </div>
                             </div>
                         </div>
-                        </form>
+                        
                     </div>
                 </div>
                 <script>
-                    function printWithLandscape() {
-                        var css = '@page { size: landscape; }',
-                            head = document.head || document.getElementsByTagName('head')[0],
-                            style = document.createElement('style');
+        function printWithLandscape() {
+            var css = '@page { size: landscape; }',
+                head = document.head || document.getElementsByTagName('head')[0],
+                style = document.createElement('style');
 
-                        style.type = 'text/css';
-                        style.media = 'print';
+            style.type = 'text/css';
+            style.media = 'print';
 
-                        if (style.styleSheet) {
-                            style.styleSheet.cssText = css;
-                        } else {
-                            style.appendChild(document.createTextNode(css));
-                        }
+            if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(document.createTextNode(css));
+            }
 
-                        head.appendChild(style);
+            head.appendChild(style);
 
-                        window.print();
-                    }
-                </script>
+            window.print();
+        }
+    </script>
 </body>
 
 </html>

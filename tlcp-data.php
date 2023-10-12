@@ -5,10 +5,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+    echo json_encode(array("error" => "You must log in first."));
     exit;
 }
-
 // Pagination variables
 $start = 0;
 $rowsPerPage = 50;
@@ -315,32 +314,37 @@ mysqli_stmt_close($stmt);
             </div>
         <script>
             $(document).ready(function () {
-                $('#combined_search').on("input", function () {
-    var combinedSearch = $(this).val();
-    console.log("Search query: " + combinedSearch); // Debugging statement
-    $.ajax({
-        method: 'POST',
-        url: 'COMPONENT/FUNCTION/searchtlcp.php',
-        data: {
-            combined_search: combinedSearch
-        },
-        dataType: 'json',
-        success: function (response) {
-            console.log(response); // Debugging statement
-            if (response && response.lciddata) {
-                $("#table_tlcp tbody").html(response.lciddata);
-            } else {
-                console.error('Invalid or missing data in the response.');
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error('AJAX request failed:', status, error);
-        }
-    });
-});
-
-});
-
+            var timer;
+            
+            $('#combined_search').on("input", function () {
+                clearTimeout(timer);
+                var combinedSearch = $(this).val();
+                
+                // Use a timeout to wait for the user to finish typing before sending a request
+                timer = setTimeout(function () {
+                    console.log("Search query: " + combinedSearch); // Debugging statement
+                    $.ajax({
+                        method: 'POST',
+                        url: 'Ajax/searchtlcp.php',
+                        data: {
+                            combined_search: combinedSearch
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response); // Debugging statement
+                            if (response && response.lciddata) {
+                                $("#table_tlcp tbody").html(response.lciddata);
+                            } else {
+                                console.error('Invalid or missing data in the response.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX request failed:', status, error);
+                        }
+                    });
+                }, 500); // Wait for 500ms of inactivity before sending the request
+            });
+        });
         </script>
         <?php
     include "COMPONENT/footer.php";

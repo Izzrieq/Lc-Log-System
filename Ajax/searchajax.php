@@ -25,7 +25,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
     <!-- MDB -->
     <?php 
- include("../DB/config.php");
+ include("../COMPONENT/DB/config.php");
 
  session_start(); // Start the session
 
@@ -50,9 +50,8 @@
 
     if ($_SESSION['type'] === 'admin') {
         $data .= "<td class='border-r text-l py-2 px-2'>
-          <a href='bliss-updatecomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
-          <a href='bliss-deletecomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
-          <a href='bliss-actioncomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
+          <a href='bliss-infocomplaint.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='info'>Info</button></a>
+          <a href='bliss-deletecomplaint.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
         </td>";
     }
 
