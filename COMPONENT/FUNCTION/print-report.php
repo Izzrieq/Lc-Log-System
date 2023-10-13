@@ -19,7 +19,7 @@ include "../DB/config.php";
     $(document).ready(function () {
         // Initialize the jQuery UI Autocomplete on LC ID input
         $("#lcid").autocomplete({
-            source: "../../get_lc_suggestions.php", // URL to fetch suggestions
+            source: "../../Ajax/get_lc_suggestions.php", // URL to fetch suggestions
             minLength: 2, // Minimum characters before showing suggestions
         });
 

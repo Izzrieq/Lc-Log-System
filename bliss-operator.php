@@ -1,15 +1,16 @@
 <?php
 include "COMPONENT/DB/config.php";
-include "COMPONENT/header.php" ;
+include "COMPONENT/header.php";
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-        echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
-        exit;
-    }
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    echo "<script>alert('You must log in first.'); window.location.href = 'index.php';</script>";
+    exit;
+}
 
+// Query to retrieve data with pagination
 $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
@@ -96,50 +97,47 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <?php
 
-                //starting pages
-                $start = 0;
+                                        $bil = 1;
 
-                //total display
-                $rows_per_pages = 50;
-
-                $result = mysqli_query($conn, "SELECT * FROM complaintbliss LIMIT $start, $rows_per_pages");
-                while ($r = mysqli_fetch_array($result)) {
-                    ?>
-                    <tr>
-                        <td class="border-r text-l"><?php echo $r['id']; ?></td>
-                        <td class="border-r text-l"><?php echo $r['date']; ?></td>
-                        <td class="border-r text-l"><?php echo $r['cname']; ?></td>
-                        <td class="border-r text-l"><?php
-                         echo $r['cnohp']; 
-                         echo "<a href='tel:" . $r['cnohp'] . "' class='rounded-md bg-green-500 hover:bg-green-700 font-bold text-white p-2 m-1'>";
-                         echo "Call";
-                        echo "</a>";
-                         ?></td>
-                        <td class="border-r text-l"><?php echo $r['category']; ?></td>
-                        <td class="border-r text-l"><?php echo $r['type']; ?></td>
-                        <?php if ($_SESSION['type'] === 'admin') { ?>
-                            <td class="d-flex justify-content-center">
-                                <a href='bliss-infocomplaint.php?id=<?php echo $r['id']; ?>'><button
-                                            class="rounded-md bg-blue-600 text-white p-2 m-2">Info</button></a>
-                                <a href='bliss-deletecomplaint.php?id=<?php echo $r['id']; ?>'
-                                onclick="return confirm('Are you sure you want to delete?')"><button
-                                            class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
-                            </td>
-                        <?php } ?>
-                    </tr>
-                    <?php
-                }
-
-                ?>
-                        </table>
-                    </div>
+                                        $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
+                                        while ($r = mysqli_fetch_array($result)) {
+                                            ?>
+                                            <tr>
+                                                <td class="border-r text-l"><?php echo $bil; ?></td>
+                                                <td class="border-r text-l"><?php echo $r['date']; ?></td>
+                                                <td class="border-r text-l"><?php echo $r['cname']; ?></td>
+                                                <td class="border-r text-l"><?php if ($r['cnohp']=="" || $r['cnohp']=="-"){
+                                                                            echo "N/A";
+                                                                            }else{
+                                                                            echo $r['cnohp']; 
+                                                                            echo "<a href='tel:" . $r['cnohp'] . "' class='rounded-md bg-green-500 hover:bg-green-700 font-bold text-white p-2 m-1'>";
+                                                                            echo "Call";
+                                                                            echo "</a>";}?></td>
+                                                <td class="border-r text-l"><?php echo $r['category']; ?></td>
+                                                <td class="border-r text-l"><?php echo $r['type']; ?></td>
+                                                <?php if ($_SESSION['type'] === 'admin') { ?>
+                                                    <td class="d-flex justify-content-center">
+                                                        <a href='bliss-infocomplaint.php?id=<?php echo $r['id']; ?>'><button
+                                                                    class="rounded-md bg-blue-600 text-white p-2 m-2">Info</button></a>
+                                                        <a href='bliss-deletecomplaint.php?id=<?php echo $r['id']; ?>'
+                                                        onclick="return confirm('Are you sure you want to delete?')"><button
+                                                                    class="rounded-md bg-red-700 text-white p-2 m-2">Delete</button></a>
+                                                    </td>
+                                                <?php }
+                                                $bil ++; ?>
+                                            </tr>
+                                        <?php
+                                            }
+                                         ?>
+                                    </table>
+                                </div>
                     <script>
                         $(document).ready(function () {
                             $('#getName').on("keyup", function () {
                                 var getName = $(this).val();
                                 $.ajax({
                                     method: 'POST',
-                                    url: 'COMPONENT/FUNCTION/searchajax.php',
+                                    url: 'Ajax/searchajax.php',
                                     data: {
                                         cname: getName
                                     },

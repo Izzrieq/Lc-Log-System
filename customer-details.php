@@ -172,9 +172,6 @@ if ($result === false) {
                                     echo "<button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold p-2 m-1'>";
                                     echo "<a class='text-white text-decoration-none' href='customer-info.php?parent_id=" . $r['parent_id'] . "'>INFO</a>";
                                     echo "</button>";
-                                    echo "<button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold p-2 m-1'>";
-                                    echo "<a class='text-white text-decoration-none' href='tlcp-update-form.php?id=" . $r['id'] . "'>UPDATE</a>";
-                                    echo "</button>";
                                     echo "<button class='rounded-md bg-red-500 hover:bg-red-700 font-bold p-2 m-1'>";
                                     echo "<a class='text-white text-decoration-none' href='tlcp-delete.php?id=" . $r['id'] . "'>DELETE</a>";
                                     echo "</button>";
