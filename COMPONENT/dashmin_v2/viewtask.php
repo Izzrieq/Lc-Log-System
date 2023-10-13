@@ -112,15 +112,25 @@ function getUnreadNotificationCountForAdmin($adminName) {
     }
 
     #logo-sidebar {
-        width: 20%;
+        width: 200px; /* Adjust the width as needed */
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background-color: #f3f4f6; /* Adjust the background color as needed */
+            overflow-y: auto;
     }
 
     .container {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: left;
     }
-
+    .content {
+            flex: 1;
+            margin-left: 100px; /* Same width as sidebar */
+            padding: 20px;
+        }
     @media (max-width:425px) {
         .border-2 {
             margin-bottom: 1rem;
@@ -369,46 +379,48 @@ function getUnreadNotificationCountForAdmin($adminName) {
         </div>
     </aside>
     <!-- Content Start -->
-    <div class="container p-4 mt-12 ">
-        <h1 class="text-2xl font-bold mb-4">Welcome, <?php echo $_SESSION['username']; ?>!</h1>
+    <div class="container w-full h-1/1 p-4 mt-12 ml-20 bg-red-300">
+        <div class="content">
+            <h1 class="text-2xl font-bold mb-4">Welcome, <?php echo $_SESSION['username']; ?>!</h1>
 
-        <?php if ($type === 'user') { ?>
-        <h2 class="text-xl font-bold mb-2">Your Assigned Tasks:</h2>
-        <div class="grid grid-cols-4 gap-4">
-            <?php foreach ($tasks as $task) { ?>
-            <div class="border p-4">
-                <!-- Task details -->
-                <span class="block font-semibold">Task Description:</span>
-                <span><?php echo $task['task_description']; ?></span>
-                <span class="block font-semibold">Date Assigned:</span>
-                <span><?php echo $task['date_assigned']; ?></span>
-                <span class="block font-semibold">Department:</span>
-                <span><?php echo $task['department']; ?></span>
+            <?php if ($type === 'user') { ?>
+            <h2 class="text-xl font-bold mb-2">Your Assigned Tasks:</h2>
+            <div class="grid grid-cols-4 gap-4">
+                <?php foreach ($tasks as $task) { ?>
+                <div class="border p-4">
+                    <!-- Task details -->
+                    <span class="block font-semibold">Task Description:</span>
+                    <span><?php echo $task['task_description']; ?></span>
+                    <span class="block font-semibold">Date Assigned:</span>
+                    <span><?php echo $task['date_assigned']; ?></span>
+                    <span class="block font-semibold">Department:</span>
+                    <span><?php echo $task['department']; ?></span>
 
-                <!-- Task status buttons -->
-                <div class="mt-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded"
-                        onclick="updateStatus(<?php echo $task['id']; ?>, 'pending')">Pending</button>
+                    <!-- Task status buttons -->
+                    <div class="mt-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded"
+                            onclick="updateStatus(<?php echo $task['id']; ?>, 'pending')">Pending</button>
+                    </div>
+                    <div class="mt-2">
+                        <button class="bg-green-500 text-white px-4 py-2 rounded"
+                            onclick="updateStatus(<?php echo $task['id']; ?>, 'completed')">Completed</button>
+                    </div>
+
+                    <!-- Task file upload form -->
+                    <form class="mt-4" action="upload.php" method="post" enctype="multipart/form-data">
+                        <label class="block font-semibold">Upload File:</label>
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                        <input type="hidden" name="taskId" value="<?php echo $task['id']; ?>">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2" type="submit"
+                            name="upload">Upload</button>
+                    </form>
                 </div>
-                <div class="mt-2">
-                    <button class="bg-green-500 text-white px-4 py-2 rounded"
-                        onclick="updateStatus(<?php echo $task['id']; ?>, 'completed')">Completed</button>
-                </div>
-
-                <!-- Task file upload form -->
-                <form class="mt-4" action="upload.php" method="post" enctype="multipart/form-data">
-                    <label class="block font-semibold">Upload File:</label>
-                    <input type="file" name="fileToUpload" id="fileToUpload">
-                    <input type="hidden" name="taskId" value="<?php echo $task['id']; ?>">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2" type="submit"
-                        name="upload">Upload</button>
-                </form>
+                <?php } ?>
             </div>
-            <?php } ?>
         </div>
         <?php } elseif ($type === 'admin') { ?>
         <h2 class="text-xl font-bold mb-2">Your Staff Task Progress:</h2>
-        <div class="grid grid-cols-4 gap-4">
+        <div class="w-full grid grid-cols-4 gap-4 bg-blue-500">
             <?php foreach ($tasks as $task) { ?>
             <div class="border p-4">
                 <!-- Task details -->
