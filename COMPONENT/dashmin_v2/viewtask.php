@@ -116,11 +116,9 @@ function getUnreadNotificationCountForAdmin($adminName) {
     }
 
     .container {
-        margin-left: 72px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 800px;
     }
 
     @media (max-width:425px) {
@@ -130,13 +128,14 @@ function getUnreadNotificationCountForAdmin($adminName) {
 
         .grid-cols-4 {
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            width: 100%;
             box-sizing: border-box;
         }
 
         .border {
             width: 100%;
+            margin-left: auto;
             box-sizing: border-box;
+            padding: 4px;
         }
 
         .border p {
@@ -202,7 +201,7 @@ function getUnreadNotificationCountForAdmin($adminName) {
                                 class="badge bg-danger"><?php echo $unread_notification_count; ?></span>
                             <?php endif; ?>
                             <span class="flex items-center">
-                                <i class="material-icons pr-1">email</i>
+                                <i class="material-icons pr-2">email</i>
                                 <span class="d-none d-lg-inline-flex">Notification</span>
                                 <!-- Display unread notification count -->
 
@@ -461,466 +460,141 @@ function getUnreadNotificationCountForAdmin($adminName) {
     </div>
 </body>
 <script>
-    < ? php
+    <?php
     if ($type === 'admin') {
-        ?
-        >
-    //
-    Initialize
-    notification
-    count
-    for
-    admins
-    var
-    notificationCount
-    =
-    < ? php echo getUnreadNotificationCountForAdmin($adminUsername); ? >
-    ;
-    var
-    notificationCountElement
-    =
-    document.getElementById('notificationCount');
-    notificationCountElement.innerText
-    =
-    notificationCount;
-    < ? php
-    } ? >
-    function
-    updateStatus(taskId,
-    status)
-    {
-    //
-    ...
-    (your
-    existing
-    code)
-    var
-    xhr
-    =
-    new
-    XMLHttpRequest();
-    xhr.onreadystatechange
-    =
-    function
-    ()
-    {
-    if
-    (xhr.readyState
-    ===
-    XMLHttpRequest.DONE)
-    {
-    if
-    (xhr.status
-    ===
-    200)
-    {
-    //
-    Refresh
-    the
-    page
-    after
-    updating
-    status
-    location.reload();
-    }
-    else
-    {
-    alert('Error
-    updating
-    task
-    status ');
-    }
-    }
+        ?>
+        // Initialize notification count for admins
+        var notificationCount = <?php echo getUnreadNotificationCountForAdmin($adminUsername); ?> ;
+        var notificationCountElement = document.getElementById('notificationCount');
+        notificationCountElement.innerText = notificationCount; <?php
+    } ?>
+    
+function updateStatus(taskId, status) {
+    // ... (your existing code)
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Refresh the page after updating status
+                location.reload();
+            } else {
+                alert('Error updating task status');
+            }
+        }
     };
-    xhr.open('POST',
-    'update_status.php',
-    true);
-    xhr.setRequestHeader('Content-Type',
-    'application/x-www-form-urlencoded');
-    xhr.send('task_id='
-    +
-    taskId
-    +
-    '&status='
-    +
-    status);
-    if
-    (status
-    ===
-    'completed')
-    {
-    if
-    ("<?php echo $type; ?>"
-    ===
-    'admin')
-    {
-    //
-    Send
-    a
-    notification
-    to
-    admin
-    var
-    notificationMessage
-    =
-    "Task
-    #
-    "
-    +
-    taskId
-    +
-    "
-    has
-    been
-    marked
-    as
-    completed
-    by
-    user
-    < ? php echo $_SESSION['username']; ? > ";
-    sendNotificationToAdmin(notificationMessage);
+    xhr.open('POST', 'update_status.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('task_id=' + taskId + '&status=' + status);
+
+    if (status === 'completed') {
+        if ("<?php echo $type; ?>" === 'admin') {
+            // Send a notification to admin
+            var notificationMessage = "Task #" + taskId +
+                " has been marked as completed by user <?php echo $_SESSION['username']; ?>";
+            sendNotificationToAdmin(notificationMessage);
+        }
     }
-    }
-    }
-    function
-    sendNotification(name,
-    message)
-    {
-    var
-    xhr
-    =
-    new
-    XMLHttpRequest();
-    xhr.onreadystatechange
-    =
-    function
-    ()
-    {
-    if
-    (xhr.readyState
-    ===
-    XMLHttpRequest.DONE)
-    {
-    if
-    (xhr.status
-    ===
-    200)
-    {
-    //
-    Notification
-    sent
-    successfully
-    //
-    You
-    can
-    optionally
-    handle
-    the
-    response
-    here
-    }
-    else
-    {
-    alert('Error
-    sending
-    notification ');
-    }
-    }
+}
+
+function sendNotification(name, message) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Notification sent successfully
+                // You can optionally handle the response here
+            } else {
+                alert('Error sending notification');
+            }
+        }
     };
-    xhr.open('POST',
-    'send_notification.php',
-    true);
-    xhr.setRequestHeader('Content-Type',
-    'application/x-www-form-urlencoded');
-    xhr.send('Name='
-    +
-    encodeURIComponent(name)
-    +
-    '&message='
-    +
-    encodeURIComponent(message));
+    xhr.open('POST', 'send_notification.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('Name=' + encodeURIComponent(name) + '&message=' + encodeURIComponent(message));
+}
+
+function deleteFile(fileId) {
+    var confirmDelete = confirm('Are you sure you want to delete this file?');
+    if (confirmDelete) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Refresh the page after deleting file
+                    location.reload();
+                } else {
+                    alert('Error deleting file');
+                }
+            }
+        };
+        xhr.open('POST', 'delete_file.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('file_id=' + fileId);
     }
-    function
-    deleteFile(fileId)
-    {
-    var
-    confirmDelete
-    =
-    confirm('Are
-    you
-    sure
-    you
-    want
-    to
-    delete
-    this
-    file ? ');
-    if
-    (confirmDelete)
-    {
-    var
-    xhr
-    =
-    new
-    XMLHttpRequest();
-    xhr.onreadystatechange
-    =
-    function
-    ()
-    {
-    if
-    (xhr.readyState
-    ===
-    XMLHttpRequest.DONE)
-    {
-    if
-    (xhr.status
-    ===
-    200)
-    {
-    //
-    Refresh
-    the
-    page
-    after
-    deleting
-    file
-    location.reload();
+}
+
+function deleteTask(taskId) {
+    var confirmDelete = confirm('Are you sure you want to delete this task?');
+    if (confirmDelete) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Check the response from the server
+                    if (xhr.responseText === "success") {
+                        // Task deleted successfully
+                        location.reload();
+                    } else {
+                        // Error deleting task
+                        alert('Error deleting task');
+                    }
+                } else {
+                    alert('Error deleting task');
+                }
+            }
+        };
+        xhr.open('POST', 'delete_task.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('task_id=' + taskId);
     }
-    else
-    {
-    alert('Error
-    deleting
-    file ');
-    }
-    }
-    };
-    xhr.open('POST',
-    'delete_file.php',
-    true);
-    xhr.setRequestHeader('Content-Type',
-    'application/x-www-form-urlencoded');
-    xhr.send('file_id='
-    +
-    fileId);
-    }
-    }
-    function
-    deleteTask(taskId)
-    {
-    var
-    confirmDelete
-    =
-    confirm('Are
-    you
-    sure
-    you
-    want
-    to
-    delete
-    this
-    task ? ');
-    if
-    (confirmDelete)
-    {
-    var
-    xhr
-    =
-    new
-    XMLHttpRequest();
-    xhr.onreadystatechange
-    =
-    function
-    ()
-    {
-    if
-    (xhr.readyState
-    ===
-    XMLHttpRequest.DONE)
-    {
-    if
-    (xhr.status
-    ===
-    200)
-    {
-    //
-    Check
-    the
-    response
-    from
-    the
-    server
-    if
-    (xhr.responseText
-    ===
-    "success")
-    {
-    //
-    Task
-    deleted
-    successfully
-    location.reload();
-    }
-    else
-    {
-    //
-    Error
-    deleting
-    task
-    alert('Error
-    deleting
-    task ');
-    }
-    }
-    else
-    {
-    alert('Error
-    deleting
-    task ');
-    }
-    }
-    };
-    xhr.open('POST',
-    'delete_task.php',
-    true);
-    xhr.setRequestHeader('Content-Type',
-    'application/x-www-form-urlencoded');
-    xhr.send('task_id='
-    +
-    taskId);
-    }
-    }
-    function
-    clearNotifications()
-    {
-    var
-    notificationCount
-    =
-    document.getElementById("notificationCount");
-    //
-    Ensure
-    this
-    line
-    is
-    correct
-    //
-    Clear
-    the
-    notification
-    count
-    if
-    (notificationCount)
-    {
-    notificationCount.innerHTML
-    =
-    '';
-    }
-    //
-    Perform
-    AJAX
-    request
-    to
-    clear
-    notifications
-    on
-    the
-    server
-    var
-    xhr
-    =
-    new
-    XMLHttpRequest();
-    xhr.onreadystatechange
-    =
-    function
-    ()
-    {
-    if
-    (xhr.readyState
-    ===
-    XMLHttpRequest.DONE)
-    {
-    if
-    (xhr.status
-    ===
-    200)
-    {
-    //
-    Reload
-    the
-    page
-    or
-    update
-    the
-    notifications
-    dropdown
-    as
-    needed
-    //
-    For
-    example:
-    window.location.reload();
-    }
-    else
-    {
-    console.error('Error
-    clearing
-    notifications: ',
-    xhr.statusText);
-    }
-    }
-    };
-    xhr.open('GET',
-    'clear_notifications.php',
-    true);
-    xhr.send();
-    }
-    function
-    updateNotificationCount(count)
-    {
-    var
-    notificationCountElement
-    =
-    document.getElementById('notificationCount');
-    notificationCountElement.innerText
-    =
-    count;
-    }
-    function
-    sendNotificationToAdmin(message)
-    {
-    var
-    adminUsername
-    =
-    "<?php echo $adminUsername; ?>";
-    //
-    Replace
-    with
-    actual
-    admin
-    username
-    sendNotification(adminUsername,
-    message);
-    //
-    Update
-    the
-    notification
-    count
-    var
-    notificationCountElement
-    =
-    document.getElementById('notificationCount');
-    var
-    currentCount
-    =
-    parseInt(notificationCountElement.innerText);
-    notificationCountElement.innerText
-    =
-    currentCount
-    +
-    1;
+}
+function clearNotifications() {
+    var notificationCount = document.getElementById("notificationCount"); // Ensure this line is correct
+
+    // Clear the notification count
+    if (notificationCount) {
+        notificationCount.innerHTML = '';
     }
 
+    // Perform AJAX request to clear notifications on the server
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Reload the page or update the notifications dropdown as needed
+                // For example: window.location.reload();
+            } else {
+                console.error('Error clearing notifications:', xhr.statusText);
+            }
+        }
+    };
+    xhr.open('GET', 'clear_notifications.php', true);
+    xhr.send();
+}
+    function updateNotificationCount(count) {
+        var notificationCountElement = document.getElementById('notificationCount');
+        notificationCountElement.innerText = count;
+    }
+
+    function sendNotificationToAdmin(message) {
+        var adminUsername = "<?php echo $adminUsername; ?>"; // Replace with actual admin username
+        sendNotification(adminUsername, message);
+
+        // Update the notification count
+        var notificationCountElement = document.getElementById('notificationCount');
+        var currentCount = parseInt(notificationCountElement.innerText);
+        notificationCountElement.innerText = currentCount + 1;
+    }
 </script>
 
 </html>

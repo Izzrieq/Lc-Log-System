@@ -41,18 +41,17 @@
  
  while ($row = mysqli_fetch_assoc($query)) {
     $data .= "<tr class='bg-gray-100'>
-        <td class='border-r text-l py-2 px-4'>" . $row['id'] . "</td>
-        <td class='border-r text-l py-2 px-4'>" . $row['date'] . "</td>
-        <td class='border-r text-l py-2 px-4'>" . $row['cname'] . "</td>
-        <td class='border-r text-l py-2 px-4'>" . $row['cnohp'] . "</td>
-        <td class='border-r text-l py-2 px-4'>" . $row['category'] . "</td>
-        <td class='border-r text-l py-2 px-4'>" . $row['type'] . "</td>";
+        <td class='border-r text-md py-2 px-2'>" . $row['id'] . "</td>
+        <td class='border-r text-md py-2 px-2'>" . $row['date'] . "</td>
+        <td class='border-r text-md py-2 px-4'>" . $row['cname'] . "</td>
+        <td class='border-r text-md py-2 px-8'>" . $row['cnohp'] . "</td>
+        <td class='border-r text-md py-2 px-4'>" . $row['category'] . "</td>
+        <td class='border-r text-md py-2 px-4'>" . $row['type'] . "</td>";
 
     if ($_SESSION['type'] === 'admin') {
         $data .= "<td class='border-r text-l py-2 px-2'>
-          <a href='bliss-updatecomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-700 text-white p-2 m-2' type='button' name='update'>Update</button></a>
+          <a href='bliss-updatecomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-600 text-white p-2 m-2' type='button' name='update'>Info</button></a>
           <a href='bliss-deletecomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-700 text-white p-2 m-2' type='button' name='delete'>Delete</button></a>
-          <a href='bliss-actioncomplain.php?id=" . $row['id'] . "'><button class='rounded-md bg-green-700 text-white p-2 m-2' type='button' name='action'>Action</button></a>
         </td>";
     }
 
@@ -65,8 +64,8 @@
 <?php
     if (mysqli_num_rows($query) > 0) {
     ?>
-    <table class="w-full text-centerw-full text-center text-grey-500 dark:text-gray-400">
-        <thead class="text-black uppercase bg-white dark:bg-gray-700 dark:text-black">
+    <table class="w-full text-center text-grey-500">
+        <thead class="text-white uppercase bg-white">
             <tr class="border-b bg-gray-700">
                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">ID</th>
                 <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">DATE/TIME</th>
