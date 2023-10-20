@@ -10,8 +10,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 // Assuming you have a session or some way to identify the user, e.g., $_SESSION['user_id']
+$username = $_SESSION['username'];
 $user_id = $_SESSION['user_id']; // Replace with the actual way you identify the user
 $img = $_SESSION['img'];
+$type = $_SESSION['type'];
 
 // Query to retrieve the user's image from the "users" table based on user_id
 $sql = "SELECT img FROM users WHERE user_id = ?";
@@ -126,7 +128,7 @@ if ($stmt) {
 .user-icon:hover .user-options {
     display: block;
 }
-@media (max-width: 576px) {
+@media (max-width: 804px) {
             .logo {
                 width: 150px;
             }
@@ -178,7 +180,10 @@ if ($stmt) {
             </ul>
         </div>
         <div class="navbar-right">
-        <button class="user-icon" data-user-id="<?php echo $user_id; ?>">
+            <?php if ($type === 'admin') { ?>
+                <h6 class="pr-2 mt-3 uppercase font-bold"><?php echo $username; ?></h6>
+                <?php } ?>
+            <button class="user-icon" data-user-id="<?php echo $user_id; ?>">
             <img class="rounded-image" src="COMPONENT/uploads/<?php echo $img; ?>" alt="User Image" width="55" height="50">
         </button>
 
@@ -187,6 +192,6 @@ if ($stmt) {
              <li><a href="COMPONENT/setting.php">Setting</a></li>
              <li><a href="COMPONENT/FUNCTION/logout.php">Logout</a></li>
          </ul>
+        </div>
     </div>
-</div>
 </nav>

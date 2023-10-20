@@ -114,13 +114,23 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <?php if ($type === 'admin') { ?>
             <div class="card">
                 <div class="card-body shadow-md hover:shadow-lg hover:shadow-red-400">
                     <h5 class="card-title font-bold text-base">TASK MANAGER</h5>
                     <p class="card-text">Assign Task</p>
-                    <a href="COMPONENT/dashmin_v2/task.php" class="btn btn-primary mt-2">Go Somewhere</a>
+                    <a href="task.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
+            <?php } elseif ($type === 'user') { ?>
+                <div class="card">
+                <div class="card-body shadow-md hover:shadow-lg hover:shadow-red-400">
+                    <h5 class="card-title font-bold text-base">TASK MANAGER</h5>
+                    <p class="card-text">View Task</p>
+                    <a href="viewtask.php" class="btn btn-primary mt-2">Go Somewhere</a>
+                </div>
+            </div>
+            <?php } ?>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="card">
@@ -128,15 +138,6 @@
                     <h5 class="card-title font-bold text-base">CUSTOMER DETAILS</h5>
                     <p class="card-text">ORBIT</p>
                     <a href="customer-details.php" class="btn btn-primary mt-2">Go Somewhere</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <div class="card-body shadow-md hover:shadow-lg hover:shadow-blue-400">
-                    <h5 class="card-title font-bold text-base">DASHMIN</h5>
-                    <p class="card-text">Task Manager.</p>
-                    <a href="COMPONENT/dashmin_v2/index.php" class="btn btn-primary mt-2">Go Somewhere</a>
                 </div>
             </div>
         </div>

@@ -13,7 +13,6 @@ $result= mysqli_query($conn,"SELECT * FROM users WHERE user_id = '$user_id'");
 while ($r = mysqli_fetch_array($result)) {
     $user_id = $r['user_id'];
     $username = $r['username'];
-    $password = $r['password'];
     $department = $r['department'];
     $fullname = $r['fullname'];
     $email = $r['email'];

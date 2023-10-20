@@ -65,8 +65,6 @@
                     </div>
                 </div>
                 <a href="register.php">Register new staff</a>
-                <span>|</span>
-                <a href="forgotpass.php">Forgot Password</a>
 
                 <button type="submit" class="w-full py-3 mt-10 bg-[#063970] rounded-md
                         font-medium text-white uppercase

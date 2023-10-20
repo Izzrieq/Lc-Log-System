@@ -4,7 +4,6 @@ include_once("DB/config.php");
 if (isset($_POST['update'])) {
     $user_id = $_POST['user_id'];
     $username = $_POST['username'];
-    $password = $_POST['password'];
     $department = $_POST['department'];
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
