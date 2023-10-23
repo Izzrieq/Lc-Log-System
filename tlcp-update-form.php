@@ -51,10 +51,10 @@ include "COMPONENT/header.php";
 
 <?php
 
-$id = $_GET['id'];
-$result = mysqli_query($conn, "SELECT * FROM lcdetails WHERE id = '$id'");
+$branch_id = $_GET['branch_id'];
+$result = mysqli_query($conn, "SELECT * FROM branchdetails WHERE branch_id = '$branch_id'");
 while ($res = mysqli_fetch_array($result)) {
-    $id = $res['id'];
+    $branch_id = $res['branch_id'];
     $stateid = $res['stateid'];
     $bizstype = $res['bizstype'];
     $lcid = $res['lcid'];

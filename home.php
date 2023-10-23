@@ -144,7 +144,7 @@
     </div>
 </div>
 <hr class="mt-6 border-b-1 border-blueGray-300">
-<h3 class="mb-0 ml-5 text-lg">Weekly Event | <a class="text-decoration-none" href="COMPONENT/dashmin v2/dates.php">Show more...</a></h3>
+<h3 class="mb-0 ml-5 text-lg">Calendar </h3>
 <div id="calendar" class="my-5 p-10 mt-0"></div>
 <!-- Start popup dialog box -->
 <div class="modal fade" id="event_entry_modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -214,8 +214,8 @@
         console.log("display_events function called");
         var events = new Array();
         var calendar = $('#calendar').fullCalendar({
-            height:250,
-            defaultView: 'customWeek',
+            height:800,
+            // defaultView: 'customMonth',
             timeZone: 'local',
             editable: true,
             selectable: true,
@@ -228,15 +228,15 @@
                 $('#event_entry_modal').modal('show');
                 // calendar.fullCalendar('unselect'); // Unselect the date after showing the modal
             },
-            views: {
-                customWeek: {
-                    type: 'basicWeek',
-                    duration: { weeks: 1 }, // Show one week at a time
-                    buttonText: '1 Week', // Optional button text
-                    slotDuration: { days: 1 }, // Hide time slots (one slot per day)
-                    slotLabelFormat: ['ddd'], // Display only day names (e.g., Mon, Tue, etc.)
-                },
-            },
+            // views: {
+            //     customMonth: {
+            //         type: 'basicWeek',
+            //         duration: { week: 1 }, // Show one week at a time
+            //         buttonText: '1 Week',
+            //         slotDuration: {days: 1},
+            //         slotLabelFormat: ['ddd'],
+            //     },
+            // },
             eventRender: function(event, element, view) {
                 function getEventColor(department) {
                     switch (department) {
@@ -269,9 +269,9 @@
                         case "PUBLICATION":
                             return "green"; 
                         case "SUIT":
-                            return "yellow";
+                            return "gray";
                         default:
-                            return "red"; 
+                            return ""; 
                     }
                 }
 

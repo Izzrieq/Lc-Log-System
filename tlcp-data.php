@@ -125,10 +125,10 @@ mysqli_stmt_close($stmt);
 <body class="bg-neutral-50 mb-10 ">
 
     <center class="font-bold text-2xl mt-3">LIST TLCP</center>
-    <button
+    <!-- <button
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-10 border border-green-700 rounded ml-3 mt-3">
         <a class="text-white no-underline" href='tlcp-add.php'>ADD TLCP</a>
-    </button>
+    </button> -->
     <div class="input-group mb-3 mt-2">
         <div class="form-outline ml-3">
             <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search" placeholder="Search LCID or State ID" />
