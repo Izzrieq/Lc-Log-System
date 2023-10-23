@@ -13,7 +13,7 @@ $searchQuery = isset($_POST['combined_search']) ? $_POST['combined_search'] : ''
 $start = 0;
 $rowsPerPage = 50;
 
-$sql = "SELECT * FROM branchdetails WHERE lcid LIKE '%$searchQuery%' ORDER BY branch_id ASC LIMIT $start, $rowsPerPage";
+$sql = "SELECT * FROM branch WHERE code LIKE '%$searchQuery%' ORDER BY branch_id ASC LIMIT $start, $rowsPerPage";
 $result = mysqli_query($conn, $sql);
 
 if ($result === false) {
@@ -24,7 +24,7 @@ if ($result === false) {
 $lciddata = '';
 
 while ($row = mysqli_fetch_array($result)) {
-    $lcid = mysqli_real_escape_string($conn, $row['lcid']); // Escape the value to prevent SQL injection
+    $lcid = mysqli_real_escape_string($conn, $row['code']); // Escape the value to prevent SQL injection
 
     $complaintCountQuery = "SELECT COUNT(*) AS complaint_count FROM complaintbliss WHERE lcid = '$lcid'";
     $complaintCountResult = mysqli_query($conn, $complaintCountQuery);
@@ -36,13 +36,15 @@ while ($row = mysqli_fetch_array($result)) {
     $complaintCountRow = mysqli_fetch_assoc($complaintCountResult);
     $complaintCount = $complaintCountRow['complaint_count'];
 
+    $active = $row['is_active']  == 1 ? 'ACTIVE' : 'N/A';
+
     $lciddata .= "<tr class='bg-white'>
         <td class='border-r border-b'>" . $row['branch_id'] . "</td>
-        <td class='border-r border-b'>" . $row['stateid'] . "</td>
-        <td class='border-r border-b'>" . $row['bizstype'] . "</td>
-        <td class='border-r border-b px-2'>" . $row['lcid'] . "</td>
-        <td class='border-r border-b px-8'>" . $row['operatorname'] . "</td>
-        <td class='border-r border-b px-0'>" . $row['kindernohp'] . "</td>
+        <td class='border-r border-b'>" . $row['code'] . "</td>
+        <td class='border-r border-b px-2'>" . $row['name'] . "</td>
+        <td class='border-r border-b px-8'>" . $row['email_regis'] . "</td>
+        <td class='border-r border-b px-8'>" . $row['address'] . "</td>
+        <td class='border-r border-b px-0'>" . $active . "</td>
         <td class='border-r border-b'>" . $complaintCount . "</td>";
 
     if ($_SESSION['type'] === 'admin') {

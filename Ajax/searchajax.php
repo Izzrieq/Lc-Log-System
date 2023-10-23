@@ -1,30 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <!-- Include the Tailwind CSS script -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Other CSS links -->
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- <link rel="stylesheet" href="COMPONENT/STYLE/style.css"> -->
-    <!-- ... (other CSS links) ... -->
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
-    <!-- MDB -->
-    <?php 
+<?php 
  include("../COMPONENT/DB/config.php");
 
  session_start(); // Start the session
@@ -40,13 +14,16 @@
  $data = '';
  
  while ($row = mysqli_fetch_assoc($query)) {
+    $status = $row['details']  == "" ? 'X' : '✓';
     $data .= "<tr class='bg-gray-100'>
         <td class='border-r text-l py-2 px-4'>" . $row['id'] . "</td>
         <td class='border-r text-l py-2 px-4'>" . $row['date'] . "</td>
         <td class='border-r text-l py-2 px-4'>" . $row['cname'] . "</td>
         <td class='border-r text-l py-2 px-4'>" . $row['cnohp'] . "</td>
         <td class='border-r text-l py-2 px-4'>" . $row['category'] . "</td>
-        <td class='border-r text-l py-2 px-4'>" . $row['type'] . "</td>";
+        <td class='border-r text-l py-2 px-4'>" . $row['type'] . "</td>
+        <td class='border-r text-l py-2 px-4'>" . $status . "</td>";
+        
 
     if ($_SESSION['type'] === 'admin') {
         $data .= "<td class='border-r text-l py-2 px-2'>
@@ -73,9 +50,9 @@
                 <th scope="col" class="text-md font-medium text-white px-8 py-2 border-r">CUSTOMER NO.HP</th>
                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">CATEGORY</th>
                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">TYPE</th>
-        
-                <?php if ($_SESSION['type'] === 'admin') { ?>
                 <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">STATUS</th>
+                <?php if ($_SESSION['type'] === 'admin') { ?>
+                <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">ACTION</th>
                 <?php } ?>
             </tr>
         </thead>

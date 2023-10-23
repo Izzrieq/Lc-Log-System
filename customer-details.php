@@ -251,7 +251,7 @@ if ($result === false) {
                     var combinedSearch = $(this).val();
                     $.ajax({
                         method: 'POST',
-                        url: 'COMPONENT/FUNCTION/searchcustomer.php',
+                        url: 'Ajax/searchcustomer.php',
                         data: {
                             combined_search: combinedSearch
                         },

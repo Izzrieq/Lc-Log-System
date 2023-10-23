@@ -1,5 +1,5 @@
 <?php
-include("../DB/config.php");
+include("../COMPONENT/DB/config.php");
 
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
@@ -37,9 +37,8 @@ if (mysqli_num_rows($result) > 0) {
 
         if ($_SESSION['type'] === 'admin') {
             $customerdata .= "<td class='border-r border-b p-2 flex items-center justify-between mt-2'>
-                <a href='tlcp-info.php?id=" . $row['id'] . "'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
-                <a href='tlcp-update-form.php?id=" . $row['id'] . "'><button class='rounded-md bg-blue-500 hover:bg-blue-700 font-bold text-white p-2 m-2' type='button' name='update'>UPDATE</button></a>
-                <a href='tlcp-delete.php?id=" . $row['id'] . "'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
+                <a href='customer-info.php?parent_id=" . $row['parent_id'] . "'><button class='rounded-md bg-gray-500 hover:bg-gray-700 font-bold text-white p-2 m-2' type='button' name='info'>INFO</button></a>
+                <a href='customer-delete.php?parent_id=" . $row['parent_id'] . "'><button class='rounded-md bg-red-500 hover:bg-red-700 font-bold text-white p-2 m-2' type='button' name='delete'>DELETE</button></a>
             </td>";
         }
 

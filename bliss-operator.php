@@ -85,9 +85,12 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                     <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
                                         TYPE
                                     </th>
+                                    <th scope="col" class="text-md font-medium text-white px-4 py-2 border-r">
+                                        STATUS
+                                    </th>
                                     <?php if ($_SESSION['type'] === 'admin') { ?>
                                     <th scope="col" class="text-md font-medium text-white px-2 py-2 border-r">
-                                        STATUS
+                                        ACTION
                                     </th>
                                     <?php } ?>
                                 </tr>
@@ -115,6 +118,12 @@ $result = mysqli_query($conn, "SELECT * FROM complaintbliss ORDER BY id DESC");
                                                                             echo "</a>";}?></td>
                                                 <td class="border-r text-l"><?php echo $r['category']; ?></td>
                                                 <td class="border-r text-l"><?php echo $r['type']; ?></td>
+                                                <td class="border-r text-l"><?php 
+                                                if($r['details'] == ""){
+                                                    echo "X";
+                                                }else{
+                                                    echo "✓";
+                                                } ?></td>
                                                 <?php if ($_SESSION['type'] === 'admin') { ?>
                                                     <td class="d-flex justify-content-center">
                                                         <a href='bliss-infocomplaint.php?id=<?php echo $r['id']; ?>'><button
