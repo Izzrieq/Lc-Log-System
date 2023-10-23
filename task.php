@@ -165,16 +165,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             rows="3"
                             required="required"></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="priority" class="form-label">Priority</label> 
-                        <br>
-                        <select name="priority" id="priority" class="w-1/2 px-3 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 ">
-                           <option value="Critical">Critical</option>
-                           <option value="High">High</option>
-                           <option value="Medium">Medium</option>
-                           <option value="Low">Low</option>
-                        </select>
-                    </div>
                     <button
                         type="submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Assign</button>
