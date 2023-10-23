@@ -131,7 +131,7 @@ mysqli_stmt_close($stmt);
     </button> -->
     <div class="input-group mb-3 mt-2">
         <div class="form-outline ml-3">
-            <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search" placeholder="Search LCID or State ID" />
+            <input class="w-ful rounded-md" type="text" id="combined_search" name="combined_search" placeholder="Search CODE or NAME" />
         </div>
     </div>
     <div class="overflow-hidden m-0 p-0 ">
