@@ -143,6 +143,7 @@ if (mysqli_num_rows($data3) > 0) {
     <!-- component -->
     <div class="container-box" style="display: flex; justify-content:center;">
         <div class="bg-gray-200 min-h-screen pt-0 my-0">
+            <form action="" method="post"></form>
             <div class="container mx-auto border-2">
                 <div class="inputs w-full max-w-xl p-6">
                     <div class='flex items-center justify-between mt-2'>
@@ -183,7 +184,7 @@ if (mysqli_num_rows($data3) > 0) {
                                 <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>ADDRESS
                                 </label>
                                     <textarea name="address"
-                                    class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white' disabled><?php echo $address; ?></textarea>
+                                    class='bg-white rounded-md border leading-normal resize-none w-full h-20 py-2 px-3 shadow-inner border border-gray-400 placeholder-gray-700 focus:outline-none focus:bg-white'><?php echo $address; ?></textarea>
 
                             </div>
                             <div class='w-full md:w-full px-3 mb-6'>
@@ -191,7 +192,7 @@ if (mysqli_num_rows($data3) > 0) {
                                     class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>BILL DUE</label>
                                 <input name="bill_due" type="bill_due"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value="<?php echo $bill_due; ?>" disabled>
+                                    value="<?php echo $bill_due; ?>">
                             </div>
                             <hr class="mt-6 border-b-1 border-blueGray-300">
                         <h6 class="text-blueGray-400 text-l mt-3 mb-4 font-bold uppercase">
@@ -201,7 +202,7 @@ if (mysqli_num_rows($data3) > 0) {
                                 <label class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>FIRST NAME</label>
                                 <input name="first_name" type="first_name"
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    value="<?php echo $first_name; ?>" disabled>
+                                    value="<?php echo $first_name; ?>">
                             </div>
                             <div class="flex items-center justify-between mt-2">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
@@ -210,7 +211,7 @@ if (mysqli_num_rows($data3) > 0) {
                                     </label>
                                     <input name="ic" type="ic"
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value="<?php echo $ic; ?>" disabled>
+                                        value="<?php echo $ic; ?>">
                                 </div>
                                 <div class='w-full md:w-2/5 px-3 mb-6'>
                                     <label
@@ -218,7 +219,7 @@ if (mysqli_num_rows($data3) > 0) {
                                     </label>
                                     <input name="mobile_no" type='mobile_no'
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        value="<?php echo $mobile_no; ?>" disabled>
+                                        value="<?php echo $mobile_no; ?>">
                                 </div>
                             </div>
                             <div class="flex items-center justify-between mt-2">
@@ -311,14 +312,14 @@ if (mysqli_num_rows($data3) > 0) {
                                 </label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4 leading-tight focus:outline-none  focus:border-gray-500'
-                                    type='text' name="first_name" value="<?php echo $operatorname; ?>" disabled/>
+                                    type='text' name="first_name" value="<?php echo $operatorname; ?>"/>
                             </div>
                             <div class='w-full md:w-full px-3 mb-6 pt-4'>
                                 <label
                                     class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>OWNER NAME</label>
                                 <input
                                     class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                    type='last_name' name="last_name" value="<?php echo $ownername; ?>" disabled/>
+                                    type='last_name' name="last_name" value="<?php echo $ownername; ?>"/>
                             </div>
                             <div class="flex items-center justify-between mt-4">
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
@@ -384,14 +385,14 @@ if (mysqli_num_rows($data3) > 0) {
                                     </label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-4'
-                                        type='tlcppackage' name="tlcppackage" value="<?php echo $kindername; ?>" disabled />
+                                        type='tlcppackage' name="tlcppackage" value="<?php echo $kindername; ?>" />
                                 </div>
                                 <div class='w-full md:w-1/2 px-3 mb-6'>
                                     <label
                                         class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>TYPE</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
-                                        type='annuallicense' name="annuallicense" value="<?php echo $type; ?>" disabled />
+                                        type='annuallicense' name="annuallicense" value="<?php echo $type; ?>" />
                                 </div>
                             </div>
                             <div class='w-auto md:w-full px-3 mb-6'>
@@ -399,13 +400,13 @@ if (mysqli_num_rows($data3) > 0) {
                                     class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>OWNER NOHP</label>
                                     <input
                                         class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3'
-                                        type='annuallicense' name="annuallicense" value="<?php echo $ownernohp; ?>" disabled />
+                                        type='annuallicense' name="annuallicense" value="<?php echo $ownernohp; ?>" />
                             </div>
                             <div class="flex justify-end">
                               <button class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                                     type="back" onclick="history.back()">BACK <i class="fa fa-undo" aria-hidden="true"></i></button>
-                                    <button class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
-                                    type="submit">UPDATE <i class="fa fa-update" aria-hidden="true"></i></button>
+                                    <!-- <button class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
+                                    type="submit" onclick="console.log('clicked')">UPDATE<i class="fa fa-update" aria-hidden="true"></i></button> -->
                                 <button
                                     class="text-gray-700 hover:text-white border border-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-500 dark:text-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-900"
                                     onclick="printWithLandscape()">PRINT</button>
