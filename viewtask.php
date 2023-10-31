@@ -10,7 +10,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 $img = $_SESSION['img'];
-$username = $_SESSION['username'];
+$fullname = $_SESSION['fullname'];
 $type = $_SESSION['type'];
 $user_department = $_SESSION['department'];
 
@@ -26,7 +26,7 @@ $user_department = $_SESSION['department'];
 // Fetch user's assigned tasks if user is not admin
 $tasks = array();
 if ($type !== 'admin') {
-    $tasks_query = "SELECT * FROM tasks WHERE assigned_to = '$username' AND department = '$user_department' ORDER BY date_assigned DESC";
+    $tasks_query = "SELECT * FROM tasks WHERE assigned_to = '$fullname' AND department = '$user_department' ORDER BY date_assigned DESC";
     $tasks_result = mysqli_query($conn, $tasks_query);
     while ($task_row = mysqli_fetch_assoc($tasks_result)) {
         $tasks[] = $task_row;
@@ -43,10 +43,10 @@ if ($type === 'admin') {
     }
 }
 
-$admin_query = "SELECT username FROM users WHERE type = 'admin' LIMIT 1"; // Modify this query according to your database schema
+$admin_query = "SELECT fullname FROM users WHERE type = 'admin' LIMIT 1"; // Modify this query according to your database schema
 $admin_result = mysqli_query($conn, $admin_query);
 $admin_row = mysqli_fetch_assoc($admin_result);
-$adminName = $admin_row['username'];
+$adminName = $admin_row['fullname'];
 
 function getUnreadNotificationCountForAdmin($adminName) {
     // Implement your logic to fetch and return the notification count from the database
@@ -77,13 +77,13 @@ function getUnreadNotificationCountForAdmin($adminName) {
     color: transparent;
     }
 
-    @media (max-width: 425px) {
+    @media (max-width: 425px) and (min-width: 320px) {
         body{
             width: 100vw;
         }
     .task-container,
     .grid-cols-4 {
-        grid-template-columns: repeat(2, minmax(0, 2fr));
+        grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 
     .border {
@@ -111,13 +111,13 @@ function getUnreadNotificationCountForAdmin($adminName) {
     }
 }
 
-    @media (max-width: 575px) and (min-width: 426px) {
+    @media (max-width: 575px) and (min-width: 425px) {
         body{
             width: 100vw;
         }
     .task-container,
     .grid-cols-4 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .border {
@@ -145,7 +145,37 @@ function getUnreadNotificationCountForAdmin($adminName) {
     }
 }
 
-@media (max-width: 1024px) and (min-width: 576px) {
+@media (max-width: 768px) and (min-width: 575px) {
+    body{
+            width: 100vw;
+        }
+    .task-container,
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .border {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    .grid-cols-4 > * {
+        width: 100%;
+    }
+    .mr-2,
+    .ml-2 {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .flex {
+        flex-direction: column;
+    }
+
+    .justify-betweens {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
     body{
             width: 100vw;
         }
@@ -174,6 +204,9 @@ function getUnreadNotificationCountForAdmin($adminName) {
         align-items: center;
     }
 }
+
+
+
 
 @media (max-width: 1439px) and (min-width: 1024px) {
     .task-container,

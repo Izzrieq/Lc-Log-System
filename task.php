@@ -20,7 +20,7 @@ $departments_result = mysqli_query($conn, $departments_query);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    $assigned_to = $_POST['assigned_to'];
    $task_description = $_POST['task_description'];
-   $assigned_by = $_SESSION['username']; // Capture the username of the admin assigning the task
+   $assigned_by = $_SESSION['fullname']; // Capture the fullname of the admin assigning the task
 
    // Check if the assigned user is not the same as the assigner
    if ($assigned_to !== $assigned_by) {
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        $date_assigned_utc = $date_assigned->format('Y-m-d H:i:s'); // Get current UTC time
 
        // Check if assigned user and assigner are in the same department
-       $same_department_query = "SELECT department FROM users WHERE username = '$assigned_to'";
+       $same_department_query = "SELECT department FROM users WHERE fullname = '$assigned_to'";
        $same_department_result = mysqli_query($conn, $same_department_query);
 
        if (mysqli_num_rows($same_department_result) == 1) {
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            $assigned_to_department = $department_row['department'];
 
            // Check if the assigner and assigned user are in the same department
-           $assigner_department_query = "SELECT department FROM users WHERE username = '$assigned_by'";
+           $assigner_department_query = "SELECT department FROM users WHERE fullname = '$assigned_by'";
            $assigner_department_result = mysqli_query($conn, $assigner_department_query);
            $assigner_department_row = mysqli_fetch_assoc($assigner_department_result);
            $assigner_department = $assigner_department_row['department'];
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $notificationMessage = "You have been assigned a new task: $task_description";
 
                    // Check if the assigned user exists in the users table
-                   $checkUserQuery = "SELECT user_id FROM users WHERE username = '$assigned_to'";
+                   $checkUserQuery = "SELECT user_id FROM users WHERE fullname = '$assigned_to'";
                    $checkUserResult = mysqli_query($conn, $checkUserQuery);
 
                    if ($checkUserResult && mysqli_num_rows($checkUserResult) == 1) {
@@ -216,27 +216,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          if ("<?php echo $type; ?>" === 'admin') {
             // Send a notification to admin
             var notificationMessage = "Task #" + taskId +
-               " has been marked as completed by user <?php echo $_SESSION['name']; ?>";
+               " has been marked as completed by user <?php echo $_SESSION['fullname']; ?>";
             sendNotificationToAdmin(notificationMessage);
          }
       }
-   }
-
-   function sendNotification(username, message) {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
-         if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-               // Notification sent successfully
-               // You can optionally handle the response here
-            } else {
-               alert('Error sending notification');
-            }
-         }
-      };
-      xhr.open('POST', 'send_notification.php', true);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.send('name=' + encodeURIComponent(name) + '&message=' + encodeURIComponent(message));
    }
 
    function deleteFile(fileId) {
@@ -283,54 +266,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
          xhr.send('task_id=' + taskId);
       }
-   }
-
-   function clearNotifications() {
-      var confirmClear = confirm('Are you sure you want to clear all notifications?');
-      if (confirmClear) {
-         // Perform the action to clear notifications
-         var xhr = new XMLHttpRequest();
-         xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-               if (xhr.status === 200) {
-                  // Parse the response to get the new notification count and message
-                  var response = JSON.parse(xhr.responseText);
-                  var newCount = response.count;
-                  var newMessage = response.message;
-
-                  // Update the notification count element
-                  var notificationCountElement = document.getElementById('notificationCount');
-                  notificationCountElement.innerText = newCount;
-
-                  // Display the new message in the dropdown
-                  var notificationsDropdown = document.getElementById('notificationsDropdown');
-                  notificationsDropdown.innerHTML = newMessage;
-
-               } else {
-                  alert('Error clearing notifications');
-               }
-            }
-         };
-         xhr.open('POST', 'clear_notifications_read.php',
-         true); // Change the URL to the script that clears notifications
-         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-         xhr.send();
-      }
-   }
-
-   function updateNotificationCount(count) {
-      var notificationCountElement = document.getElementById('notificationCount');
-      notificationCountElement.innerText = count;
-   }
-
-   function sendNotificationToAdmin(message) {
-      var adminUsername = "<?php echo $adminUsername; ?>"; // Replace with actual admin username
-      sendNotification(adminUsername, message);
-
-      // Update the notification count
-      var notificationCountElement = document.getElementById('notificationCount');
-      var currentCount = parseInt(notificationCountElement.innerText);
-      notificationCountElement.innerText = currentCount + 1;
    }
 </script>
 

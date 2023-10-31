@@ -143,7 +143,7 @@ if (mysqli_num_rows($data3) > 0) {
     <!-- component -->
     <div class="container-box" style="display: flex; justify-content:center;">
         <div class="bg-gray-200 min-h-screen pt-0 my-0">
-            <form action="" method="post"></form>
+            <form action="" method="post">
             <div class="container mx-auto border-2">
                 <div class="inputs w-full max-w-xl p-6">
                     <div class='flex items-center justify-between mt-2'>

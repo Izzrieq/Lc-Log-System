@@ -61,7 +61,7 @@ if (isset($_POST['update'])) {
     // Check if the update has already been performed in this request
     if (!isset($_SESSION['update_complete'])) {
         // Update the user's profile in the database
-        $update_query = "UPDATE users SET username='$username', password='$password', department='$department', fullname='$fullname', email='$email', nohp='$nohp', ic='$ic', address='$address', marriage_status='$marriage_status'";
+        $update_query = "UPDATE users SET username='$username', department='$department', fullname='$fullname', email='$email', nohp='$nohp', ic='$ic', address='$address', marriage_status='$marriage_status'";
 
         // Only include the 'img' field update if a new image was uploaded
         if (isset($img)) {

@@ -23,7 +23,6 @@ while ($r = mysqli_fetch_array($result)) {
     $img =$r['img'];
 
 }
-
         //Fetch department options from the database
         $departments_query = "SELECT * FROM departments";
         $departments_result = mysqli_query($conn, $departments_query);
@@ -167,7 +166,7 @@ while ($r = mysqli_fetch_array($result)) {
                                         </label>
                                         <select name="marriage_status"
                                             class='appearance-none block w-full bg-white text-gray-700 border border-gray-400 shadow-inner rounded-md py-3 px-3 leading-tight focus:outline-none focus:border-gray-500'>
-                                            <option value="" disabled selected><?php echo $marriage_status; ?></option>
+                                            <option value="<?php echo $marriage_status; ?>" disabled selected></option>
                                             <option value="Single">Single</option>
                                             <option value="Married">Married</option>
                                         </select>
